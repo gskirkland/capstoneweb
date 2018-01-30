@@ -1,0 +1,127 @@
+@import "variables";
+
+ /* Generic Styles
+ **********************************/
+ html,body
+{
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    overflow-x: hidden !important; 
+}
+body {
+    background: $off-white;
+    color: $off-black;
+    font-family: $raleway;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $lalezar;
+}
+
+.container-fluid>.navbar-header{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+ul.nav-left {
+    list-style: none;
+
+    a {
+        white-space: nowrap;
+    }
+
+    a>i {
+        font-size: 1.8rem;
+        margin-right: 1em;
+        width: 1.1em;
+        vertical-align: middle;
+    }
+
+    a>span {
+        vertical-align: middle;
+    }
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-vcenter {
+    display: flex;
+    align-items: center;        
+}
+
+.btn-fat {
+    font-weight: bold;
+    padding: 12px 20px;
+    text-transform: uppercase;
+}
+
+.label-fat {
+    display: inline-block;
+    font-size: 13px;
+    padding: 5px;
+    margin: 6px 0;
+}
+
+.lean-right {
+    margin-left: 15px;
+}
+
+ /* Theme Styles
+ **********************************/
+.sidebar-left {
+    background: #1D2127;
+    color: $off-white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 300px;
+    z-index: 1000;
+
+    header h1, header h4 {
+        text-align: center;
+    }
+
+    header h4 {
+        margin-top: -10px;
+    }
+
+    ul {
+        li {
+            a {
+                color: #abb4be;
+                padding: 12px 25px;                
+
+                &:hover { background: $off-black; }
+                &.active { box-shadow: 2px 0 0 $accent inset; }
+            }
+        }
+    }
+}
+
+.content-body {
+    margin-left: 300px;
+}
+/* Large desktop */
+// @media (min-width: 1200px) { ... }
+ 
+/* Portrait tablet to landscape and desktop */
+@media(max-width: 1200px) { 
+    .content-body {
+        margin-left: 0px;
+    }
+
+ }
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { 
+    
+ }
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) { 
+    
+ }

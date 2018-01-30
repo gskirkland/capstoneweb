@@ -1,0 +1,41 @@
+<navigation>
+  <div class="container-fluid" body>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel">
+          <header>
+            <div class="row">
+              <div class="col-md-6">
+                <h2>Session List</h2>
+              </div>
+              <div class="col-md-6">
+                <!-- <button (click)="onSubmitSessionClick()" class="btn btn-primary pull-right">Submit Session</button> -->
+              </div>
+            </div>
+          </header>
+          <div class="panel-body">
+            <div *ngIf="sessions && sessions.length > 0" class="list-table nested">
+              <div class="row header">
+                <div class="col col-md-3">Title</div>
+                <div class="col col-md-3">Abstract</div>
+                <div class="col col-md-3">Track</div>
+                <div class="col col-md-3">Status</div>
+              </div>
+              <div *ngFor="let session of sessions; let index=index" (click)="editSession(session)" class="row clickable" [ngClass]="{'alt': (index % 2) == 1 }">
+                <div class="col col-md-3">{{session.Title}}</div>
+                <div class="col col-md-3">{{session.Abstract}}</div>
+                <div class="col col-md-3">{{session.Track | sessionTrackType}}</div>
+                <div class="col col-md-3">{{session.Status | sessionStatusType}}</div>
+              </div>
+            </div>
+            <div *ngIf="!sessions || sessions.length == 0">
+              <p class="text-center">
+                You have no submitted sessions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</navigation>

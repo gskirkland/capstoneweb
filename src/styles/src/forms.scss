@@ -1,0 +1,32 @@
+// Generic Form Styles
+label {
+    color: #777;
+    font-size: 90%;
+    font-weight: normal;
+}
+
+textarea {
+    &.large {
+        height: 400px;
+    }
+
+    &.medium {
+        height: 200px;
+    }
+}
+
+.form-group {
+    &.form-small {
+        margin-right: 50%;
+    }
+}
+
+.small-info {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    
+    li {
+        font-size: 12px;
+    }
+}
+

@@ -1,0 +1,53 @@
+@import "variables";
+
+.panel {
+    // border-top: 3px solid @off-black;
+    border-radius: 4px;
+    margin-top: 15px;
+    word-wrap: break-word;
+    // width: 33%;
+
+    >header {
+        background: #f6f6f6;
+        border-bottom: 1px solid #DADADA;
+        padding: 18px;
+
+        h2 {
+            i { margin-right: 5px; }
+
+            &:first-child {
+                margin-top: 0;
+                vertical-align: middle;
+            }
+            
+            &:last-child {  margin-bottom: 0; }
+        }
+    }
+
+    >.text-center {
+        text-align: center;
+    }
+}
+.fc-scroller{
+    height: 100% !important;
+}
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 1024px) { 
+    .panel{
+        margin-top: 40px;
+    }
+ }
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { 
+    .panel{
+        margin-top: 40px;
+    }
+ }
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) { 
+    .panel{
+        margin-top: 40px;
+    }
+ }

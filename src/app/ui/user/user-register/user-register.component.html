@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4 col-lg-offset-4 col-sm-12">
+      <div class="panel">
+        <header>
+          <h2>Register</h2>
+        </header>
+        <div class="panel-body">
+          <div *ngIf="message != ''" class="alert alert-danger alert-dismissible" role="alert">
+            {{message}}
+          </div>
+          <form (ngSubmit)="onSubmit()" id="userForm" #userForm="ngForm">
+            <div class="form-group">
+              <label for="firstname">First Name</label>
+              <input [(ngModel)]="createUserRequest.FirstName" class="form-control" id="firstname" name="firstname" required>
+            </div>
+            <div class="form-group">
+              <label for="lastname">Last Name</label>
+              <input [(ngModel)]="createUserRequest.LastName" class="form-control" id="lastname" name="lastname" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input [(ngModel)]="createUserRequest.Email" type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input [(ngModel)]="createUserRequest.Password" type="password" class="form-control" id="password" name="password" required
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$">
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password</label>
+              <input [(ngModel)]="createUserRequest.ConfirmPassword" type="password" class="form-control" id="confirmpassword" name="confirmpassword"
+                required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$">
+              <div class="small-info">
+                <span>Password requirements</span>
+                <ul>
+                  <li>Must be between 8 and 15 characters</li>
+                  <li>Must contain at least one lowercase character</li>
+                  <li>Must contain at least one uppercase character</li>
+                  <li>Must contain at least one special character</li>
+                  <li>Must contain at least one digit</li>
+                </ul>
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary pull-right">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

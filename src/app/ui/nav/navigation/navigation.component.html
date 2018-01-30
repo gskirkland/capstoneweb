@@ -1,0 +1,85 @@
+<nav class="navbar navbar-static-top navbar-inverse visible-xs visible-sm visible-md" role='navigation'>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" routerLink="/globalsessions">CodeStock</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNav">
+      <ul class="nav navbar-nav">
+        <li>
+          <a routerLink="/globalsessions">
+            <i class="fa fa-home"></i>
+            <span>All Sessions</span>
+          </a>
+        </li>
+        <!--<li><a routerLink="/sessionbuilder"><i class="fa fa-bookmark-o"></i><span>Session Builder</span></a></li>-->
+        <!--<li><a routerLink="/sessionschedule"><i class="fa fa-calendar-o"></i><span>Session Schedule</span></a></li>-->
+        <li>
+          <a routerLink="/sessions" class="active">
+            <i class="fa fa-th-list"></i>
+            <span>My Sessions</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/profile" class="active">
+            <i class="fa fa-user"></i>
+            <span>Profile</span>
+          </a>
+        </li>
+
+        <li *ngIf="isLoggedIn()">
+          <a (click)='logout()'>
+            <i class="fa fa-unlock"></i>
+            <span>Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="col-xs-6 col-sm-3 sidebar-left sidebar-offcanvas visible-lg" id="sidebar-left" role="navigation">
+  <div class="nav">
+    <div class="navbar-header">
+      <h1>CodeStock</h1>
+      <h4>Developers Conference</h4>
+    </div>
+  </div>
+  <nav>
+    <ul class="nav nav-left">
+      <li>
+        <a routerLink="/globalsessions">
+          <i class="fa fa-home"></i>
+          <span>All Sessions</span>
+        </a>
+      </li>
+      <!--<li><a routerLink="/sessionbuilder"><i class="fa fa-bookmark-o"></i><span>Session Builder</span></a></li>-->
+      <!--<li><a routerLink="/sessionschedule"><i class="fa fa-calendar-o"></i><span>Session Schedule</span></a></li>-->
+      <li>
+        <a routerLink="/sessions">
+          <i class="fa fa-th-list"></i>
+          <span>My Sessions</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/profile">
+          <i class="fa fa-user"></i>
+          <span>Profile</span>
+        </a>
+      </li>
+      <li *ngIf="isLoggedIn()">
+        <a (click)='logout()'>
+          <i class="fa fa-unlock"></i>
+          <span>Logout</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<section class="content-body">
+  <ng-content select="[body]"></ng-content>
+</section>

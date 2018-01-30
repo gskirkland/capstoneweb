@@ -1,0 +1,42 @@
+<form class="form-inline">
+    <div class="input-group">
+        <div class="input-group-btn">
+            <button class="btn btn-default dropdown-toggle" id="filterTrack" data-toggle="dropdown">
+                Filter Track
+                <span class="caret"></span>
+            </button>
+            <div class="dropdown-menu">
+                <li>
+                    <a (click)="selectedTrack = 'All'; onNotify();">All</a>
+                </li>
+                <li>
+                    <a (click)="selectedTrack = '0'; onNotify();">Developer</a>
+                </li>
+                <li>
+                    <a (click)="selectedTrack = '1'; onNotify();">DevOps</a>
+                </li>
+                <li>
+                    <a (click)="selectedTrack = '2'; onNotify();">ITPro</a>
+                </li>
+                <li>
+                    <a (click)="selectedTrack = '3'; onNotify();">Entrepreneur</a>
+                </li>
+                <li>
+                    <a (click)="selectedTrack = '4'; onNotify();">Design</a>
+                </li>
+            </div>
+        </div>
+        <label class="control-label sr-only">Search Titles</label>
+        <input type='text' class="form-control" #searchBox id="search-box" (keyup)="onTitleSearch($event)" placeholder="Search Titles">
+        <div *ngIf="advancedSearch" class="input-group">
+            <label class="control-label sr-only">Search Speakers</label>
+            <input type='text' class="form-control" #speakerBox id="speaker-box" (keyup)="onSpeakerSearch($event)" placeholder="Search Speakers">
+        </div>
+        <div *ngIf="advancedSearch" class="input-group">
+            <label class="control-label sr-only">Search Abstracts</label>
+            <input type='text' class="form-control" #abstractBox id="abstract-box" (keyup)="onAbstractSearch($event)" placeholder="Search Abstracts">
+        </div>
+    </div>
+    <button type="button" class="btn btn-default" id="advancedSearch" (click)="advancedSearch = !advancedSearch; onClear();">Advanced Search</button>
+
+</form>

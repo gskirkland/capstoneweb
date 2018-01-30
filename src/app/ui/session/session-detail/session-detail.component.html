@@ -1,0 +1,74 @@
+<navigation>
+  <div class="container-fluid" body>
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="panel">
+          <header>
+            <h2>New Session</h2>
+          </header>
+          <div class="panel-body">
+            <form (ngSubmit)="onSubmit()" id="sessionForm" #sessionForm="ngForm">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="title">Title</label>
+                    <input [(ngModel)]="session.Title" class="form-control" id="title" name="title" required>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="abstract">Abstract</label>
+                    <textarea form="sessionForm" [(ngModel)]="session.Abstract" class="form-control large" id="abstract" name="abstract" required></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="track">Track</label>
+                    <select [(ngModel)]="session.Track" name="track" id="track" class="form-control small">
+                      <option *ngFor="let track of tracks" [value]="track.value">{{track.display}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="sessiontype">Type</label>
+                    <select [(ngModel)]="session.Type" name="type" id="sessiontype" class="form-control small">
+                      <option *ngFor="let sessionType of types" [value]="sessionType.value">{{sessionType.display}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="sessionlength">Length</label>
+                    <select (change)="parseSessionLengthValue($event.target.value)" [(ngModel)]="selectedLengthString" id="sessionlength" name="sessionlength"
+                      class="form-control small">
+                      <option *ngFor="let length of sessionLengths" [value]="length">{{length}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group pull-right">
+                    <a class="btn btn-default" routerLink="/sessions">Cancel</a>
+                    <a *ngIf="sessionProposalId" class="btn btn-danger" routerLink="/sessions" (click)="onSessionDeleteClick()">Delete</a>
+                    <button *ngIf="sessionProposalId" class="btn btn-primary" type="submit">Save</button>
+                    <button *ngIf="!sessionProposalId" class="btn btn-primary" type="submit">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</navigation>

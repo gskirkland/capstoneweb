@@ -1,0 +1,13 @@
+.avatar {
+    float: left;
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 100%;
+    border: 6px solid #B3C9CB;
+    background-size: cover;
+    background-position: 50% 25%;
+    -webkit-transition: border 0.5s linear;
+    transition: border 0.5s linear;
+    top: 15px;
+}

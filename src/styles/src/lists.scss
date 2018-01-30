@@ -1,0 +1,106 @@
+@import "variables";
+
+.list-table {
+    padding: 0 10px;
+
+    &.nested { margin-top: -10px; margin-bottom: -10px; }
+    .title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+    }
+    .card{
+        box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important; 
+        height: 450px; 
+        margin-bottom: 40px !important; 
+        overflow: scroll !important;
+
+        >.btnGroup 
+            >.btn-sm{
+                margin-bottom: 10px;
+            }
+        >div
+            >.subtitle {
+                margin-top: 15%;
+                margin-bottom: 10px;
+                font-style: italic;
+                vertical-align: text-bottom !important;
+                // float: right;
+                 >.label {
+                    font-style: normal !important;
+                }
+            }
+        >div
+            >div
+                >.logo{
+                    display: block;
+                    margin: 0 auto;
+                    margin-top: 10px;
+                    margin-bottom: 10px
+                }
+    }
+    >.row {
+        border-bottom: 1px dotted #ddd;
+        padding: 15px 0;
+
+        &.alt { background: #f9f9f9; }
+        &.header {
+            background-color: $accent;
+            border-bottom-style: solid;
+            border-bottom-color: #ccc;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        &:last-of-type { border-bottom: none; }
+
+        &.clickable {
+            cursor: pointer;
+        }
+
+        &.clickable:hover {
+            background: lightgray;
+        }
+
+        a.more {
+            cursor: pointer;
+            margin-left: 5px;
+        }
+    }
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 1024px) { 
+    .panel{
+        margin-top: 40px;
+    }
+ }
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { 
+    .container-fluid{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .panel{
+        margin-top: 40px;
+    }
+    img{
+        display: block !important; 
+        margin: 0 auto !important; 
+        margin-top: 10px !important;
+        float: none !important;   
+    }
+    .subtitle{
+        text-align: center !important; 
+        // margin: 0 auto !important;
+        margin-top: 0px !important;
+    }
+ }
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) { 
+    // .panel{
+    //     margin-top: 40px;
+    // }
+ }
