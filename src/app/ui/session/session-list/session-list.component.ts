@@ -22,7 +22,7 @@ export class SessionListComponent implements OnInit {
   }
 
   onSubmitSessionClick() {
-    // this.router.navigate(['/sessions/submit']);
+    this.router.navigate(['/sessions/submit']);
   }
 
   editSession(session: SessionProposal) {

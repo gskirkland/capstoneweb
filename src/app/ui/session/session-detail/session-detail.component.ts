@@ -34,7 +34,7 @@ export class SessionDetailComponent implements OnInit, OnDestroy {
   SessionType: typeof SessionType = SessionType;
 
   ngOnInit() {
-    this.router.navigate(['/sessions']);
+    // this.router.navigate(['/sessions']);
 
     this.tracks = [
       { value: 0, display: 'Developer' },

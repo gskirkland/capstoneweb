@@ -29,7 +29,7 @@ const appRoutes: Routes = [
     // { path: 'sessionschedule', component: BuilderScheduleComponent },
     // { path: 'sessioncalendar', component: CalendarComponent },
     { path: 'sessions', component: SessionListComponent, canActivate: [AuthGuard] },
-    // { path: 'sessions/submit', component: SessionDetailComponent, canActivate: [AuthGuard] },
+    { path: 'sessions/submit', component: SessionDetailComponent, canActivate: [AuthGuard] },
     { path: 'sessions/:SessionProposalId', component: SessionDetailComponent, canActivate: [AuthGuard] },
     { path: 'passwordreset/:PasswordResetToken', component: UserPasswordResetComponent },
     { path: 'changepassword', component: UserChangePasswordComponent, canActivate: [AuthGuard] },
