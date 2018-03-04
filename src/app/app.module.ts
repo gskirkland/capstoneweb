@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, RouterOutletMap } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 // UI COMPONENT
 import { AppComponent } from './app.component';
@@ -70,7 +71,8 @@ import { AuthGuard } from './guards/auth.guard';
     FormsModule,
     HttpModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FlexLayoutModule
   ],
   providers: [
     AuthService,
