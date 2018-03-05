@@ -1,40 +1,35 @@
-<div class="table" id='calendar'>
-  <thead>
-     <tr>
-         <td></td>
-     </tr>
-      <tr>
-          <td></td>
-          <td>Ballroom A (264)</td>
-          <td>Ballroom B (316)</td>
-          <td>Ballroom C (264)</td>
-          <td>Ballroom F (250)</td>
-          <td>Ballroom G (250)</td>
-          <td>301A (106)</td>
-          <td>301B (106)</td>
-          <td>301C (106)</td>
-          <td>301D (106)</td>
-          <td>301E (106)</td>
-          <td>300A (72)</td>
-          <td>300B (72)</td>
-      </tr>		
-      <tr>
-          <td>Track</td>
-          <td>DEV</td>
-          <td>DEV</td>
-          <td>DEV</td>
-          <td>DEV</td>
-          <td>DEV</td>
-          <td>IT PRO</td>
-          <td>DESIGN</td>
-          <td>DEV</td>
-          <td>DEV</td>
-          <td>DEV OPS</td>
-          <td>ENTREPRENEUR</td>
-          <td></td>
-      </tr>
-  </thead>
-  <tbody>
-      
-  </tbody>
-</div>
+<!--<navigation>-->
+<!--<second-nav>-->
+
+
+
+            <div class="container-fluid" fxLayout="row" fxLayoutAlign="start">
+                <div class="time-slot-row" fxLayout="row" fxLayoutAlign="start center">
+                    <div class="time" fxLayout="column" fxFlex="10">
+                        10A <!--TODO: fill based on time slots-->
+                    </div>
+                    <div class="cards" fxLayout="column" fxLayoutAlign="start stretch" fxFlex="90">
+                        <!--TODO: add logic for times and rooms-->
+                        <div *ngFor="let session of sessions | filterPipe: filterTrack:'Track'
+                                                              | filterPipe: searchTitle:'Title'
+                                                                  | filterPipe: searchSpeaker:'SpeakerName'
+                                                                      | filterPipe: searchAbstract:'Abstract';
+                                                                          let index=index" class="cardholder" fxLayout="row">
+                            <div class="card" fxFlexFill>
+                                <h4 class="card-title">{{session.SpeakerName}}</h4> <!--TODO: add session title-->
+                                <p class="card-text">{{session.Abstract | limitTo:300 }}</p>
+                                <span class="label label-primary label-fat">{{session.Track | sessionTrackType}}</span>
+                                <span class="label label-default label-fat">{{session.Room }}</span>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<!--</second-nav>-->
+<!--</navigation>-->
