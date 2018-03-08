@@ -18,6 +18,8 @@ export class CalendarComponent implements OnInit {
     searchSpeaker: string;
     searchAbstract: string;
     filterTrack: string;
+    timeSlots: string[];
+    timeSlot: string;
 
     constructor(private sessionService:SessionService, private router: Router){}
 
@@ -26,7 +28,7 @@ export class CalendarComponent implements OnInit {
             .then(sessions => {
                 this.sessions = sessions;
             });
+
+        this.timeSlots = ['10A', '11A', '12P', '1P', '2P', '3P', '4P', '5P'];
     }
-
-
 }
