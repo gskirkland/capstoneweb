@@ -1,0 +1,34 @@
+<!--<nav>-->
+<!--<secondary-nav>-->
+
+<!--Using calendar component elements to populate sessions for testing purposes-->
+
+<div class="container-fluid">
+    <div *ngFor="let timeSlot of timeSlot;" class="row time-slot" fxLayout="row" fxLayoutAlign="start">
+        <div class="time" fxLayout="column" fxFlex="10">
+            <h3 class="time-value">{{timeSlot}}</h3>
+        </div>
+        <div class="cards" fxLayout="column" fxFlex="90">
+                <!--TODO: logic for times and rooms-->
+                <!--TODO: Use of ngIF for sessions that have been bookmarked-->
+                <div *ngFor="let session of sessions | filterPipe: filterTrack:'Track'
+                                                        | filterPipe: searchTitle:'Title'
+                                                          | filterPipe: searchSpeaker:'SpeakerName'
+                                                            | filterPipe: searchAbstract:'Abstract';
+                                                                let index=index" class="cardholder" fxLayout="row">
+                    <div class="card" fxFlex="grow">
+                            <h4 class="card-title">{{session.SpeakerName}} {{session.Title}}</h4>
+                            <p class="card-text">{{session.Abstract | limitTo:300 }}</p>
+                            <span class="label label-primary label-fat">{{session.Track | sessionTrackType}}</span>
+                            <span class="label label-default- label-fat">{{session.Room}}</span>
+                    </div>
+                    <!--TODO: add remove bookmark icon-->
+                </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--</secondary-nav>-->
+<!--</nav>-->
