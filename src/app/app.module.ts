@@ -40,6 +40,7 @@ import { UserService } from './services/user.service';
 
 //  GUARDS
 import { AuthGuard } from './guards/auth.guard';
+import { UserLayoutComponent } from './ui/layouts/user-layout/user-layout.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { AuthGuard } from './guards/auth.guard';
     SessionStatusTypePipe,
     SessionTrackTypePipe,
     FilterPipe,
-    LimitToPipe
+    LimitToPipe,
+    UserLayoutComponent
   ],
   imports: [
     BrowserModule,
