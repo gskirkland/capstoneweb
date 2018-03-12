@@ -21,7 +21,7 @@ export class BuilderScheduleComponent implements OnInit  {
     filterTrack: string;
 
 
-    constructor(private sessionService:SessionService, private router: Router) {}
+    constructor(private sessionService: SessionService, private router: Router) {}
 
     ngOnInit() {
         this.sessionService.getAllSessionProposals()

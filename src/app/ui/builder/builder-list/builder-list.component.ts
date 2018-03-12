@@ -22,14 +22,14 @@ export class BuilderListComponent implements OnInit  {
 
     idGen: number = 100;
 
-    sessions:SessionProposal[];
+    sessions: SessionProposal[];
     searchTitle: string;
     searchSpeaker: string;
     searchAbstract: string;
     filterTrack: string;
 
 
-    constructor(private eventService: EventService, private sessionService:SessionService, private router: Router){}
+    constructor(private eventService: EventService, private sessionService: SessionService, private router: Router){}
 
     ngOnInit() {
         this.eventService.getEvents().then(events => {this.events = events;});
