@@ -11,7 +11,11 @@ div .cardholder {
   border-bottom: 1px solid gray;
 }
 
-div .icon {
-  font-size: 20px;
+div .icon .fa-bookmark {
+  cursor: pointer;
+}
+
+.card-title {
+  font-weight: bold;
 }
 

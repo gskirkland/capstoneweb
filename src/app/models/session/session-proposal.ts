@@ -19,6 +19,8 @@ export class SessionProposal {
     Room: string;
     StartTime: Date;
     SpeakerName: string;
+    SpeakerConfirmed: boolean;
+    SpeakerCanceled: boolean;
 
     constructor() {
         this.Type = SessionType.Standard;
