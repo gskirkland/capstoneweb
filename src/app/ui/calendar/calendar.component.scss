@@ -1,27 +1,17 @@
-//div .container-fluid {
-//  border: 2px solid black;
-//}
-
-.time-slot {
-  border: 1px solid black;
+.container-fluid {
+  padding-left: 8%;
+  padding-right: 8%;
 }
 
-div .time {
-  border: 1px solid black;
+div .cards {
+  padding-bottom: 4%;
 }
-
-//div .cards {
-//  border: 1px solid blue;
-//}
 
 div .cardholder {
-  border: 1px solid gray;
+  border-bottom: 1px solid gray;
 }
-//div .card {
-//  border: 1px solid black;
-//}
 
-//div .icon {
-//   border: 1px solid darkgreen;
-//}
+div .icon {
+  font-size: 20px;
+}
 
