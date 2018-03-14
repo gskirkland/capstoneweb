@@ -15,10 +15,8 @@ import { SessionService } from '../../../services/session.service';
 export class BuilderScheduleComponent implements OnInit  {
 
     sessions: SessionProposal[];
-    searchTitle: string;
-    searchSpeaker: string;
-    searchAbstract: string;
     filterTrack: string;
+    session_obj: {};
 
 
     constructor(private sessionService: SessionService, private router: Router) {}
@@ -27,6 +25,15 @@ export class BuilderScheduleComponent implements OnInit  {
         this.sessionService.getAllSessionProposals()
             .then(sessions => {
                 this.sessions = sessions;
+
+                const session_obj = <any>{};
+                this.sessions.forEach(function(item) {
+                    session_obj.Title = item.Title;
+                    session_obj.Abstract = item.Abstract;
+                    session_obj.Track = item.Track;
+                    session_obj.Room = item.Room;
+                });
+                this.session_obj = session_obj;
             });
         this.filterTrack = 'All';
     }

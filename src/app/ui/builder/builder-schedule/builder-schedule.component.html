@@ -1,28 +1,16 @@
 <navigation>
-    <div class="container-fluid" body>
-        <h1>something</h1>
-        <div *ngFor="let timeSlot of timeSlots;" class="row time-slot" fxLayout="row" fxLayoutAlign="start">
-            <div class="time" fxLayout="column" fxFlex="10">
-                <h4 class="time-value">{{timeSlot}}</h4>
-            </div>
-            <div class="cards" fxLayout="column" fxFlex="90">
-                <!--TODO: add logic for times and rooms-->
-                <div *ngFor="let session of sessions | filterPipe: filterTrack:'Track'
-                                                              | filterPipe: searchTitle:'Title'
-                                                                  | filterPipe: searchSpeaker:'SpeakerName'
-                                                                      | filterPipe: searchAbstract:'Abstract';
-                                                                          let index=index" class="cardholder" fxLayout="row">
-                    <div class="card" fxFlex="grow">
-                        <h4 class="card-title">{{session.SpeakerName}}</h4> <!--TODO: add session title-->
-                        <p class="card-text">{{session.Abstract | limitTo:300 }}</p>
-                        <span class="label label-primary label-fat">{{session.Track | sessionTrackType}}</span>
-                        <span class="label label-default label-fat">{{session.Room }}</span>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-plus"></i>
-                    </div>
-                </div>
-            </div>
+    <div class="container-fluid" body
+         fxLayout
+         fxLayout.xs="column"
+         fxLayoutAlign="center"
+         fxLayoutGap="10px"
+         fxLayoutGap.xs="0">
+        <h1>ScheduleBuilder</h1>
+
+        <div fxLayout="row" *ngFor = "let session of sessions">
+            <div class="accepted-sessions" fxFlex="15%">{{session.Title}}</div>
+            <div class="accepted-sessions" fxFlex="65%">{{session.Abstract}}</div>
+            <div class="accepted-sessions" fxFlex>{{session.Track}}</div>
         </div>
     </div>
 </navigation>
