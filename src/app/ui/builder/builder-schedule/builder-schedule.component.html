@@ -5,12 +5,15 @@
          fxLayoutAlign="center"
          fxLayoutGap="10px"
          fxLayoutGap.xs="0">
-        <h1>ScheduleBuilder</h1>
 
-        <div fxLayout="row" *ngFor = "let session of sessions">
-            <div class="accepted-sessions" fxFlex="15%">{{session.Title}}</div>
-            <div class="accepted-sessions" fxFlex="65%">{{session.Abstract}}</div>
-            <div class="accepted-sessions" fxFlex>{{session.Track}}</div>
+        <div class="cards" fxLayout="column" fxFlex="90">
+            <div class="cardholder" fxLayout="row" *ngFor = "let session of sessions">
+                <div class="card" fxFlex="grow">
+                    <div class="accepted-sessions" fxFlex="15%">{{session.Title}}</div>
+                    <div class="accepted-sessions" fxFlex="65%">{{session.Abstract | limitTo:30}}</div>
+                    <div class="accepted-sessions" fxFlex>{{session.Track}}</div>
+                </div>
+            </div>
         </div>
     </div>
 </navigation>
