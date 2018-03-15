@@ -27,15 +27,6 @@ export class CalendarComponent implements OnInit {
 
                 let calendar_obj = <any>{};
                 this.sessions.forEach(function(item) {
-                    let session_obj = <any>{};
-                    session_obj.SessionProposalId = item.SessionProposalId;
-                    session_obj.Title = item.Title;
-                    session_obj.Abstract = item.Abstract;
-                    session_obj.SpeakerName = item.SpeakerName;
-                    session_obj.Track = item.Track;
-                    session_obj.Room = item.Room;
-                    session_obj.SpeakerConfirmed = item.SpeakerConfirmed;
-                    session_obj.SpeakerCanceled = item.SpeakerCanceled;
 
                     let start_time = moment(item.StartTime);
 
@@ -53,10 +44,11 @@ export class CalendarComponent implements OnInit {
                         calendar_obj[day].time_blocks[time] = [];
                     }
 
-                    calendar_obj[day].time_blocks[time].push(session_obj);
+                    calendar_obj[day].time_blocks[time].push(item);
                 });
                 this.calendar_obj = calendar_obj;
                 console.log(this.calendar_obj);
+                console.log(Object.keys(calendar_obj));
             });
     }
     // // TODO: Use UserFavorite model here
