@@ -23,7 +23,6 @@ import { UserEmailActivationComponent } from './ui/user/user-email-activation/us
 import { UserPasswordResetComponent } from './ui/user/user-password-reset/user-password-reset.component';
 import { UserRegisterConfirmComponent } from './ui/user/user-register-confirm/user-register-confirm.component';
 import { UserRegisterComponent } from './ui/user/user-register/user-register.component';
-import { NavigationSmallComponent } from './ui/nav/navigation-small/navigation-small.component';
 import { NavigationComponent } from './ui/nav/navigation/navigation.component';
 
 // PIPES
@@ -60,7 +59,6 @@ import { UserLayoutComponent } from './ui/layouts/user-layout/user-layout.compon
     UserPasswordResetComponent,
     UserRegisterConfirmComponent,
     UserRegisterComponent,
-    NavigationSmallComponent,
     NavigationComponent,
     SessionStatusTypePipe,
     SessionTrackTypePipe,

@@ -16,25 +16,32 @@ import { BuilderScheduleComponent } from './ui/builder/builder-schedule/builder-
 import { CalendarComponent } from './ui/calendar/calendar.component';
 
 import { AuthGuard } from './guards/auth.guard';
+import {UserLayoutComponent} from './ui/layouts/user-layout/user-layout.component';
 
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: 'sessions', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: UserRegisterComponent },
     { path: 'confirmaccount', component: UserRegisterConfirmComponent },
-    { path: 'profile', component: UserDetailComponent, canActivate: [AuthGuard] },
-    { path: 'globalsessions', component: GlobalSessionListComponent, canActivate: [AuthGuard] },
-    // { path: 'sessionbuilder', component: BuilderListComponent },
-    // { path: 'sessionschedule', component: BuilderScheduleComponent },
-    // { path: 'sessioncalendar', component: CalendarComponent },
-    { path: 'sessions', component: SessionListComponent, canActivate: [AuthGuard] },
-    { path: 'sessions/submit', component: SessionDetailComponent, canActivate: [AuthGuard] },
-    { path: 'sessions/:SessionProposalId', component: SessionDetailComponent, canActivate: [AuthGuard] },
+    { path: 'sessionbuilder', component: BuilderListComponent },
+    { path: 'sessionschedule', component: BuilderScheduleComponent },
+    { path: 'sessioncalendar', component: CalendarComponent },
     { path: 'passwordreset/:PasswordResetToken', component: UserPasswordResetComponent },
-    { path: 'changepassword', component: UserChangePasswordComponent, canActivate: [AuthGuard] },
-    { path: 'emailactivation/:EmailActivationToken', component: UserEmailActivationComponent, canActivate: [AuthGuard] },
-    { path: '**', redirectTo: 'sessions', canActivate: [AuthGuard]}
+    {
+        path: '',
+        component: UserLayoutComponent,
+        children: [
+            { path: 'sessions', component: SessionListComponent, canActivate: [AuthGuard] },
+            { path: 'profile', component: UserDetailComponent, canActivate: [AuthGuard] },
+            { path: 'globalsessions', component: GlobalSessionListComponent, canActivate: [AuthGuard] },
+            { path: 'sessions/submit', component: SessionDetailComponent, canActivate: [AuthGuard] },
+            { path: 'sessions/:SessionProposalId', component: SessionDetailComponent, canActivate: [AuthGuard] },
+            { path: 'changepassword', component: UserChangePasswordComponent, canActivate: [AuthGuard] },
+            { path: 'emailactivation/:EmailActivationToken', component: UserEmailActivationComponent, canActivate: [AuthGuard] },
+            { path: '**', redirectTo: 'sessions', canActivate: [AuthGuard]}
+        ]
+    },
+    { path: '**', redirectTo: '', canActivate: [AuthGuard]}
 ];
 
 @NgModule({
