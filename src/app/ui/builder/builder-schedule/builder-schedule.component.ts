@@ -29,6 +29,7 @@ export class BuilderScheduleComponent implements OnInit  {
                 const session_obj = <any>{};
                 this.sessions.forEach(function(item) {
                     session_obj.Title = item.Title;
+                    session_obj.SpeakerName = item.SpeakerName;
                     session_obj.Abstract = item.Abstract;
                     session_obj.Track = item.Track;
                     session_obj.Room = item.Room;

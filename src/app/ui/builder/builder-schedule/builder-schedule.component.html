@@ -7,11 +7,13 @@
          fxLayoutGap.xs="0">
 
         <div class="cards" fxLayout="column" fxFlex="90">
-            <div class="cardholder" fxLayout="row" *ngFor = "let session of sessions">
+            <div class="cardholder" *ngFor = "let session of sessions">
                 <div class="card" fxFlex="grow">
-                    <div class="accepted-sessions" fxFlex="15%">{{session.Title}}</div>
-                    <div class="accepted-sessions" fxFlex="65%">{{session.Abstract | limitTo:30}}</div>
-                    <div class="accepted-sessions" fxFlex>{{session.Track}}</div>
+                    <h4 class="card-speaker">{{session.SpeakerName}}</h4>
+                    <h5 class="card-title">{{session.Title}}</h5>
+                    <p class="card-text">{{session.Abstract | limitTo:300}}</p>
+                    <span class="label label-primary label-fat">{{session.Track | sessionTrackType}}</span>
+                    <span class="label label-default label-fat">{{session.Room}}</span>
                 </div>
             </div>
         </div>
