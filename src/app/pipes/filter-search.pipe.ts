@@ -1,5 +1,4 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import { SessionProposal } from '../models/session/session-proposal';
 
 @Pipe({
     name: 'filterPipe',

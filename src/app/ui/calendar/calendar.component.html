@@ -1,40 +1,40 @@
-<div class="table" id='calendar'>
-  <thead>
-     <tr>
-         <td></td>
-     </tr>
-      <tr>
-          <td></td>
-          <td>Ballroom A (264)</td>
-          <td>Ballroom B (316)</td>
-          <td>Ballroom C (264)</td>
-          <td>Ballroom F (250)</td>
-          <td>Ballroom G (250)</td>
-          <td>301A (106)</td>
-          <td>301B (106)</td>
-          <td>301C (106)</td>
-          <td>301D (106)</td>
-          <td>301E (106)</td>
-          <td>300A (72)</td>
-          <td>300B (72)</td>
-      </tr>		
-      <tr>
-          <td>Track</td>
-          <td>DEV</td>
-          <td>DEV</td>
-          <td>DEV</td>
-          <td>DEV</td>
-          <td>DEV</td>
-          <td>IT PRO</td>
-          <td>DESIGN</td>
-          <td>DEV</td>
-          <td>DEV</td>
-          <td>DEV OPS</td>
-          <td>ENTREPRENEUR</td>
-          <td></td>
-      </tr>
-  </thead>
-  <tbody>
-      
-  </tbody>
-</div>
+<navigation>
+<!--<second-nav>-->
+
+
+            <!--Entire page-->
+            <div class="container-fluid" body>
+                <!--Times-->
+                <ng-container *ngFor="let timeslot_obj of calendar_obj | mapToIterable">
+                    <ng-container *ngFor="let time_obj of timeslot_obj.val | mapToIterable">
+                        <div *ngFor="let time of time_obj.val | mapToIterable"
+                                class="row time-slot" fxLayout="row" fxLayoutAlign="start">
+                            <div class="time" fxLayout="column" fxFlex="10">
+                                <h4 class="time-value">{{time.key}}</h4>
+                            </div>
+                            <!--Sessions-->
+                            <div class="cards" fxLayout="column" fxFlex="90">
+                                <ng-container *ngFor="let session of time.val">
+                                    <div *ngIf="!session.SpeakerCanceled && session.SpeakerConfirmed" class="cardholder" fxLayout="row">
+                                        <div class="card" fxFlex="grow">
+                                            <h4 class="card-speaker">{{session.SpeakerName}}</h4>
+                                            <h5 class="card-title">{{session.Title}}</h5><!--TODO: add session title-->
+                                            <p class="card-text">{{session.Abstract | limitTo:300 }}</p>
+                                            <span class="label label-primary label-fat">{{session.Track | sessionTrackType}}</span>
+                                            <span class="label label-default label-fat">{{session.Room }}</span>
+                                        </div>
+                                        <div class="icon" fxFlex="20" fxLayoutAlign="center center"><!--toggle add/delete-->
+                                            <i class="fa fa-bookmark fa-2x" id="bookmark-icon" (click)="onBookmarkClick(session)"></i>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+
+
+
+<!--</second-nav>-->
+</navigation>
