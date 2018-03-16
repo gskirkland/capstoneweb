@@ -8,7 +8,6 @@ import { SessionTrackType } from '../models/session/session-track-type';
 import { AuthService } from './auth.service';
 import { ConfigService } from '../services/config.service';
 import 'rxjs/add/operator/toPromise';
-import {Session} from 'selenium-webdriver';
 
 @Injectable()
 export class SessionService {
