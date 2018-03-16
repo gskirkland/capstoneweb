@@ -18,6 +18,7 @@ export class SessionProposal {
     Tags: Tag[];
     Room: string;
     StartTime: Date;
+    EndTime: Date;
     SpeakerName: string;
     SpeakerConfirmed: boolean;
     SpeakerCanceled: boolean;

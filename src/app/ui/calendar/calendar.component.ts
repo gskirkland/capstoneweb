@@ -17,8 +17,9 @@ export class CalendarComponent implements OnInit {
 
     sessions: SessionProposal[];
     calendar_obj: {};
+    isBookmarked = false;
 
-    constructor(private sessionService:SessionService, private router: Router){}
+    constructor(private sessionService: SessionService, private router: Router) {}
 
     ngOnInit() {
         this.sessionService.getAllAcceptedSessionProposals()
@@ -51,12 +52,34 @@ export class CalendarComponent implements OnInit {
                 console.log(Object.keys(calendar_obj));
             });
     }
-    // // TODO: Use UserFavorite model here
-    // // TODO: Add delete functionality
-    // onBookmarkClick(sessionProposal) {
-    //     this.sessionService.addFavoriteSession(sessionProposal)
-    //         .then(result => {
-    //             sessionProposal.FavoriteCount ++;
-    //         });
-    // }
+
+    onBookmarkClick(sessionProposal) {
+        let favorites: SessionProposal[]  = [];
+        // let isBookmarked: boolean;
+        this.sessionService.getAllFavoriteSessions()
+            .then(result => {
+                favorites = result;
+
+                for (let item of favorites) {
+                    if (item.SessionProposalId !== null) {
+                        if (item.SessionProposalId === sessionProposal.SessionProposalId) {
+                            this.isBookmarked = true;
+                        }
+                    }
+                }
+                if (!this.isBookmarked) {
+                    this.sessionService.addFavoriteSession(sessionProposal)
+                        .then(result => {
+                            sessionProposal.FavoriteCount++;
+                        });
+                }
+                if (this.isBookmarked) {
+                    this.sessionService.deleteUserFavorite(sessionProposal.SessionProposalId)
+                        .then(result => {
+                           sessionProposal.FavoriteCount--;
+                        });
+                }
+            });
+    }
 }
+

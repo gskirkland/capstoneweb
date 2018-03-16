@@ -8,6 +8,7 @@ import { SessionTrackType } from '../models/session/session-track-type';
 import { AuthService } from './auth.service';
 import { ConfigService } from '../services/config.service';
 import 'rxjs/add/operator/toPromise';
+import {Session} from 'selenium-webdriver';
 
 @Injectable()
 export class SessionService {
@@ -82,11 +83,36 @@ export class SessionService {
             });
     }
 
-    updateSessionProposal(session: SessionProposal, sessionProposalId: string) : Promise<SessionProposal> {
+    updateSessionProposal(session: SessionProposal, sessionProposalId: string): Promise<SessionProposal> {
         return this.http.put(this.baseApiUrl + 'SessionProposals/' + sessionProposalId, session, {headers: this.getHeaders()})
             .toPromise()
             .then(r => {
                 return r.json() as SessionProposal;
+            });
+    }
+
+    getAllFavoriteSessions(): Promise<SessionProposal[]> {
+        return this.http.get(this.baseApiUrl + 'SessionProposals/Favorite/List', {headers: this.getHeaders()})
+            .toPromise()
+            .then(r => {
+                return r.json() as SessionProposal[];
+            });
+    }
+
+    addFavoriteSession(session: SessionProposal): Promise<SessionProposal> {
+        return this.http.post(this.baseApiUrl + 'SessionProposals/Favorite/Add', session, {headers: this.getHeaders()})
+            .toPromise()
+            .then(r => {
+                return r.json() as SessionProposal;
+            });
+    }
+
+
+    deleteUserFavorite(sessionId: string): Promise<SessionProposal> {
+        return this.http.delete(this.baseApiUrl + 'SessionProposals/Favorite/' + sessionId, {headers: this.getHeaders()})
+            .toPromise()
+            .then(r => {
+                return r.json();
             });
     }
 
