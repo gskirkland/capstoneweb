@@ -3,6 +3,15 @@
   padding-right: 8%;
 }
 
-div .cardholder {
+div .cardholder-scheduled {
   border-bottom: 1px solid grey;
+}
+
+div .cardholder-unscheduled {
+  border: 1px solid black;
+  padding: 7px;
+}
+
+div .cards-unscheduled {
+  padding: 15px;
 }

@@ -6,14 +6,54 @@
          fxLayoutGap="10px"
          fxLayoutGap.xs="0">
 
-        <div class="cards" fxLayout="column" fxFlex="90">
-            <div class="cardholder" *ngFor = "let session of sessions">
-                <div class="card" fxFlex="grow">
-                    <h4 class="card-speaker">{{session.SpeakerName}}</h4>
-                    <h5 class="card-title">{{session.Title}}</h5>
-                    <p class="card-text">{{session.Abstract | limitTo:300}}</p>
-                    <span class="label label-primary label-fat">{{session.Track | sessionTrackType}}</span>
-                    <span class="label label-default label-fat">{{session.Room}}</span>
+        <div fxLayout="column" fxFill="flex">
+            <div class="container"
+                 fxLayout
+                 fxLayout.xs="row"
+                 fxLayoutAlign="center"
+                 fxLayoutGap="10px"
+                 fxLayoutGap.xs="0"
+                 fxFill="flex">
+                <div class="builder-functions" fxLayout="row" fxFlex="50%">
+                    <a>+TimeSlot</a>
+                </div>
+                <div class="builder-functions" fxLayout="row" fxFlex="50%">
+                    <a>Save</a>
+                </div>
+            </div>
+
+            <div class="container"
+                 fxLayout
+                 fxLayout.xs="column"
+                 fxLayoutAlign="center"
+                 fxLayoutGap="10px"
+                 fxLayoutGap.xs="0"
+                 fxFill="flex">
+
+                <div class="cards-scheduled" fxLayout="column" fxFlex="70%">
+                    <div class="cardholder-scheduled" *ngFor = "let session of sessions">
+                        <div class="timeslot">
+
+                        </div>
+                        <div class="card" fxFlex="grow">
+                            <h4 class="card-speaker">{{session.SpeakerName}}</h4>
+                            <h5 class="card-title">{{session.Title}}</h5>
+                            <p class="card-text">{{session.Abstract | limitTo:300}}</p>
+                            <span class="label label-primary label-fat">{{session.Track | sessionTrackType}}</span>
+                            <span class="label label-default label-fat">{{session.Room}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cards-unscheduled" fxLayout="column" fxFlex="30%">
+                    <div class="cardholder-unscheduled" *ngFor = "let session of sessions">
+                        <div class="card" fxFlex="grow">
+                            <h4 class="card-speaker">{{session.SpeakerName}}</h4>
+                            <h5 class="card-title">{{session.Title}}</h5>
+                            <p class="card-text">{{session.Abstract | limitTo:30}}</p>
+                            <span class="label label-primary label-fat">{{session.Track | sessionTrackType}}</span>
+                            <span class="label label-default label-fat">{{session.Room}}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
