@@ -24,7 +24,7 @@ export class NavigationComponent implements OnInit {
         if (this.authService.isAuthenticated()) {
             return true;
         }
-        return false;
+        return true;
     }
 
     logout() {
