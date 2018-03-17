@@ -1,34 +1,40 @@
-<!--<nav>-->
-<!--<secondary-nav>-->
+<navigation>
+    <!--<second-nav>-->
 
-<!--Using calendar component elements to populate sessions for testing purposes-->
 
-<div class="container-fluid">
-    <div *ngFor="let timeSlot of timeSlot;" class="row time-slot" fxLayout="row" fxLayoutAlign="start">
-        <div class="time" fxLayout="column" fxFlex="10">
-            <h3 class="time-value">{{timeSlot}}</h3>
-        </div>
-        <div class="cards" fxLayout="column" fxFlex="90">
-                <!--TODO: logic for times and rooms-->
-                <!--TODO: Use of ngIF for sessions that have been bookmarked-->
-                <div *ngFor="let session of sessions | filterPipe: filterTrack:'Track'
-                                                        | filterPipe: searchTitle:'Title'
-                                                          | filterPipe: searchSpeaker:'SpeakerName'
-                                                            | filterPipe: searchAbstract:'Abstract';
-                                                                let index=index" class="cardholder" fxLayout="row">
-                    <div class="card" fxFlex="grow">
-                            <h4 class="card-title">{{session.SpeakerName}} {{session.Title}}</h4>
-                            <p class="card-text">{{session.Abstract | limitTo:300 }}</p>
-                            <span class="label label-primary label-fat">{{session.Track | sessionTrackType}}</span>
-                            <span class="label label-default- label-fat">{{session.Room}}</span>
+    <!--Entire page-->
+    <div class="container-fluid" body>
+        <!--Times-->
+        <ng-container *ngFor="let timeslot_obj of calendar_obj | mapToIterable">
+            <ng-container *ngFor="let time_obj of timeslot_obj.val | mapToIterable">
+                <div *ngFor="let time of time_obj.val | mapToIterable"
+                     class="row time-slot" fxLayout="row" fxLayoutAlign="start">
+                    <div class="time" fxLayout="column" fxFlex="10">
+                        <h4 class="time-value">{{time.key}}</h4>
                     </div>
-                    <!--TODO: add remove bookmark icon-->
+                    <!--Sessions-->
+                    <div class="cards" fxLayout="column" fxFlex="90">
+                        <ng-container *ngFor="let session of time.val">
+                            <div *ngIf="!session.SpeakerCanceled && session.SpeakerConfirmed" class="cardholder" fxLayout="row">
+                                <div class="card" fxFlex="grow">
+                                    <h4 class="card-speaker">{{session.SpeakerName}}</h4>
+                                    <h5 class="card-title">{{session.Title}}</h5><!--TODO: add session title-->
+                                    <p class="card-text">{{session.Abstract | limitTo:300 }}</p>
+                                    <span class="label label-primary label-fat">{{session.Track | sessionTrackType}}</span>
+                                    <span class="label label-default label-fat">{{session.Room }}</span>
+                                </div>
+                                <div class="icon" fxFlex="20" fxLayoutAlign="center center"><!--possible undo btn for removed bookmarks-->
+                                    <i class="fa fa-times fa-2x" id="remove-icon" (click)="onRemoveBookmarkClick(session)"></i>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
                 </div>
-        </div>
+            </ng-container>
+        </ng-container>
     </div>
-</div>
 
 
 
-<!--</secondary-nav>-->
-<!--</nav>-->
+    <!--</second-nav>-->
+</navigation>

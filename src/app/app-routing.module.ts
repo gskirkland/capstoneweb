@@ -14,6 +14,7 @@ import { UserChangePasswordComponent } from './ui/user/user-change-password/user
 import { BuilderListComponent } from './ui/builder/builder-list/builder-list.component';
 import { BuilderScheduleComponent } from './ui/builder/builder-schedule/builder-schedule.component';
 import { CalendarComponent } from './ui/calendar/calendar.component';
+import { BookmarksComponent } from './ui/bookmarks/bookmarks.component';
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -28,6 +29,7 @@ const appRoutes: Routes = [
     // { path: 'sessionbuilder', component: BuilderListComponent },
     // { path: 'sessionschedule', component: BuilderScheduleComponent },
     // { path: 'sessioncalendar', component: CalendarComponent },
+    { path: 'bookmarks', component: BookmarksComponent },
     { path: 'sessions', component: SessionListComponent, canActivate: [AuthGuard] },
     { path: 'sessions/submit', component: SessionDetailComponent, canActivate: [AuthGuard] },
     { path: 'sessions/:SessionProposalId', component: SessionDetailComponent, canActivate: [AuthGuard] },

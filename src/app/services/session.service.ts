@@ -90,6 +90,14 @@ export class SessionService {
             });
     }
 
+    getAllUserFavorites(): Promise<SessionProposal[]> {
+        return this.http.get(this.baseApiUrl + 'SessionProposals/Favorite/List', {headers: this.getHeaders()})
+            .toPromise()
+            .then(r => {
+                return r.json() as SessionProposal[];
+            });
+    }
+
     private getHeaders(){
         // console.log(this.auth.authorizationToken());
         return new Headers({'Authorization': 'Basic ' + this.auth.authorizationToken()});

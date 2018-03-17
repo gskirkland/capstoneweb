@@ -25,6 +25,7 @@ import { UserRegisterConfirmComponent } from './ui/user/user-register-confirm/us
 import { UserRegisterComponent } from './ui/user/user-register/user-register.component';
 import { NavigationSmallComponent } from './ui/nav/navigation-small/navigation-small.component';
 import { NavigationComponent } from './ui/nav/navigation/navigation.component';
+import { BookmarksComponent } from './ui/bookmarks/bookmarks.component';
 
 // PIPES
 import { SessionStatusTypePipe } from './pipes/session-status-type.pipe';
@@ -50,6 +51,7 @@ import { AuthGuard } from './guards/auth.guard';
     BuilderListComponent,
     BuilderScheduleComponent,
     CalendarComponent,
+    BookmarksComponent,
     GlobalSessionListComponent,
     SessionDetailComponent,
     SessionListComponent,
