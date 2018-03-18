@@ -29,20 +29,26 @@
                  fxLayoutGap.xs="0"
                  fxFill="flex">
 
-                <div class="cards-scheduled" fxLayout="column" fxFlex="70%">
-                    <div class="cardholder-scheduled" *ngFor = "let session of sessions">
-                        <div class="timeslot">
-
+                <div class="cards-scheduled" fxLayout="column" fxFlex="70%" fxFill="flex">
+                    <div class="timeslot" *ngFor = "let timeslot of timeslots">
+                        <div class="time" fxFlex="20%">
+                            <h2>{{timeslot.StartTime | date:h}}</h2>
                         </div>
-                        <div class="card" fxFlex="grow">
-                            <h4 class="card-speaker">{{session.SpeakerName}}</h4>
-                            <h5 class="card-title">{{session.Title}}</h5>
-                            <p class="card-text">{{session.Abstract | limitTo:300}}</p>
-                            <span class="label label-primary label-fat">{{session.Track | sessionTrackType}}</span>
-                            <span class="label label-default label-fat">{{session.Room}}</span>
+                        <div class="cardholder-scheduled" fxFlex="80" *ngFor = "let session of sessions">
+                            <div class="card" fxFlex="grow">
+                                <h4 class="card-speaker">{{session.SpeakerName}}</h4>
+                                <h5 class="card-title">{{session.Title}}</h5>
+                                <p class="card-text">{{session.Abstract | limitTo:300}}</p>
+                                <span class="label label-primary label-fat">{{session.Track | sessionTrackType}}</span>
+                                <span class="label label-default label-fat">{{session.Room}}</span>
+                                <span class="label label-default label-fat">{{test}}</span>
+                                <span class="label label-default label-fat">{{session.StartTime}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
                 <div class="cards-unscheduled" fxLayout="column" fxFlex="30%">
                     <div class="cardholder-unscheduled" *ngFor = "let session of sessions">
                         <div class="card" fxFlex="grow">

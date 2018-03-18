@@ -2,5 +2,9 @@ import {SessionProposal} from '../session/session-proposal';
 
 export class Timeslot {
     StartTime: Date;
-    Sessions: Array<SessionProposal>;
+    Sessions: SessionProposal[];
+
+    constructor() {
+
+    };
 }

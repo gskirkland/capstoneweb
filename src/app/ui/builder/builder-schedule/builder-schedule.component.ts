@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { SessionProposal } from '../../../models/session/session-proposal';
+import { Timeslot} from '../../../models/time/timeslot';
 
-import { EventService } from '../../../services/event.service';
 import { SessionService } from '../../../services/session.service';
 
 @Component({
-    selector: 'builder-schedule',
+    selector: 'app-builder-schedule',
     templateUrl: './builder-schedule.component.html',
     styleUrls: [ './builder-schedule.component.scss' ]
 })
@@ -16,7 +16,8 @@ export class BuilderScheduleComponent implements OnInit  {
 
     sessions: SessionProposal[];
     filterTrack: string;
-    session_obj: {};
+    timeslots: Timeslot[];
+    test: any;
 
 
     constructor(private sessionService: SessionService, private router: Router) {}
@@ -26,16 +27,24 @@ export class BuilderScheduleComponent implements OnInit  {
             .then(sessions => {
                 this.sessions = sessions;
 
-                const session_obj = <any>{};
-                this.sessions.forEach(function(item) {
-                    session_obj.Title = item.Title;
-                    session_obj.SpeakerName = item.SpeakerName;
-                    session_obj.Abstract = item.Abstract;
-                    session_obj.Track = item.Track;
-                    session_obj.Room = item.Room;
+                let testslot = this.testTimeSlot();
+                this.timeslots.push(testslot);
+                this.timeslots.forEach(timeslot =>{
+                    this.sessions.forEach(session =>{
+                        const sessionDate = new Date(session.StartTime);
+                        if (sessionDate === timeslot.StartTime) {
+                            timeslot.Sessions.push(session);
+                        }
+                    });
                 });
-                this.session_obj = session_obj;
             });
+        this.test = this.testTimeSlot().StartTime;
         this.filterTrack = 'All';
+    }
+
+    testTimeSlot() {
+        const timeslot = new Timeslot();
+        timeslot.StartTime = new Date('2018-04-20T10:00:00.000');
+        return timeslot;
     }
 }
