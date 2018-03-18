@@ -22,7 +22,7 @@ export class BookmarksComponent implements OnInit {
             .then(sessions => {
                 this.sessions = sessions;
 
-
+                // ToDo: GET Abstract, Track, Room, Start Time
                 let calendar_obj = <any>{};
                 this.sessions.forEach(function (item) {
                     let session_obj = <any>{};
@@ -55,7 +55,15 @@ export class BookmarksComponent implements OnInit {
                 console.log(this.calendar_obj);
             });
     }
-    // ToDo: Complete remove bookmark functionality
+
+//ToDo: sessionID not being passed to api
+
+    onRemoveClick(sessionProposal) {
+            this.sessionService.deleteUserFavorite(sessionProposal.sessionId)
+            .then(result => {
+                sessionProposal.FavoriteCount--;
+            });
+    }
 }
 
 

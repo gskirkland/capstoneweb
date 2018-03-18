@@ -28,7 +28,7 @@ const appRoutes: Routes = [
     { path: 'globalsessions', component: GlobalSessionListComponent, canActivate: [AuthGuard] },
     // { path: 'sessionbuilder', component: BuilderListComponent },
     // { path: 'sessionschedule', component: BuilderScheduleComponent },
-    // { path: 'sessioncalendar', component: CalendarComponent },
+    { path: 'sessioncalendar', component: CalendarComponent },
     { path: 'bookmarks', component: BookmarksComponent },
     { path: 'sessions', component: SessionListComponent, canActivate: [AuthGuard] },
     { path: 'sessions/submit', component: SessionDetailComponent, canActivate: [AuthGuard] },

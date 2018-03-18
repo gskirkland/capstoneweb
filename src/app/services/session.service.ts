@@ -106,6 +106,14 @@ export class SessionService {
             });
     }
 
+    addFavoriteSession(session: SessionProposal): Promise<SessionProposal> {
+        return this.http.post(this.baseApiUrl + 'SessionProposals/Favorite/Add', session, {headers: this.getHeaders()})
+            .toPromise()
+            .then(r => {
+                return r.json();
+            });
+    }
+
     private getHeaders(){
         // console.log(this.auth.authorizationToken());
         return new Headers({'Authorization': 'Basic ' + this.auth.authorizationToken()});
