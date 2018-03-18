@@ -98,6 +98,14 @@ export class SessionService {
             });
     }
 
+    deleteUserFavorite(sessionId: string): Promise<SessionProposal> {
+        return this.http.delete(this.baseApiUrl + 'SessionProposals/Favorite/' + sessionId, {headers: this.getHeaders()})
+            .toPromise()
+            .then(r => {
+                return r.json();
+            });
+    }
+
     private getHeaders(){
         // console.log(this.auth.authorizationToken());
         return new Headers({'Authorization': 'Basic ' + this.auth.authorizationToken()});
