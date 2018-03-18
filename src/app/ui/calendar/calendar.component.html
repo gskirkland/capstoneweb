@@ -1,9 +1,7 @@
-<navigation>
+
 <!--<second-nav>-->
-
-
             <!--Entire page-->
-            <div class="container-fluid" body>
+            <div class="container-fluid">
                 <!--Times-->
                 <ng-container *ngFor="let timeslot_obj of calendar_obj | mapToIterable">
                     <ng-container *ngFor="let time_obj of timeslot_obj.val | mapToIterable">
@@ -33,8 +31,4 @@
                     </ng-container>
                 </ng-container>
             </div>
-
-
-
 <!--</second-nav>-->
-</navigation>

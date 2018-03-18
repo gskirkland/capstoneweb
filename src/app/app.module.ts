@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule, RouterOutletMap } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -23,7 +23,6 @@ import { UserEmailActivationComponent } from './ui/user/user-email-activation/us
 import { UserPasswordResetComponent } from './ui/user/user-password-reset/user-password-reset.component';
 import { UserRegisterConfirmComponent } from './ui/user/user-register-confirm/user-register-confirm.component';
 import { UserRegisterComponent } from './ui/user/user-register/user-register.component';
-import { NavigationSmallComponent } from './ui/nav/navigation-small/navigation-small.component';
 import { NavigationComponent } from './ui/nav/navigation/navigation.component';
 
 // PIPES
@@ -42,6 +41,8 @@ import { UserService } from './services/user.service';
 
 //  GUARDS
 import { AuthGuard } from './guards/auth.guard';
+import { UserLayoutComponent } from './ui/layouts/user-layout/user-layout.component';
+import { HomeLayoutComponent } from './ui/layouts/home-layout/home-layout.component';
 
 @NgModule({
   declarations: [
@@ -60,13 +61,14 @@ import { AuthGuard } from './guards/auth.guard';
     UserPasswordResetComponent,
     UserRegisterConfirmComponent,
     UserRegisterComponent,
-    NavigationSmallComponent,
     NavigationComponent,
     SessionStatusTypePipe,
     SessionTrackTypePipe,
     FilterPipe,
     LimitToPipe,
-    MapToIterablePipe
+    UserLayoutComponent,
+    MapToIterablePipe,
+    HomeLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +84,6 @@ import { AuthGuard } from './guards/auth.guard';
     EventService,
     SessionService,
     UserService,
-    RouterOutletMap,
     AuthGuard
   ],
   bootstrap: [AppComponent]

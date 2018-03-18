@@ -4,31 +4,30 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
-  selector: 'navigation',
-  templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss']
+    selector: 'app-navigation',
+    templateUrl: './navigation.component.html',
+    styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
-  constructor(
-    private _route: ActivatedRoute,
-    private authService: AuthService
-  ) {}
+    constructor(
+        private _route: ActivatedRoute,
+        private authService: AuthService
+    ) {}
 
-  ngOnInit() {
-    this._route.params.subscribe(params => {
-      // todo: something
-    });
-  }
-
-  isLoggedIn() {
-    if (this.authService.isAuthenticated()) {
-      return true;
+    ngOnInit() {
+        this._route.params.subscribe(params => {
+            // todo: something
+        });
     }
 
-    return false;
-  }
+    isLoggedIn() {
+        if (this.authService.isAuthenticated()) {
+            return true;
+        }
+        return true;
+    }
 
-  logout() {
-    this.authService.logout();
-  }
+    logout() {
+        this.authService.logout();
+    }
 }
