@@ -32,19 +32,31 @@ export class BuilderScheduleComponent implements OnInit  {
                 for (const timeslot of this.timeslots) {
                     for (const session of this.sessions) {
                         const sessionDate = new Date(session.StartTime);
-                        if (sessionDate.getTime() === timeslot.StartTime.getTime()) {
+                        if (sessionDate.getHours() === timeslot.StartTime.getHours()) {
                             timeslot.Sessions.push(session);
                         }
                     };
                 };
             });
-        this.test = this.testTimeSlot().StartTime;
+        this.test = this.testTimeSlot().StartTime.getHours();
         this.filterTrack = 'All';
     }
 
     testTimeSlot() {
         const timeslot = new Timeslot();
-        timeslot.StartTime = new Date('2018-04-20T10:00:00.000');
+        timeslot.StartTime = new Date('2018-04-20 16:00:00.000');
         return timeslot;
+    }
+
+    addTimeSlot() {
+        const time = new Date('2018-04-20T10:00:00.000');
+        for (const slot of this.timeslots) {
+            if (slot.StartTime === time) {
+                return;
+            }
+        }
+        const timeslot = new Timeslot();
+        timeslot.StartTime = time;
+        this.timeslots.push(timeslot);
     }
 }

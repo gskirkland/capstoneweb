@@ -14,7 +14,7 @@
                  fxLayoutGap.xs="0"
                  fxFill="flex">
                 <div class="builder-functions" fxLayout="row" fxFlex="50%">
-                    <a>+TimeSlot</a>
+                    <a (click)="addTimeSlot()">+TimeSlot</a>
                 </div>
                 <div class="builder-functions" fxLayout="row" fxFlex="50%">
                     <a>Save</a>
@@ -33,10 +33,10 @@
                     <div class="timeslot" fxLayout="column" *ngFor = "let timeslot of timeslots">
                         <div fxLayout="row">
                             <div class="time" fxFlex="20%">
-                                <h2>{{timeslot.StartTime | date:shortTime}}</h2>
+                                <h2>{{timeslot.StartTime}}</h2>
                             </div>
                             <div class="cardholder-scheduled" fxFlex="80" fxLayout="column">
-                                <ng-container *ngFor = "let session of sessions">
+                                <ng-container *ngFor = "let session of timeslot.Sessions">
                                     <div class="card" fxFlex="grow">
                                         <h4 class="card-speaker">{{session.SpeakerName}}</h4>
                                         <h5 class="card-title">{{session.Title}}</h5>
@@ -44,7 +44,7 @@
                                         <span class="label label-primary label-fat">{{session.Track | sessionTrackType}}</span>
                                         <span class="label label-default label-fat">{{session.Room}}</span>
                                         <span class="label label-default label-fat">{{test | date:h}}</span>
-                                        <span class="label label-default label-fat">{{session.StartTime}}</span>
+                                        <span class="label label-default label-fat">{{session.StartTime | date:h}}</span>
                                     </div>
                                 </ng-container>
                             </div>

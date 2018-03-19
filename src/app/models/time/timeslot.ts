@@ -5,6 +5,6 @@ export class Timeslot {
     Sessions: SessionProposal[];
 
     constructor() {
-
+        this.Sessions = [];
     };
 }
