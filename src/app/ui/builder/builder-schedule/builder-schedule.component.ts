@@ -16,7 +16,7 @@ export class BuilderScheduleComponent implements OnInit  {
 
     sessions: SessionProposal[];
     filterTrack: string;
-    timeslots: Timeslot[];
+    timeslots: Timeslot[] = [];
     test: any;
 
 
@@ -27,16 +27,16 @@ export class BuilderScheduleComponent implements OnInit  {
             .then(sessions => {
                 this.sessions = sessions;
 
-                let testslot = this.testTimeSlot();
+                const testslot = this.testTimeSlot();
                 this.timeslots.push(testslot);
-                this.timeslots.forEach(timeslot =>{
-                    this.sessions.forEach(session =>{
+                for (const timeslot of this.timeslots) {
+                    for (const session of this.sessions) {
                         const sessionDate = new Date(session.StartTime);
-                        if (sessionDate === timeslot.StartTime) {
+                        if (sessionDate.getTime() === timeslot.StartTime.getTime()) {
                             timeslot.Sessions.push(session);
                         }
-                    });
-                });
+                    };
+                };
             });
         this.test = this.testTimeSlot().StartTime;
         this.filterTrack = 'All';

@@ -4,7 +4,8 @@
 }
 
 div .cardholder-scheduled {
-  border-bottom: 1px solid grey;
+  border: 1px solid grey;
+  padding: 5px;
 }
 
 div .cardholder-unscheduled {
@@ -17,5 +18,5 @@ div .cards-unscheduled {
 }
 
 div .timeslot {
-  border: 1px solid black;
+  border: 1px solid red;
 }
