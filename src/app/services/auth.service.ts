@@ -46,7 +46,7 @@ export class AuthService {
 
     logout() {
         localStorage.removeItem('AuthToken');
-        this.router.navigate(['/login']);
+        this.router.navigate(['/home/login']);
     }
 
     isAuthenticated() {

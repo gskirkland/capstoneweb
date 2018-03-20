@@ -23,7 +23,6 @@ import { UserEmailActivationComponent } from './ui/user/user-email-activation/us
 import { UserPasswordResetComponent } from './ui/user/user-password-reset/user-password-reset.component';
 import { UserRegisterConfirmComponent } from './ui/user/user-register-confirm/user-register-confirm.component';
 import { UserRegisterComponent } from './ui/user/user-register/user-register.component';
-import { NavigationSmallComponent } from './ui/nav/navigation-small/navigation-small.component';
 import { NavigationComponent } from './ui/nav/navigation/navigation.component';
 import { BookmarksComponent } from './ui/bookmarks/bookmarks.component';
 
@@ -43,50 +42,52 @@ import { UserService } from './services/user.service';
 
 //  GUARDS
 import { AuthGuard } from './guards/auth.guard';
+import { UserLayoutComponent } from './ui/layouts/user-layout/user-layout.component';
+import { HomeLayoutComponent } from './ui/layouts/home-layout/home-layout.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    BuilderListComponent,
-    BuilderScheduleComponent,
-    CalendarComponent,
-    BookmarksComponent,
-    GlobalSessionListComponent,
-    SessionDetailComponent,
-    SessionListComponent,
-    GlobalSessionSearchComponent,
-    UserChangePasswordComponent,
-    UserDetailComponent,
-    UserEmailActivationComponent,
-    UserPasswordResetComponent,
-    UserRegisterConfirmComponent,
-    UserRegisterComponent,
-    NavigationSmallComponent,
-    NavigationComponent,
-    SessionStatusTypePipe,
-    SessionTrackTypePipe,
-    FilterPipe,
-    LimitToPipe,
-    MapToIterablePipe
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    RouterModule,
-    AppRoutingModule,
-    FlexLayoutModule
-  ],
-  providers: [
-    AuthService,
-    ConfigService,
-    EventService,
-    SessionService,
-    UserService,
-    RouterOutletMap,
-    AuthGuard
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        BuilderListComponent,
+        BuilderScheduleComponent,
+        CalendarComponent,
+        BookmarksComponent,
+        GlobalSessionListComponent,
+        SessionDetailComponent,
+        SessionListComponent,
+        GlobalSessionSearchComponent,
+        UserChangePasswordComponent,
+        UserDetailComponent,
+        UserEmailActivationComponent,
+        UserPasswordResetComponent,
+        UserRegisterConfirmComponent,
+        UserRegisterComponent,
+        NavigationComponent,
+        SessionStatusTypePipe,
+        SessionTrackTypePipe,
+        FilterPipe,
+        LimitToPipe,
+        UserLayoutComponent,
+        MapToIterablePipe,
+        HomeLayoutComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        RouterModule,
+        AppRoutingModule,
+        FlexLayoutModule
+    ],
+    providers: [
+        AuthService,
+        ConfigService,
+        EventService,
+        SessionService,
+        UserService,
+        AuthGuard
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
