@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { SessionProposal } from './../../models/session/session-proposal';
 import { SessionService } from './../../services/session.service';
+import {start} from 'repl';
 
 
 @Component({
@@ -31,9 +32,12 @@ export class CalendarComponent implements OnInit {
 
                     let start_time = moment(item.StartTime);
 
-                    let day = start_time.date();
+                    let month = start_time.month();
+                    let month_name = moment.months(month);
 
-                    let time = moment(start_time.hour() + ':' + start_time.minutes(), 'HH:mm').format('hh:mm a');
+                    let day = month_name + ' ' + start_time.date();
+
+                    let time = moment(start_time.hour() + ':' + start_time.minutes(), 'HH:mm').format('h:mm a');
 
                     if (!(day in calendar_obj)) {
                         calendar_obj[day] = {
@@ -49,13 +53,12 @@ export class CalendarComponent implements OnInit {
                 });
                 this.calendar_obj = calendar_obj;
                 console.log(this.calendar_obj);
-                console.log(Object.keys(calendar_obj));
             });
     }
 
     onBookmarkClick(sessionProposal) {
         let favorites: SessionProposal[]  = [];
-        // let isBookmarked: boolean;
+        let isBookmarked: boolean;
         this.sessionService.getAllFavoriteSessions()
             .then(result => {
                 favorites = result;
@@ -63,7 +66,7 @@ export class CalendarComponent implements OnInit {
                 for (let item of favorites) {
                     if (item.SessionProposalId !== null) {
                         if (item.SessionProposalId === sessionProposal.SessionProposalId) {
-                            this.isBookmarked = true;
+                            isBookmarked = true;
                         }
                     }
                 }
@@ -76,7 +79,7 @@ export class CalendarComponent implements OnInit {
                 if (this.isBookmarked) {
                     this.sessionService.deleteUserFavorite(sessionProposal.SessionProposalId)
                         .then(result => {
-                           sessionProposal.FavoriteCount--;
+                            sessionProposal.FavoriteCount--;
                         });
                 }
             });
