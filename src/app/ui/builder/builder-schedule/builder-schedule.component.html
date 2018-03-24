@@ -53,7 +53,14 @@
                 </div>
 
 
-                <div class="cards-unscheduled" fxLayout="column" fxFlex="30%">
+                <div class="container cards-unscheduled"
+                     fxLayout="column"
+                     fxFlex="30%"
+                     fxLayout.xs="column"
+                     fxLayoutAlign="center"
+                     fxLayoutGap="10px"
+                     fxLayoutGap.xs="0"
+                     fxFill="flex">
                     <div class="cardholder-unscheduled" *ngFor = "let session of sessions">
                         <div class="card" fxFlex="grow">
                             <h4 class="card-speaker">{{session.SpeakerName}}</h4>
