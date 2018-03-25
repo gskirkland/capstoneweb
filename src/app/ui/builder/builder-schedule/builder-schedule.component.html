@@ -1,3 +1,4 @@
+    <script src="../../../../test.ts"></script>
     <div class="container-fluid"
          fxLayout
          fxLayout.xs="column"
@@ -33,7 +34,7 @@
                     <div class="timeslot" fxLayout="column" *ngFor = "let timeslot of timeslots">
                         <div fxLayout="row">
                             <div class="time" fxFlex="20%">
-                                <h2>{{timeslot.StartTime}}</h2>
+                                <h2>{{timeslot.StartTimeHour | hourToString}}</h2>
                             </div>
                             <div class="cardholder-scheduled" fxFlex="80" fxLayout="column">
                                 <ng-container *ngFor = "let session of timeslot.Sessions">

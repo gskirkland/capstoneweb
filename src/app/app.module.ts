@@ -43,6 +43,7 @@ import { UserService } from './services/user.service';
 import { AuthGuard } from './guards/auth.guard';
 import { UserLayoutComponent } from './ui/layouts/user-layout/user-layout.component';
 import { HomeLayoutComponent } from './ui/layouts/home-layout/home-layout.component';
+import { HourToStringPipe } from './pipes/hour-to-string.pipe';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { HomeLayoutComponent } from './ui/layouts/home-layout/home-layout.compon
     LimitToPipe,
     UserLayoutComponent,
     MapToIterablePipe,
-    HomeLayoutComponent
+    HomeLayoutComponent,
+    HourToStringPipe
   ],
   imports: [
     BrowserModule,
