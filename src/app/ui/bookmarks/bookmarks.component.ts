@@ -18,7 +18,7 @@ export class BookmarksComponent implements OnInit {
     constructor(private sessionService: SessionService, private router: Router) {}
 
     ngOnInit() {
-        this.sessionService.getAllUserFavorites()
+        this.sessionService.getAllFavoriteSessions()
             .then(sessions => {
                 this.sessions = sessions;
 

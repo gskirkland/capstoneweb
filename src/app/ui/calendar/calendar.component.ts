@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { SessionProposal } from './../../models/session/session-proposal';
 import { SessionService } from './../../services/session.service';
+import {start} from 'repl';
 
 
 @Component({
@@ -17,8 +18,9 @@ export class CalendarComponent implements OnInit {
 
     sessions: SessionProposal[];
     calendar_obj: {};
+    isBookmarked = false;
 
-    constructor(private sessionService:SessionService, private router: Router){}
+    constructor(private sessionService: SessionService, private router: Router) {}
 
     ngOnInit() {
         this.sessionService.getAllAcceptedSessionProposals()
@@ -27,21 +29,15 @@ export class CalendarComponent implements OnInit {
 
                 let calendar_obj = <any>{};
                 this.sessions.forEach(function(item) {
-                    let session_obj = <any>{};
-                    session_obj.SessionProposalId = item.SessionProposalId;
-                    session_obj.Title = item.Title;
-                    session_obj.Abstract = item.Abstract;
-                    session_obj.SpeakerName = item.SpeakerName;
-                    session_obj.Track = item.Track;
-                    session_obj.Room = item.Room;
-                    session_obj.SpeakerConfirmed = item.SpeakerConfirmed;
-                    session_obj.SpeakerCanceled = item.SpeakerCanceled;
 
                     let start_time = moment(item.StartTime);
 
-                    let day = start_time.date();
+                    let month = start_time.month();
+                    let month_name = moment.months(month);
 
-                    let time = moment(start_time.hour() + ':' + start_time.minutes(), 'HH:mm').format('hh:mm a');
+                    let day = month_name + ' ' + start_time.date();
+
+                    let time = moment(start_time.hour() + ':' + start_time.minutes(), 'HH:mm').format('h:mm a');
 
                     if (!(day in calendar_obj)) {
                         calendar_obj[day] = {
@@ -53,18 +49,39 @@ export class CalendarComponent implements OnInit {
                         calendar_obj[day].time_blocks[time] = [];
                     }
 
-                    calendar_obj[day].time_blocks[time].push(session_obj);
+                    calendar_obj[day].time_blocks[time].push(item);
                 });
                 this.calendar_obj = calendar_obj;
                 console.log(this.calendar_obj);
             });
     }
-    // // TODO: Use UserFavorite model here
-    // // TODO: Add delete functionality
-    // onBookmarkClick(sessionProposal) {
-    //     this.sessionService.addFavoriteSession(sessionProposal)
-    //         .then(result => {
-    //             sessionProposal.FavoriteCount ++;
-    //         });
-    // }
+
+    onBookmarkClick(sessionProposal) {
+        let favorites: SessionProposal[]  = [];
+        let isBookmarked: boolean;
+        this.sessionService.getAllFavoriteSessions()
+            .then(result => {
+                favorites = result;
+
+                for (let item of favorites) {
+                    if (item.SessionProposalId !== null) {
+                        if (item.SessionProposalId === sessionProposal.SessionProposalId) {
+                            isBookmarked = true;
+                        }
+                    }
+                }
+                if (!this.isBookmarked) {
+                    this.sessionService.addFavoriteSession(sessionProposal)
+                        .then(result => {
+                            sessionProposal.FavoriteCount++;
+                        });
+                }
+                if (this.isBookmarked) {
+                    this.sessionService.deleteUserFavorite(sessionProposal.SessionProposalId)
+                        .then(result => {
+                            sessionProposal.FavoriteCount--;
+                        });
+                }
+            });
+    }
 }
