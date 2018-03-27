@@ -5,7 +5,6 @@ import { SessionProposal } from '../../../models/session/session-proposal';
 import { Timeslot} from '../../../models/time/timeslot';
 
 import { SessionService } from '../../../services/session.service';
-import * as moment from 'moment';
 
 @Component({
     selector: 'app-builder-schedule',
@@ -18,7 +17,9 @@ export class BuilderScheduleComponent implements OnInit  {
     sessions: SessionProposal[];
     filterTrack: string;
     timeslots: Timeslot[] = [];
-    test: any;
+    timeInput: string;
+    addSlot = false;
+    inputMargin = 2;
 
 
     constructor(private sessionService: SessionService, private router: Router) {}
@@ -29,18 +30,18 @@ export class BuilderScheduleComponent implements OnInit  {
                 this.sessions = sessions;
                 this.renderTimeSlots();
             });
-        this.test = this.testTimeSlot().StartTime.getHours();
         this.filterTrack = 'All';
     }
 
-    testTimeSlot() {
-        const timeslot = new Timeslot();
-        timeslot.StartTime = new Date('2018-04-20 16:00:00.000');
-        return timeslot;
+    addSlotTest(): void {
+        this.addSlot = !this.addSlot;
     }
-
     addTimeSlot() {
-        const time = new Date('2018-04-20 10:00:00.000');
+        if (this.timeInput.length === 0) {
+            return;
+        }
+        const startTime = '2018-04-20 ' + this.timeInput;
+        const time = new Date(startTime);
         for (const slot of this.timeslots) {
             if (slot.StartTime === time) {
                 return;
@@ -52,18 +53,14 @@ export class BuilderScheduleComponent implements OnInit  {
         this.renderTimeSlots();
     }
 
-    renderTimeSlots() {
-        //const testslot = this.testTimeSlot();
-        //this.timeslots.push(testslot);
+    renderTimeSlots(): void {
         for (const timeslot of this.timeslots) {
-            const startTime = moment(timeslot.StartTime);
-            timeslot.StartTimeHour = startTime.hour();
             for (const session of this.sessions) {
                 const sessionDate = new Date(session.StartTime);
                 if (sessionDate.getHours() === timeslot.StartTime.getHours()) {
                     timeslot.Sessions.push(session);
                 }
-            };
-        };
+            }
+        }
     }
 }

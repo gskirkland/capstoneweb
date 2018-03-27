@@ -43,7 +43,7 @@ import { UserService } from './services/user.service';
 import { AuthGuard } from './guards/auth.guard';
 import { UserLayoutComponent } from './ui/layouts/user-layout/user-layout.component';
 import { HomeLayoutComponent } from './ui/layouts/home-layout/home-layout.component';
-import { HourToStringPipe } from './pipes/hour-to-string.pipe';
+import {DragulaModule} from 'ng2-dragula';
 
 @NgModule({
   declarations: [
@@ -70,7 +70,6 @@ import { HourToStringPipe } from './pipes/hour-to-string.pipe';
     UserLayoutComponent,
     MapToIterablePipe,
     HomeLayoutComponent,
-    HourToStringPipe
   ],
   imports: [
     BrowserModule,
@@ -78,7 +77,8 @@ import { HourToStringPipe } from './pipes/hour-to-string.pipe';
     HttpModule,
     RouterModule,
     AppRoutingModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    DragulaModule
   ],
   providers: [
     AuthService,
