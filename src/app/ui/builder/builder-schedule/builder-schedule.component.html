@@ -14,11 +14,10 @@
                  fxLayoutGap.xs="0"
                  fxFill="flex">
                 <div class="builder-functions" fxLayout="row" fxFlex="50%">
-                    <a (click)="addSlotTest()">+TimeSlot</a>
-                    <!--<a data-toggle="modal" data-target="#timeSlotModal">+TimeSlot</a>-->
+                    <a (click)="addSlotEnable()">+TimeSlot</a>
                 </div>
                 <div class="builder-functions" fxLayout="row" fxFlex="50%">
-                    <a>Save</a>
+                    <a (click)="save()">Save</a>
                 </div>
             </div>
 
@@ -38,11 +37,13 @@
                                        fxFill="flex"
                                        *ngIf="addSlot"
                                        [(ngModel)]="timeInput"
-                                       (keydown.enter)="addTimeSlot(); addSlotTest()">
+                                       (keydown.enter)="addTimeSlot(); addSlotEnable()">
                             </div>
                         </div>
                     </div>
-                    <div class="timeslot" fxLayout="column" *ngFor = "let timeslot of timeslots">
+                    <div class="timeslot" fxLayout="column"
+                         *ngFor = "let timeslot of timeslots"
+                         (drop)="dropSession(timeslot)">
                         <div fxLayout="row">
                             <div class="time" fxFlex="20%">
                                 <h2>{{timeslot.StartTime | date : 'h:mm a'}}</h2>
@@ -77,35 +78,9 @@
                             <h5 class="card-title">{{session.Title}}</h5>
                             <p class="card-text">{{session.Abstract | limitTo:30}}</p>
                             <span class="label label-primary label-fat">{{session.Track | sessionTrackType}}</span>
-                            <span class="label label-default label-fat">{{session.Room}}</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- TimeSlot Modal -->
-    <div id="timeSlotModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Choose a new time.</p>
-                    <div class="form-group">
-                        <label>Time:</label>
-                        <input type="text" class="form" id="time">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" (click)="addTimeSlot()" data-dismiss="modal">Add</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-
         </div>
     </div>

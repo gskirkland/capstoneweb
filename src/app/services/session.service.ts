@@ -82,7 +82,7 @@ export class SessionService {
             });
     }
 
-    updateSessionProposal(session: SessionProposal, sessionProposalId: string) : Promise<SessionProposal> {
+    updateSessionProposal(session: SessionProposal, sessionProposalId: string): Promise<SessionProposal> {
         return this.http.put(this.baseApiUrl + 'SessionProposals/' + sessionProposalId, session, {headers: this.getHeaders()})
             .toPromise()
             .then(r => {
@@ -90,7 +90,7 @@ export class SessionService {
             });
     }
 
-    private getHeaders(){
+    private getHeaders() {
         // console.log(this.auth.authorizationToken());
         return new Headers({'Authorization': 'Basic ' + this.auth.authorizationToken()});
     }
