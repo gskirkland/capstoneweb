@@ -15,6 +15,7 @@ export class SessionProposal {
     LengthInMinutes: number;
     Track: SessionTrackType;
     Status: SessionStatusType;
+    Accepted: boolean;
     Tags: Tag[];
     Room: string;
     StartTime: Date;

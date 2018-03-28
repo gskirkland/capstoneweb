@@ -43,6 +43,7 @@ import { UserService } from './services/user.service';
 import { AuthGuard } from './guards/auth.guard';
 import { UserLayoutComponent } from './ui/layouts/user-layout/user-layout.component';
 import { HomeLayoutComponent } from './ui/layouts/home-layout/home-layout.component';
+import {DragulaModule} from 'ng2-dragula';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,7 @@ import { HomeLayoutComponent } from './ui/layouts/home-layout/home-layout.compon
     LimitToPipe,
     UserLayoutComponent,
     MapToIterablePipe,
-    HomeLayoutComponent
+    HomeLayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,7 +77,8 @@ import { HomeLayoutComponent } from './ui/layouts/home-layout/home-layout.compon
     HttpModule,
     RouterModule,
     AppRoutingModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    DragulaModule
   ],
   providers: [
     AuthService,
