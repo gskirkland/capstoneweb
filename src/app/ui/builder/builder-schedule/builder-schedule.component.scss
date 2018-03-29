@@ -1,0 +1,26 @@
+.container-fluid {
+  padding-left: 8%;
+  padding-right: 8%;
+}
+
+div .cardholder-scheduled {
+  border: 1px solid grey;
+  padding: 5px;
+}
+
+div .cardholder-unscheduled {
+  border: 1px solid black;
+  padding: 7px;
+}
+
+div .cards-unscheduled {
+  padding: 15px;
+}
+
+div .timeslot {
+  border: 1px solid red;
+}
+
+div .time {
+  text-align: center;
+}

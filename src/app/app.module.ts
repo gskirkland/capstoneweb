@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule, RouterOutletMap } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -44,50 +44,52 @@ import { UserService } from './services/user.service';
 import { AuthGuard } from './guards/auth.guard';
 import { UserLayoutComponent } from './ui/layouts/user-layout/user-layout.component';
 import { HomeLayoutComponent } from './ui/layouts/home-layout/home-layout.component';
+import {DragulaModule} from 'ng2-dragula';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        LoginComponent,
-        BuilderListComponent,
-        BuilderScheduleComponent,
-        CalendarComponent,
-        BookmarksComponent,
-        GlobalSessionListComponent,
-        SessionDetailComponent,
-        SessionListComponent,
-        GlobalSessionSearchComponent,
-        UserChangePasswordComponent,
-        UserDetailComponent,
-        UserEmailActivationComponent,
-        UserPasswordResetComponent,
-        UserRegisterConfirmComponent,
-        UserRegisterComponent,
-        NavigationComponent,
-        SessionStatusTypePipe,
-        SessionTrackTypePipe,
-        FilterPipe,
-        LimitToPipe,
-        UserLayoutComponent,
-        MapToIterablePipe,
-        HomeLayoutComponent
-    ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        HttpModule,
-        RouterModule,
-        AppRoutingModule,
-        FlexLayoutModule
-    ],
-    providers: [
-        AuthService,
-        ConfigService,
-        EventService,
-        SessionService,
-        UserService,
-        AuthGuard
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    BuilderListComponent,
+    BuilderScheduleComponent,
+    CalendarComponent,
+    BookmarksComponent,
+    GlobalSessionListComponent,
+    SessionDetailComponent,
+    SessionListComponent,
+    GlobalSessionSearchComponent,
+    UserChangePasswordComponent,
+    UserDetailComponent,
+    UserEmailActivationComponent,
+    UserPasswordResetComponent,
+    UserRegisterConfirmComponent,
+    UserRegisterComponent,
+    NavigationComponent,
+    SessionStatusTypePipe,
+    SessionTrackTypePipe,
+    FilterPipe,
+    LimitToPipe,
+    UserLayoutComponent,
+    MapToIterablePipe,
+    HomeLayoutComponent,
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    RouterModule,
+    AppRoutingModule,
+    FlexLayoutModule,
+    DragulaModule
+  ],
+  providers: [
+    AuthService,
+    ConfigService,
+    EventService,
+    SessionService,
+    UserService,
+    AuthGuard
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
