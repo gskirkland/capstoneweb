@@ -18,6 +18,7 @@ export class CalendarComponent implements OnInit {
     sessions: SessionProposal[];
     calendar: {};
     isBookmarked = false;
+    modalInfo = new SessionProposal();
 
     constructor(private sessionService: SessionService, private router: Router) {}
 
@@ -95,6 +96,10 @@ export class CalendarComponent implements OnInit {
 
     bookmarked(sessionProposal: SessionProposal) {
         return this.favorites.map(session => session.SessionProposalId).indexOf(sessionProposal.SessionProposalId) > -1;
+    }
+
+    showModal(sessionProposal: SessionProposal) {
+        this.modalInfo = sessionProposal;
     }
 }
 
