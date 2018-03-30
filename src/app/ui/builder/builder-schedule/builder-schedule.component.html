@@ -42,13 +42,17 @@
                         </div>
                     </div>
                     <div class="timeslot" fxLayout="column"
-                         *ngFor = "let timeslot of timeslots"
-                         (drop)="dropSession(timeslot)">
+                         *ngFor = "let timeslot of timeslots">
                         <div fxLayout="row">
                             <div class="time" fxFlex="20%">
                                 <h2>{{timeslot.StartTime | date : 'h:mm a'}}</h2>
                             </div>
-                            <div [dragula]='"bag-sessions"' class="cardholder-scheduled" fxFlex="80" fxLayout="column">
+                            <div [dragula]='"bag-sessions"'
+                                 class="cardholder-scheduled"
+                                 fxFlex="80"
+                                 fxLayout="column"
+                                 (drop)="dropSession()">
+
                                 <ng-container *ngFor = "let session of timeslot.Sessions">
                                     <div class="card" fxFlex="grow">
                                         <h4 class="card-speaker">{{session.SpeakerName}}</h4>

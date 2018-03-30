@@ -6,6 +6,7 @@ import { Timeslot} from '../../../models/time/timeslot';
 
 import { SessionService } from '../../../services/session.service';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import {current} from 'codelyzer/util/syntaxKind';
 
 @Component({
     selector: 'app-builder-schedule',
@@ -16,7 +17,7 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 export class BuilderScheduleComponent implements OnInit  {
 
     sessions: SessionProposal[];
-    sessionsAccepted: SessionProposal[];
+    sessionsAccepted: SessionProposal[] = [];
     filterTrack: string;
     timeslots: Timeslot[] = [];
     timeInput: string;
@@ -45,7 +46,7 @@ export class BuilderScheduleComponent implements OnInit  {
         const startTime = '2018-04-20 ' + this.timeInput;
         const time = new Date(startTime);
         for (const slot of this.timeslots) {
-            if (slot.StartTime === time) {
+            if (slot.StartTime.getDate() === time.getDate() && slot.StartTime.getTime() === time.getTime()) {
                 return;
             }
         }
@@ -55,15 +56,16 @@ export class BuilderScheduleComponent implements OnInit  {
         this.renderTimeSlots();
     }
 
-    dropSession(timeslot: Timeslot): void {
+    dropSession(): void {
         let session: SessionProposal;
         this.dragula
             .drop
-            .subscribe(value => {
+            .subscribe((value) => {
                 session = value;
-                session.StartTime = timeslot.StartTime;
+                session.StartTime = new Date();
                 this.sessionsAccepted.push(session);
             });
+        this.dragula.drop.unsubscribe();
     }
 
     save(): void {
