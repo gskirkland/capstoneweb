@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth.service';
 })
 
 export class CalendarComponent implements OnInit {
+
     favorites: SessionFavorite[] = [];
     sessions: SessionProposal[];
     calendar: {};
@@ -26,7 +27,7 @@ export class CalendarComponent implements OnInit {
                 this.sessions = sessions;
 
                 const calendar = [];
-                sessions.forEach(function(session) {
+                this.sessions.forEach(function(session) {
                     const start_time = moment(session.StartTime);
                     const month = start_time.month();
                     const month_name = moment.months(month);

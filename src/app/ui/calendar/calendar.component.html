@@ -34,7 +34,7 @@
                                         <span class="label label-primary label-fat {{session.Track | sessionTrackType}}">{{session.Track | sessionTrackType}}</span>
                                         <span class="label label-default label-fat">{{session.Room }}</span>
                                     </div>
-                                    <div class="icon" fxFlex="20" fxLayoutAlign="center center">
+                                    <div *ngIf="isLoggedIn()" class="icon" fxFlex="20" fxLayoutAlign="center center">
                                         <i *ngIf="bookmarked(session)" class="fa fa-bookmark fa-2x" [id]="'b_' +i" (click)="onBookmarkClick(session)" ></i>
                                         <i *ngIf="!bookmarked(session)" class="fa fa-bookmark-o fa-2x" [id]="'b_' +i" (click)="onBookmarkClick(session)" ></i>
                                     </div>
