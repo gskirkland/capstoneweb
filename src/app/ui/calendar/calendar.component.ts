@@ -27,7 +27,7 @@ export class CalendarComponent implements OnInit {
             .then(sessions => {
                 this.sessions = sessions;
 
-                const calendar_obj = <any>{};
+                const calendar = [];
                 this.sessions.forEach(function(session) {
                     const start_time = moment(session.StartTime);
                     const month = start_time.month();
@@ -36,35 +36,55 @@ export class CalendarComponent implements OnInit {
                     const day = month_name + ' ' + start_time.date();
                     const time = moment(start_time.hour() + ':' + start_time.minutes(), 'HH:mm').format('h:mm a');
 
-                    if (!(day in calendar_obj)) {
-                        calendar_obj[day] = {
-                            time_blocks: []
-                        };
+                    let has_day = false;
+                    for (let i = 0; i < calendar.length; i++) {
+                        if (calendar[i].day === day) {
+                            has_day = true;
+                            break;
+                        }
                     }
 
+                    if (!has_day) {
+                        calendar.push({
+                            day,
+                            time_blocks: []
+                        });
+                       calendar.sort(function (a, b) {
+                           if (a.day < b.day) {
+                               return -1;
+                           }
+                           if (a.day > b.day) {
+                               return 1;
+                           }
+                           return 0;
+                        });
+                    }
+
+                    const day_index = calendar.map(a => a.day).indexOf(day);
+
                     let has_time = false;
-                    for (let c = 0; c < calendar_obj[day].time_blocks.length; c++) {
-                        if (calendar_obj[day].time_blocks[c].time === time) {
+                    for (let c = 0; c < calendar[day_index].time_blocks.length; c++) {
+                        if (calendar[day_index].time_blocks[c].time === time) {
                             has_time = true;
                             break;
                         }
                     }
 
                     if (!has_time) {
-                        calendar_obj[day].time_blocks.push({
+                        calendar[day_index].time_blocks.push({
                             time,
                             session_list: []
                         });
-                        calendar_obj[day].time_blocks.sort((a, b) => a.time > b.time);
+                        calendar[day_index].time_blocks.sort((a, b) => a.time > b.time);
                     }
 
-                    const time_index = calendar_obj[day].time_blocks.map(a => a.time).indexOf(time);
+                    const time_index = calendar[day_index].time_blocks.map(a => a.time).indexOf(time);
 
-                        calendar_obj[day].time_blocks[time_index].session_list.push(session);
+                        calendar[day_index].time_blocks[time_index].session_list.push(session);
                 });
 
-                    console.log(calendar_obj);
-                    this.calendar = calendar_obj;
+                    console.log(calendar);
+                    this.calendar = calendar;
             });
                 this.getFavorites();
     }
