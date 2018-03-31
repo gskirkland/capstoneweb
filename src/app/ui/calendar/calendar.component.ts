@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { SessionProposal } from './../../models/session/session-proposal';
 import { SessionService } from './../../services/session.service';
 import { SessionFavorite } from '../../models/session/session-favorite';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
     moduleId: module.id,
@@ -13,14 +13,12 @@ import { SessionFavorite } from '../../models/session/session-favorite';
 })
 
 export class CalendarComponent implements OnInit {
-
     favorites: SessionFavorite[] = [];
     sessions: SessionProposal[];
     calendar: {};
-    isBookmarked = false;
     modalInfo = new SessionProposal();
 
-    constructor(private sessionService: SessionService, private router: Router) {}
+    constructor(private sessionService: SessionService, private authService: AuthService) {}
 
     ngOnInit() {
         this.sessionService.getAllAcceptedSessionProposals()
@@ -28,7 +26,7 @@ export class CalendarComponent implements OnInit {
                 this.sessions = sessions;
 
                 const calendar = [];
-                this.sessions.forEach(function(session) {
+                sessions.forEach(function(session) {
                     const start_time = moment(session.StartTime);
                     const month = start_time.month();
                     const month_name = moment.months(month);
@@ -49,14 +47,14 @@ export class CalendarComponent implements OnInit {
                             day,
                             time_blocks: []
                         });
-                       calendar.sort(function (a, b) {
-                           if (a.day < b.day) {
-                               return -1;
-                           }
-                           if (a.day > b.day) {
-                               return 1;
-                           }
-                           return 0;
+                        calendar.sort(function (a, b) {
+                            if (a.day < b.day) {
+                                return -1;
+                            }
+                            if (a.day > b.day) {
+                                return 1;
+                            }
+                            return 0;
                         });
                     }
 
@@ -80,19 +78,19 @@ export class CalendarComponent implements OnInit {
 
                     const time_index = calendar[day_index].time_blocks.map(a => a.time).indexOf(time);
 
-                        calendar[day_index].time_blocks[time_index].session_list.push(session);
-                });
+                    calendar[day_index].time_blocks[time_index].session_list.push(session);
 
-                    console.log(calendar);
+                });
                     this.calendar = calendar;
+                    console.log(calendar);
             });
                 this.getFavorites();
     }
 
     getFavorites() {
         this.sessionService.getAllFavoriteSessions()
-            .then(result => {
-                this.favorites = result;
+            .then(favorites => {
+                this.favorites = favorites;
             });
     }
 
@@ -105,7 +103,7 @@ export class CalendarComponent implements OnInit {
                     this.getFavorites();
                 });
         } else {
-            if (!this.isBookmarked) {
+            if (index < 0) {
                 this.sessionService.addFavoriteSession(sessionProposal)
                     .then(result => {
                         this.getFavorites();
@@ -121,5 +119,10 @@ export class CalendarComponent implements OnInit {
     showModal(sessionProposal: SessionProposal) {
         this.modalInfo = sessionProposal;
     }
+
+    isLoggedIn() {
+        return this.authService.isAuthenticated();
+    }
 }
+
 
