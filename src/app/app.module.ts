@@ -30,7 +30,6 @@ import { SessionStatusTypePipe } from './pipes/session-status-type.pipe';
 import { SessionTrackTypePipe } from './pipes/session-track-type.pipe';
 import { FilterPipe } from './pipes/filter-search.pipe';
 import { LimitToPipe } from './pipes/limit-to.pipe';
-import { MapToIterablePipe} from './pipes/map-to-iterable.pipe';
 
 // SERVICES
 import { AuthService } from './services/auth.service';
@@ -68,7 +67,6 @@ import {DragulaModule} from 'ng2-dragula';
     FilterPipe,
     LimitToPipe,
     UserLayoutComponent,
-    MapToIterablePipe,
     HomeLayoutComponent,
   ],
   imports: [
