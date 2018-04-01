@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import { SessionProposal } from '../../../models/session/session-proposal';
 import { Timeslot} from '../../../models/time/timeslot';
 
 import { SessionService } from '../../../services/session.service';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import {current} from 'codelyzer/util/syntaxKind';
 
 @Component({
     selector: 'app-builder-schedule',
@@ -14,7 +12,7 @@ import {current} from 'codelyzer/util/syntaxKind';
     styleUrls: [ './builder-schedule.component.scss' ]
 })
 
-export class BuilderScheduleComponent implements OnInit  {
+export class BuilderScheduleComponent implements OnInit, OnDestroy  {
 
     sessions: SessionProposal[];
     sessionsAccepted: SessionProposal[] = [];
@@ -23,6 +21,8 @@ export class BuilderScheduleComponent implements OnInit  {
     timeInput: string;
     addSlot = false;
     inputMargin = 2;
+    error = '';
+    success = '';
 
 
     constructor(private sessionService: SessionService, private dragula: DragulaService) {}
@@ -34,6 +34,9 @@ export class BuilderScheduleComponent implements OnInit  {
                 this.renderTimeSlots();
             });
         this.filterTrack = 'All';
+        // this.dragula.drop.subscribe(value => {
+        //     console.log(value, this.timeslots);
+        // });
     }
 
     addSlotEnable(): void {
@@ -56,7 +59,11 @@ export class BuilderScheduleComponent implements OnInit  {
         this.renderTimeSlots();
     }
 
-    dropSession(): void {
+    updateTime(session: SessionProposal): void {
+        console.log(session, 'Updating Time');
+    }
+
+    /*dropSession(): void {
         let session: SessionProposal;
         this.dragula
             .drop
@@ -66,15 +73,19 @@ export class BuilderScheduleComponent implements OnInit  {
                 this.sessionsAccepted.push(session);
             });
         this.dragula.drop.unsubscribe();
-    }
+    }*/
 
     save(): void {
-        for (const session of this.sessionsAccepted) {
-            session.Accepted = true;
-            let returnSession: Promise<SessionProposal>;
-            returnSession = this.sessionService.updateSessionProposal(session, session.SessionProposalId);
+        for (const timeslot of this.timeslots) {
+            for (const session of timeslot.Sessions) {
+                // this.sessionService.updateSessionProposal(session, session.SessionProposalId)
+                //     .then(() => this.success = 'Successfully update schedule')
+                //     .catch((e) => this.error = 'There was an error completing your request!!!!!');
+                console.log(JSON.stringify(session));
+            }
         }
     }
+
     renderTimeSlots(): void {
         for (const timeslot of this.timeslots) {
             for (const session of this.sessions) {
@@ -85,4 +96,9 @@ export class BuilderScheduleComponent implements OnInit  {
             }
         }
     }
+
+    ngOnDestroy(): void {
+        // this.dragula.drop.unsubscribe();
+    }
+
 }
