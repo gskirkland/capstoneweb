@@ -18,6 +18,7 @@ import { CalendarComponent } from './ui/calendar/calendar.component';
 import { AuthGuard } from './guards/auth.guard';
 import {UserLayoutComponent} from './ui/layouts/user-layout/user-layout.component';
 import {HomeLayoutComponent} from './ui/layouts/home-layout/home-layout.component';
+import {AdminGuard} from './guards/admin.guard';
 
 const appRoutes: Routes = [
     {
@@ -44,8 +45,8 @@ const appRoutes: Routes = [
             { path: 'changepassword', component: UserChangePasswordComponent },
             { path: 'emailactivation/:EmailActivationToken', component: UserEmailActivationComponent },
             { path: 'schedule', component: CalendarComponent },
-            { path: 'schedule-builder', component: BuilderScheduleComponent },
-            { path: '**', redirectTo: 'sessions' }
+            { path: 'schedule-builder', component: BuilderScheduleComponent, canActivate: [AdminGuard] },
+            { path: '**', redirectTo: 'schedule' }
         ],
         canActivate: [AuthGuard]
     },

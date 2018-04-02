@@ -43,6 +43,7 @@ import { UserService } from './services/user.service';
 import { AuthGuard } from './guards/auth.guard';
 import { UserLayoutComponent } from './ui/layouts/user-layout/user-layout.component';
 import { HomeLayoutComponent } from './ui/layouts/home-layout/home-layout.component';
+import {AdminGuard} from './guards/admin.guard';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { HomeLayoutComponent } from './ui/layouts/home-layout/home-layout.compon
     EventService,
     SessionService,
     UserService,
-    AuthGuard
+    AuthGuard,
+    AdminGuard
   ],
   bootstrap: [AppComponent]
 })
