@@ -15,6 +15,7 @@ export class AdminGuard implements CanActivate {
                 return true;
             }
             // Navigate to the schedule page in the user layout
+            // Testing upstream issue
             this.router.navigate(['/user/schedule']);
             return false;
         });
