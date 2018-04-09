@@ -10,8 +10,8 @@ export class AuthGuard implements CanActivate {
         if (this.authService.isAuthenticated()) {
              return true;
         }
-        //  // Navigate to the login page with extras
-        this.router.navigate(['/home/login']);
+        // Else, navigate to the schedule page in the home layout
+        this.router.navigate(['/home/schedule']);
         return false;
     }
 }
