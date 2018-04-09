@@ -18,6 +18,7 @@ import { CalendarComponent } from './ui/calendar/calendar.component';
 import { AuthGuard } from './guards/auth.guard';
 import {UserLayoutComponent} from './ui/layouts/user-layout/user-layout.component';
 import {HomeLayoutComponent} from './ui/layouts/home-layout/home-layout.component';
+import {SponsorComponent} from './ui/sponsor/sponsor.component';
 
 const appRoutes: Routes = [
     {
@@ -28,6 +29,7 @@ const appRoutes: Routes = [
             { path: 'register', component: UserRegisterComponent },
             { path: 'confirmaccount', component: UserRegisterConfirmComponent },
             { path: 'schedule', component: CalendarComponent },
+            { path: 'sponsors', component: SponsorComponent },
             { path: 'passwordreset/:PasswordResetToken', component: UserPasswordResetComponent },
             { path: '**', redirectTo: 'schedule'}
         ]
@@ -45,6 +47,7 @@ const appRoutes: Routes = [
             { path: 'emailactivation/:EmailActivationToken', component: UserEmailActivationComponent },
             { path: 'schedule', component: CalendarComponent },
             { path: 'schedule-builder', component: BuilderScheduleComponent },
+            { path: 'sponsors', component: SponsorComponent },
             { path: '**', redirectTo: 'sessions' }
         ],
         canActivate: [AuthGuard]
