@@ -63,26 +63,16 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
         console.log(session, 'Updating Time');
     }
 
-    /*dropSession(): void {
-        let session: SessionProposal;
-        this.dragula
-            .drop
-            .subscribe((value) => {
-                session = value;
-                session.StartTime = new Date();
-                this.sessionsAccepted.push(session);
-            });
-        this.dragula.drop.unsubscribe();
-    }*/
-
     save(): void {
         for (const timeslot of this.timeslots) {
             for (const session of timeslot.Sessions) {
-                // this.sessionService.updateSessionProposal(session, session.SessionProposalId)
-                //     .then(() => this.success = 'Successfully update schedule')
-                //     .catch((e) => this.error = 'There was an error completing your request!!!!!');
+                session.StartTime = timeslot.StartTime;
                 console.log(JSON.stringify(session));
             }
+            this.sessionService.updateSessionProposals(timeslot.Sessions)
+                .then(() => this.success = 'Successfully update schedule')
+                .catch((e) => this.error = 'There was an error completing your request!!!!!');
+            //console.log(JSON.stringify(session));
         }
     }
 
