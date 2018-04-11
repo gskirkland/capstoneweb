@@ -18,7 +18,7 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
     sessionsAccepted: SessionProposal[] = [];
     filterTrack: string;
     timeslots: Timeslot[] = [];
-    timeInput: string;
+    timeInput = '';
     addSlot = false;
     inputMargin = 2;
     error = '';
@@ -34,16 +34,14 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
                 this.renderTimeSlots();
             });
         this.filterTrack = 'All';
-        // this.dragula.drop.subscribe(value => {
-        //     console.log(value, this.timeslots);
-        // });
     }
 
     addSlotEnable(): void {
         this.addSlot = !this.addSlot;
     }
     addTimeSlot() {
-        if (this.timeInput.length === 0) {
+        const validate = this.timeValidate();
+        if (this.timeInput.length === 0 || !validate) {
             return;
         }
         const startTime = '2018-04-20 ' + this.timeInput;
@@ -59,20 +57,25 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
         this.renderTimeSlots();
     }
 
-    updateTime(session: SessionProposal): void {
-        console.log(session, 'Updating Time');
-    }
-
-    save(): void {
+    save() {
         for (const timeslot of this.timeslots) {
+            const year = timeslot.StartTime.getFullYear();
+            const month = timeslot.StartTime.getMonth();
+            const day = timeslot.StartTime.getDate();
+            const hour = timeslot.StartTime.getHours();
+            const min = timeslot.StartTime.getMinutes();
+            const sec = timeslot.StartTime.getSeconds();
+            const milSec = timeslot.StartTime.getMilliseconds();
             for (const session of timeslot.Sessions) {
-                session.StartTime = timeslot.StartTime;
+                session.StartTime = new Date(Date.UTC(year, month, day, hour, min, sec, milSec));
+                console.log(timeslot.StartTime);
                 console.log(JSON.stringify(session));
             }
             this.sessionService.updateSessionProposals(timeslot.Sessions)
                 .then(() => this.success = 'Successfully update schedule')
-                .catch((e) => this.error = 'There was an error completing your request!!!!!');
-            //console.log(JSON.stringify(session));
+                .then(() => this.error = '')
+                .catch((e) => this.error = 'There was an error completing your request!!!!!')
+                .catch(() => this.success = '');
         }
     }
 
@@ -87,8 +90,20 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
         }
     }
 
+    timeValidate(): boolean {
+        var verified: boolean;
+        const date = new Date('2018-04-20 ' + this.timeInput);
+        const test = date.getDate();
+        if (isNaN(test)) {
+            verified = false;
+        } else {
+            verified = true;
+        }
+        return verified;
+    }
+
     ngOnDestroy(): void {
-        // this.dragula.drop.unsubscribe();
+        this.dragula.drop.unsubscribe();
     }
 
 }
