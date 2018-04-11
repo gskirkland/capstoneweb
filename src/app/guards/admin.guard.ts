@@ -7,17 +7,20 @@ import {User} from '../models/user/user';
 @Injectable()
 export class AdminGuard implements CanActivate {
 
-  constructor(private userService: UserService, private router: Router) {}
-  canActivate(): boolean {
-    this.userService.getUser()
+    constructor(private userService: UserService, private router: Router) {}
+    canActivate(): Promise<boolean> {
+    return this.userService.getUser()
         .then(user => {
             if (user.IsAdmin) {
                 return true;
             }
             // Navigate to the schedule page in the user layout
-            // Testing upstream issue
             this.router.navigate(['/user/schedule']);
             return false;
         });
-  }
+    }
 }
+ // Possible Solution 1
+ // if (this.authService.isAdmin()) {
+ //     return true;
+ // }
