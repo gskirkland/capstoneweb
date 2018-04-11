@@ -1,3 +1,12 @@
+    <div *ngIf="error" class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{error}}
+    </div>
+    <div *ngIf="success" class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{success}}
+    </div>
+
     <div class="container-fluid"
          fxLayout
          fxLayout.xs="column"
@@ -42,13 +51,17 @@
                         </div>
                     </div>
                     <div class="timeslot" fxLayout="column"
-                         *ngFor = "let timeslot of timeslots"
-                         (drop)="dropSession(timeslot)">
+                         *ngFor = "let timeslot of timeslots">
                         <div fxLayout="row">
                             <div class="time" fxFlex="20%">
                                 <h2>{{timeslot.StartTime | date : 'h:mm a'}}</h2>
                             </div>
-                            <div [dragula]='"bag-sessions"' class="cardholder-scheduled" fxFlex="80" fxLayout="column">
+                            <div [dragula]='"bag-sessions"'
+                                 [dragulaModel]="timeslot.Sessions"
+                                 class="cardholder-scheduled"
+                                 fxFlex="80"
+                                 fxLayout="column">
+
                                 <ng-container *ngFor = "let session of timeslot.Sessions">
                                     <div class="card" fxFlex="grow">
                                         <h4 class="card-speaker">{{session.SpeakerName}}</h4>
@@ -56,6 +69,7 @@
                                         <p class="card-text">{{session.Abstract | limitTo:300}}</p>
                                         <span class="label label-primary label-fat">{{session.Track | sessionTrackType}}</span>
                                         <span class="label label-default label-fat">{{session.Room}}</span>
+                                        <input hidden type="text" [(ngModel)]="session.StartTime" [value]="timeslot.StartTime">
                                     </div>
                                 </ng-container>
                             </div>
@@ -72,7 +86,11 @@
                      fxLayoutGap="10px"
                      fxLayoutGap.xs="0"
                      fxFill="flex">
-                    <div [dragula]='"bag-sessions"' class="cardholder-unscheduled" *ngFor = "let session of sessions">
+                    <div [dragula]='"bag-sessions"'
+                         [dragulaModel]="sessions"
+                         class="cardholder-unscheduled"
+                         *ngFor = "let session of sessions">
+
                         <div class="card" fxFlex="grow">
                             <h4 class="card-speaker">{{session.SpeakerName}}</h4>
                             <h5 class="card-title">{{session.Title}}</h5>

@@ -90,7 +90,15 @@ export class SessionService {
                 return r.json() as SessionProposal;
             });
     }
-    
+
+    updateSessionProposals(sessions: SessionProposal[]) {
+        return this.http.put(this.baseApiUrl + 'SessionProposals/List', sessions, {headers: this.getHeaders()})
+            .toPromise()
+            .then(response => {
+                return response;
+            });
+    }
+
     getAllFavoriteSessions(): Promise<SessionFavorite[]> {
         return this.http.get(this.baseApiUrl + 'SessionProposals/Favorite/List', {headers: this.getHeaders()})
             .toPromise()
