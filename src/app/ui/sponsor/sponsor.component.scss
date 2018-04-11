@@ -1,0 +1,37 @@
+.container-fluid {
+  justify-content: center;
+}
+
+.sponsor-card {
+  padding: 2%;
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 2%;
+  width: 100%;
+}
+.sponsor-card:hover {
+  background-color: #f8f8f8;
+}
+
+.sponsor-title {
+  font-weight: bold;
+}
+
+.sponsor-info {
+  padding-left: 2%;
+  align-items: flex-start;
+}
+
+.logo-container {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+}
+
+.sponsor-logo {
+  align-self: center;
+  border-radius: 4%;
+}
+
+.sponsor-text {
+  white-space: pre-wrap;
+}

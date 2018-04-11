@@ -24,6 +24,7 @@ import { UserPasswordResetComponent } from './ui/user/user-password-reset/user-p
 import { UserRegisterConfirmComponent } from './ui/user/user-register-confirm/user-register-confirm.component';
 import { UserRegisterComponent } from './ui/user/user-register/user-register.component';
 import { NavigationComponent } from './ui/nav/navigation/navigation.component';
+import { SponsorComponent } from './ui/sponsor/sponsor.component';
 
 // PIPES
 import { SessionStatusTypePipe } from './pipes/session-status-type.pipe';
@@ -43,6 +44,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { UserLayoutComponent } from './ui/layouts/user-layout/user-layout.component';
 import { HomeLayoutComponent } from './ui/layouts/home-layout/home-layout.component';
 import {DragulaModule} from 'ng2-dragula';
+import {SponsorService} from './services/sponsor.service';
 
 @NgModule({
   declarations: [
@@ -68,6 +70,7 @@ import {DragulaModule} from 'ng2-dragula';
     LimitToPipe,
     UserLayoutComponent,
     HomeLayoutComponent,
+    SponsorComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +87,7 @@ import {DragulaModule} from 'ng2-dragula';
     EventService,
     SessionService,
     UserService,
+    SponsorService,
     AuthGuard
   ],
   bootstrap: [AppComponent]
