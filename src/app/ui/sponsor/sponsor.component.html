@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="cards" fxLayout="column">
+  <div class="cards" fxFlex="70" [fxFlex.xs]="90" [fxFlex.sm]="85" [fxFlex.md]="80" fxLayout="column">
       <div *ngFor="let sponsor of sponsors" class="cardholder" fxLayout="row">
         <div class="sponsor-card" (click)="goToLink(sponsor.LinkUrl)" fxLayout="column" >
           <div class="logo-container">
