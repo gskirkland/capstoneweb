@@ -48,6 +48,7 @@ const appRoutes: Routes = [
             { path: 'schedule', component: CalendarComponent },
             { path: 'schedule-builder', component: BuilderScheduleComponent },
             { path: 'sponsors', component: SponsorComponent },
+            { path: 'builder-list', component: BuilderListComponent },
             { path: '**', redirectTo: 'sessions' }
         ],
         canActivate: [AuthGuard]
