@@ -45,6 +45,8 @@ import { UserLayoutComponent } from './ui/layouts/user-layout/user-layout.compon
 import { HomeLayoutComponent } from './ui/layouts/home-layout/home-layout.component';
 import {DragulaModule} from 'ng2-dragula';
 import {SponsorService} from './services/sponsor.service';
+import { TabsComponent } from './ui/tabs/tabs/tabs/tabs.component';
+import { TabComponent } from './ui/tabs/tabs/tab/tab.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,8 @@ import {SponsorService} from './services/sponsor.service';
     UserLayoutComponent,
     HomeLayoutComponent,
     SponsorComponent,
+    TabsComponent,
+    TabComponent,
   ],
   imports: [
     BrowserModule,

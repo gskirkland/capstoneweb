@@ -2,6 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import { SessionProposal } from '../../../models/session/session-proposal';
 import { Timeslot} from '../../../models/time/timeslot';
+import { TabsComponent} from '../../tabs/tabs/tabs/tabs.component';
+import { TabComponent} from '../../tabs/tabs/tab/tab.component';
 
 import { SessionService } from '../../../services/session.service';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
@@ -23,6 +25,8 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
     inputMargin = 2;
     error = '';
     success = '';
+    Day1 = 'May 20';
+    Day2 = 'May 21';
 
 
     constructor(private sessionService: SessionService, private dragula: DragulaService) {}
@@ -75,7 +79,7 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
                 .then(() => this.success = 'Successfully update schedule')
                 .then(() => this.error = '')
                 .catch((e) => this.error = 'There was an error completing your request!!!!!')
-                .catch(() => this.success = '');
+                .catch((e) => this.success = '');
         }
     }
 
