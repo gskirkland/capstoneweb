@@ -1,79 +1,23 @@
- <div class="container-fluid">
-      <div class="row">
-          <div class="col-xs-12">
-              <div class="panel">
-                  <header>
-                      <div class="row">
-                          <div class="col-md-6">
-                              <h2>Session List</h2>
-                          </div>
-                          <div class="col-md-6">
-                              <global-session-search (notify)="onNotify($event)" class=""></global-session-search>
-                          </div>
-                      </div>
-                  </header>
-              </div>
-
-          </div>
-      </div>
-      <div class="row">
-          <div class="col-md-4">
-
-              <!-- <p-schedule [events]="events" [header]="header" [droppable]="true" pDroppable="dd" defaultDate="2017-05-05" defaultView="agendaDay" [eventLimit]="8" [editable]="true"
-                           (onEventClick)="handleEventClick($event)"></p-schedule>
-
-              <p-schedule [events]="events" [header]="header" defaultDate="2017-05-06" defaultView="agendaDay" [eventLimit]="4" [editable]="true"
-                          (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)"></p-schedule> -->
-          </div>
-          <div class="col-md-8">
-              <div class="container-fluid">
-                  <div *ngIf="sessions && sessions.length > 0" class="list-table nested">
-                      <!--  Filter Usage: ( data | filterPipe: 'search string':'session field' ) -->
-                      <div *ngFor="let session of sessions | filterPipe: filterTrack:'Track'
-                                                              | filterPipe: searchTitle:'Title'
-                                                                  | filterPipe: searchSpeaker:'SpeakerName'
-                                                                      | filterPipe: searchAbstract:'Abstract';
-                                                                          let index=index" class="col-xs-12 col-sm-6 col-md-4"
-                           [ngClass]="{'alt': (index % 2) == 1 }">
-                          <div class="col col-xs-12 card" pDraggable="dd">
-                              <div class="col-xs-12" >
-                                  <div class="col-sm-12 col-lg-6">
-                                      <img class="logo" src="../../images/profileDefault.png" width='100' height='100'>
-                                  </div>
-                                  <div class="subtitle col-sm-12 col-lg-6">
-                                      {{session.SpeakerName}}<br>
-                                      <span class="label label-primary label-fat">
-                                          {{session.Track | sessionTrackType}}
-                                      </span>
-                                  </div>
-                              </div>
-                              <div class="title col-xs-12">
-                                  {{session.Title}}
-                              </div>
-                              <div class="col-xs-12">
-                                  <p *ngIf="!session.showMore">
-                                      {{session.Abstract | limitTo:300 }}
-                                      <a *ngIf="session.Abstract.length > 300" (click)="showMore(session)" class="more">[more]</a>
-                                  </p>
-
-                                  <p *ngIf="session.showMore">
-                                      {{session.Abstract}}
-                                      <a *ngIf="session.Abstract.length > 300" (click)="showLess(session)" class="more">[less]</a>
-                                  </p>
-                              </div>
-                              <div class="col-xs-12 btnGroup">
-                                  <button *ngIf="session.CanVote" class="btn btn-primary btn-sm" (click)="onVoteSessionClick(session)">Vote</button>
-                                  <button *ngIf="!session.CanVote" class="btn btn-danger btn-sm" (click)="onRemoveVoteSessionClick(session)">Remove Vote</button>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div *ngIf="!sessions || sessions.length == 0">
-                      <p class="text-center">
-                          No sessions have been submitted yet. Please check back later.
-                      </p>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+<div class="container-fluid" fxLayout="column" fxFlex="75">
+    <span class="alert alert-success visible" *ngIf="savedSuccessfully">
+        <strong>Success!</strong>
+    </span>
+    <div class="save-btn">
+        <button class="btn btn-default" (click)="save()">Save</button>
+    </div>
+    <div class="cards" fxLayout="column" fxFlex="100">
+        <div *ngFor="let session of sessions" class="cardholder" fxLayout="row"
+             [style.backgroundColor]="accepted(session) ? 'lightblue' : '#f2f2f2'" (click)="clickSession(session)">
+            <div class="card" fxFlex="grow">
+                <h4 class="card-title">{{session.Title}}</h4>
+                <h5 class="card-speaker">{{session.SpeakerName}}</h5>
+                <span class="label label-primary label-fat {{session.Track | sessionTrackType}}">{{session.Track | sessionTrackType}}</span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!sessions || sessions.length == 0">
+        <p class="text-center">
+            No sessions have been submitted yet. Please check back later.
+        </p>
+    </div>
+</div>
