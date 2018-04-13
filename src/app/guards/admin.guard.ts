@@ -11,7 +11,7 @@ export class AdminGuard implements CanActivate {
     canActivate(): Promise<boolean> {
     return this.userService.getUser()
         .then(user => {
-            if (user.IsAdmin) {
+            if (user.Admin) {
                 return true;
             }
             // Navigate to the schedule page in the user layout

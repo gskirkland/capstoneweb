@@ -32,7 +32,6 @@ export class AuthService {
                     result.setAuthDetail(authResponse);
                     if (authResponse.AuthenticationToken) {
                         localStorage.setItem('AuthToken', r.json().AuthenticationToken);
-                        localStorage.setItem('isAdmin-item', r.json().IsAdmin);
                     }
                 }
                 return result;
@@ -47,12 +46,7 @@ export class AuthService {
 
     logout() {
         localStorage.removeItem('AuthToken');
-        localStorage.removeItem('isAdmin-token');
         this.router.navigate(['/home/login']);
-    }
-
-    isAdmin() {
-        return localStorage.getItem('isAdmin-item');
     }
 
     isAuthenticated() {
