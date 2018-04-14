@@ -2,10 +2,15 @@
     <span class="alert alert-success visible" *ngIf="savedSuccessfully">
         <strong>Success!</strong>
     </span>
-    <div class="save-btn" [fxFlex]="!sessions || sessions.length == 0 ? 50 : 3.75">
+    <div class="save-btn">
         <button class="btn btn-default" (click)="save()">Save</button>
     </div>
-    <div class="cards" fxLayout="column" fxFlex="100">
+    <div *ngIf="!sessions || sessions.length == 0">
+        <p class="text-center">
+            No sessions have been submitted yet. Please check back later.
+        </p>
+    </div>
+    <div class="cards" fxLayout="column">
         <div *ngFor="let session of sessions" class="cardholder" fxLayout="row"
              [style.backgroundColor]="accepted(session) ? '#d9d9d9' : '#f2f2f2'" (click)="clickSession(session)">
             <div class="card" fxFlex="grow">
@@ -13,11 +18,6 @@
                 <h5 class="card-speaker">{{session.SpeakerName}}</h5>
                 <span class="label label-primary label-fat {{session.Track | sessionTrackType}}">{{session.Track | sessionTrackType}}</span>
             </div>
-        </div>
-        <div *ngIf="!sessions || sessions.length == 0" fxFlex="100">
-            <p class="text-center">
-                No sessions have been submitted yet. Please check back later.
-            </p>
         </div>
     </div>
 </div>
