@@ -46,6 +46,7 @@ const appRoutes: Routes = [
             { path: 'emailactivation/:EmailActivationToken', component: UserEmailActivationComponent },
             { path: 'schedule', component: CalendarComponent },
             { path: 'schedule-builder', component: BuilderScheduleComponent },
+            { path: 'bookmarks', component: BookmarksComponent},
             { path: '**', redirectTo: 'sessions' }
         ],
         canActivate: [AuthGuard]

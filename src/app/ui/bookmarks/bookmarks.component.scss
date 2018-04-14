@@ -1,6 +1,8 @@
 .container-fluid {
-  padding-left: 8%;
-  padding-right: 8%;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 div .cards {
@@ -18,6 +20,10 @@ div .icon .fa-times {
 
 .card-title {
   font-weight: bold;
+}
+
+.nav-tabs {
+  margin-left: 6%;
 }
 
 

@@ -1,79 +1,278 @@
-<navigation>
-    <!--Entire page-->
-    <div class="container-fluid" body>
-        <!--Tabs-->
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item active">
-                <a class="nav-link" href="#day1" id="day1-tab" data-toggle="tab" role="tab">April 20</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#day2" id="day2-tab" data-toggle="tab" role="tab">April 21</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade active in" id="day1" role="tabpanel">
-                <!--Times-->
-                <ng-container *ngFor="let timeslot_obj of calendar_obj | mapToIterable">
-                    <ng-container *ngIf= "timeslot_obj.key == '20'">
-                        <ng-container *ngFor="let time_obj of timeslot_obj.val | mapToIterable">
-                            <div *ngFor="let time of time_obj.val | mapToIterable"
-                                 class="row time-slot" fxLayout="row" fxLayoutAlign="start">
-                                <div class="time" fxLayout="column" fxFlex="20">
-                                    <h4 class="time-value">{{time.key}}</h4>
-                                </div>
-                                <!--Sessions--><!--ToDo: Fix StartTime, Abstract, Track-->
-                                <div class="cards" fxLayout="column" fxFlex="80">
-                                    <ng-container *ngFor="let session of time.val">
-                                        <div *ngIf="sessions.length" class="cardholder" fxLayout="row">
-                                            <div class="card" fxFlex="grow">
-                                                <h4 class="card-speaker">{{session.SpeakerName}}</h4>
-                                                <h5 class="card-title">{{session.Title}}</h5>
-                                                <p class="card-text">{{session.Abstract | limitTo:300 }}</p>
-                                                <span class="label label-primary label-fat">{{session.Track | sessionTrackType}}</span>
-                                                <span class="label label-default label-fat">{{session.Room }}</span>
-                                            </div>
-                                            <div class="icon" fxFlex="20" fxLayoutAlign="center center"><!--Undo button after remove button?-->
-                                                <i class="fa fa-times fa-2x" id="remove-icon1" (click)="onRemoveClick(session)"></i><!--fix remove button-->
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                </div>
+<!--Entire page-->
+<div class="container-fluid">
+    <!--Tabs-->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <!--ToDo: Fix day1-tab and day2-tab-->
+        <li class="nav-item">
+            <a class="nav-link" href="#day1" id="day1-tab" data-toggle="tab" role="tab">April 20</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#day2" id="day2-tab" data-toggle="tab" role="tab">April 21</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="#bookmarks" id="bookmarks-tab" data-toggle="tab" role="tab">My Favorites</a>
+        </li>
+    </ul>
+    <div class="tab-pane fade active in" role="tabpanel" id="tab-bookmarks-tab">
+        <ng-container *ngFor="let day of calendar">
+            <h3 class="days">{{day.day}}</h3>
+            <!--Times-->
+            <div *ngFor="let time of day.time_blocks"
+                 class="row time-slot" fxLayout="row" fxLayoutAlign="start">
+                <div class="time" fxLayout="column" fxFlex="15">
+                    <h4 class="time-value">{{time.time}}</h4>
+                </div>
+                <!--Sessions-->
+                <div class="cards" fxLayout="column" fxFlex="85">
+                    <ng-container *ngFor="let session of time.session_list">
+                        <div *ngIf="!session.SpeakerCanceled && session.SpeakerConfirmed" class="cardholder" fxLayout="row">
+                            <div class="card" data-target="#abstractModal" (click)="showModal(session)" data-toggle="modal" fxFlex="grow">
+                                <h4 class="card-title">{{session.Title}}</h4>
+                                <h5 class="card-speaker">{{session.SpeakerName}}</h5>
+                                <p class="card-text">{{session.Abstract | limitTo:300 }}</p>
+                                <span class="label label-primary label-fat {{session.Track | sessionTrackType}}">{{session.Track | sessionTrackType}}</span>
+                                <span class="label label-default label-fat">{{session.Room }}</span>
                             </div>
-                        </ng-container>
+                            <div class="icon" fxFlex="20" fxLayoutAlign="center center">
+                                <i class="fa fa-times fa-2x" id="remove-icon" (click)="onRemoveClick(session)" ></i>
+                            </div>
+                        </div>
                     </ng-container>
-                </ng-container>
+                </div>
             </div>
-            <div class="tab-pane fade" id="day2" role="tabpanel">
-                <ng-container *ngFor="let timeslot_obj of calendar_obj | mapToIterable">
-                    <ng-container *ngIf= "timeslot_obj.key == '21'">
-                        <ng-container *ngFor="let time_obj of timeslot_obj.val | mapToIterable">
-                            <div *ngFor="let time of time_obj.val | mapToIterable"
-                                 class="row time-slot" fxLayout="row" fxLayoutAlign="start">
-                                <div class="time" fxLayout="column" fxFlex="20">
-                                    <h4 class="time-value">{{time.key}}</h4>
-                                </div>
-                                <!--Sessions--><!--ToDo: Fix StartTime, Abstract, Track-->
-                                <div class="cards" fxLayout="column" fxFlex="80">
-                                    <ng-container *ngFor="let session of time.val">
-                                        <div *ngIf="sessions.length" class="cardholder" fxLayout="row">
-                                            <div class="card" fxFlex="grow">
-                                                <h4 class="card-speaker">{{session.SpeakerName}}</h4>
-                                                <h5 class="card-title">{{session.Title}}</h5>
-                                                <p class="card-text">{{session.Abstract | limitTo:300 }}</p>
-                                                <span class="label label-primary label-fat">{{session.Track | sessionTrackType}}</span>
-                                                <span class="label label-default label-fat">{{session.Room }}</span>
-                                            </div>
-                                            <div class="icon" fxFlex="20" fxLayoutAlign="center center"><!--Undo button after remove button?-->
-                                                <i class="fa fa-times fa-2x" id="remove-icon2" (click)="onRemoveClick(session)"></i><!--Fix remove button-->
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                </div>
+        </ng-container>
+    </div>
+</div>
+<!--ToDo: Add modal for abstract-->
+
+<!--ToDo: Get favorites detail and add to correct time slots-->
+<!--
+        <div class="container-fluid">
+            <div class="date">Friday, April 20</div>
+            <div class="container-fluid">
+                <div class="wrapper" fxFlexAlign="start center" fxlayoutwrap="wrap"
+                 style="flex-direction: row; box-sizing: border-box; display: flex;">
+                    <div class="container time-wrapper" fxFlex="20"
+                     style="flex: 1 1 100%; box-sizing: border-box; max-width: 20%;">
+                        <div class="time">
+                            9:00 AM
+                        </div>
+                    </div>
+                    <div class="container session-wrapper" fxFlex="80"
+                     style="flex: 1 1 100%; box-sizing: border-box; max-width: 80%;">
+                    </div>
+                </div>
+                <div class="wrapper" fxFlexAlign="start center" fxlayoutwrap="wrap"
+                     style="flex-direction: row; box-sizing: border-box; display: flex;">
+                    <div class="container time-wrapper" fxFlex="20"
+                         style="flex: 1 1 100%; box-sizing: border-box; max-width: 20%;">
+                        <div class="time">
+                            10:00 AM
+                        </div>
+                    </div>
+                    <div class="container session-wrapper" fxFlex="80"
+                         style="flex: 1 1 100%; box-sizing: border-box; max-width: 80%;">
+                    </div>
+                </div>
+                <div class="wrapper" fxFlexAlign="start center" fxlayoutwrap="wrap"
+                     style="flex-direction: row; box-sizing: border-box; display: flex;">
+                    <div class="container time-wrapper" fxFlex="20"
+                         style="flex: 1 1 100%; box-sizing: border-box; max-width: 20%;">
+                        <div class="time">
+                            11:00 AM
+                        </div>
+                    </div>
+                    <div class="container session-wrapper" fxFlex="80"
+                         style="flex: 1 1 100%; box-sizing: border-box; max-width: 80%;">
+                    </div>
+                </div>
+                <div class="wrapper" fxFlexAlign="start center" fxlayoutwrap="wrap"
+                     style="flex-direction: row; box-sizing: border-box; display: flex;">
+                    <div class="container time-wrapper" fxFlex="20"
+                         style="flex: 1 1 100%; box-sizing: border-box; max-width: 20%;">
+                        <div class="time">
+                            12:00 PM
+                        </div>
+                    </div>
+                    <div class="container session-wrapper" fxFlex="80"
+                         style="flex: 1 1 100%; box-sizing: border-box; max-width: 80%;">
+                    </div>
+                </div>
+                <div class="wrapper" fxFlexAlign="start center" fxlayoutwrap="wrap"
+                     style="flex-direction: row; box-sizing: border-box; display: flex;">
+                    <div class="container time-wrapper" fxFlex="20"
+                         style="flex: 1 1 100%; box-sizing: border-box; max-width: 20%;">
+                        <div class="time">
+                            1:00 PM
+                        </div>
+                    </div>
+                    <div class="container session-wrapper" fxFlex="80"
+                         style="flex: 1 1 100%; box-sizing: border-box; max-width: 80%;">
+                    </div>
+                </div>
+                <div class="wrapper" fxFlexAlign="start center" fxlayoutwrap="wrap"
+                     style="flex-direction: row; box-sizing: border-box; display: flex;">
+                    <div class="container time-wrapper" fxFlex="20"
+                         style="flex: 1 1 100%; box-sizing: border-box; max-width: 20%;">
+                        <div class="time">
+                            2:00 PM
+                        </div>
+                    </div>
+                    <div class="container session-wrapper" fxFlex="80"
+                         style="flex: 1 1 100%; box-sizing: border-box; max-width: 80%;">
+                    </div>
+                </div>
+                <div class="wrapper" fxFlexAlign="start center" fxlayoutwrap="wrap"
+                     style="flex-direction: row; box-sizing: border-box; display: flex;">
+                    <div class="container time-wrapper" fxFlex="20"
+                         style="flex: 1 1 100%; box-sizing: border-box; max-width: 20%;">
+                        <div class="time">
+                            3:00 PM
+                        </div>
+                    </div>
+                    <div class="container session-wrapper" fxFlex="80"
+                         style="flex: 1 1 100%; box-sizing: border-box; max-width: 80%;">
+                    </div>
+                </div>
+                <div class="wrapper" fxFlexAlign="start center" fxlayoutwrap="wrap"
+                     style="flex-direction: row; box-sizing: border-box; display: flex;">
+                    <div class="container time-wrapper" fxFlex="20"
+                         style="flex: 1 1 100%; box-sizing: border-box; max-width: 20%;">
+                        <div class="time">
+                            4:00 PM
+                        </div>
+                    </div>
+                    <div class="container session-wrapper" fxFlex="80"
+                         style="flex: 1 1 100%; box-sizing: border-box; max-width: 80%;">
+                    </div>
+                </div>
+                <div class="wrapper" fxFlexAlign="start center" fxlayoutwrap="wrap"
+                     style="flex-direction: row; box-sizing: border-box; display: flex;">
+                    <div class="container time-wrapper" fxFlex="20"
+                         style="flex: 1 1 100%; box-sizing: border-box; max-width: 20%;">
+                        <div class="time">
+                            5:00 PM
+                        </div>
+                    </div>
+                    <div class="container session-wrapper" fxFlex="80"
+                         style="flex: 1 1 100%; box-sizing: border-box; max-width: 80%;">
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="date">Saturday,April 21</div>
+                <div class="container-fluid">
+                    <div class="wrapper" fxFlexAlign="start center" fxlayoutwrap="wrap"
+                         style="flex-direction: row; box-sizing: border-box; display: flex;">
+                        <div class="container time-wrapper" fxFlex="20"
+                             style="flex: 1 1 100%; box-sizing: border-box; max-width: 20%;">
+                            <div class="time">
+                                9:00 AM
                             </div>
-                        </ng-container>
-                    </ng-container>
-                </ng-container>
+                        </div>
+                        <div class="container session-wrapper" fxFlex="80"
+                             style="flex: 1 1 100%; box-sizing: border-box; max-width: 80%;">
+                        </div>
+                    </div>
+                    <div class="wrapper" fxFlexAlign="start center" fxlayoutwrap="wrap"
+                         style="flex-direction: row; box-sizing: border-box; display: flex;">
+                        <div class="container time-wrapper" fxFlex="20"
+                             style="flex: 1 1 100%; box-sizing: border-box; max-width: 20%;">
+                            <div class="time">
+                                10:00 AM
+                            </div>
+                        </div>
+                        <div class="container session-wrapper" fxFlex="80"
+                             style="flex: 1 1 100%; box-sizing: border-box; max-width: 80%;">
+                        </div>
+                    </div>
+                    <div class="wrapper" fxFlexAlign="start center" fxlayoutwrap="wrap"
+                         style="flex-direction: row; box-sizing: border-box; display: flex;">
+                        <div class="container time-wrapper" fxFlex="20"
+                             style="flex: 1 1 100%; box-sizing: border-box; max-width: 20%;">
+                            <div class="time">
+                                11:00 AM
+                            </div>
+                        </div>
+                        <div class="container session-wrapper" fxFlex="80"
+                             style="flex: 1 1 100%; box-sizing: border-box; max-width: 80%;">
+                        </div>
+                    </div>
+                    <div class="wrapper" fxFlexAlign="start center" fxlayoutwrap="wrap"
+                         style="flex-direction: row; box-sizing: border-box; display: flex;">
+                        <div class="container time-wrapper" fxFlex="20"
+                             style="flex: 1 1 100%; box-sizing: border-box; max-width: 20%;">
+                            <div class="time">
+                                12:00 PM
+                            </div>
+                        </div>
+                        <div class="container session-wrapper" fxFlex="80"
+                             style="flex: 1 1 100%; box-sizing: border-box; max-width: 80%;">
+                        </div>
+                    </div>
+                    <div class="wrapper" fxFlexAlign="start center" fxlayoutwrap="wrap"
+                         style="flex-direction: row; box-sizing: border-box; display: flex;">
+                        <div class="container time-wrapper" fxFlex="20"
+                             style="flex: 1 1 100%; box-sizing: border-box; max-width: 20%;">
+                            <div class="time">
+                                1:00 PM
+                            </div>
+                        </div>
+                        <div class="container session-wrapper" fxFlex="80"
+                             style="flex: 1 1 100%; box-sizing: border-box; max-width: 80%;">
+                        </div>
+                    </div>
+                    <div class="wrapper" fxFlexAlign="start center" fxlayoutwrap="wrap"
+                         style="flex-direction: row; box-sizing: border-box; display: flex;">
+                        <div class="container time-wrapper" fxFlex="20"
+                             style="flex: 1 1 100%; box-sizing: border-box; max-width: 20%;">
+                            <div class="time">
+                                2:00 PM
+                            </div>
+                        </div>
+                        <div class="container session-wrapper" fxFlex="80"
+                             style="flex: 1 1 100%; box-sizing: border-box; max-width: 80%;">
+                        </div>
+                    </div>
+                    <div class="wrapper" fxFlexAlign="start center" fxlayoutwrap="wrap"
+                         style="flex-direction: row; box-sizing: border-box; display: flex;">
+                        <div class="container time-wrapper" fxFlex="20"
+                             style="flex: 1 1 100%; box-sizing: border-box; max-width: 20%;">
+                            <div class="time">
+                                3:00 PM
+                            </div>
+                        </div>
+                        <div class="container session-wrapper" fxFlex="80"
+                             style="flex: 1 1 100%; box-sizing: border-box; max-width: 80%;">
+                        </div>
+                    </div>
+                    <div class="wrapper" fxFlexAlign="start center" fxlayoutwrap="wrap"
+                         style="flex-direction: row; box-sizing: border-box; display: flex;">
+                        <div class="container time-wrapper" fxFlex="20"
+                             style="flex: 1 1 100%; box-sizing: border-box; max-width: 20%;">
+                            <div class="time">
+                                4:00 PM
+                            </div>
+                        </div>
+                        <div class="container session-wrapper" fxFlex="80"
+                             style="flex: 1 1 100%; box-sizing: border-box; max-width: 80%;">
+                        </div>
+                    </div>
+                    <div class="wrapper" fxFlexAlign="start center" fxlayoutwrap="wrap"
+                         style="flex-direction: row; box-sizing: border-box; display: flex;">
+                        <div class="container time-wrapper" fxFlex="20"
+                             style="flex: 1 1 100%; box-sizing: border-box; max-width: 20%;">
+                            <div class="time">
+                                5:00 PM
+                            </div>
+                        </div>
+                        <div class="container session-wrapper" fxFlex="80"
+                             style="flex: 1 1 100%; box-sizing: border-box; max-width: 80%;">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</navigation>
+</div>
+-->

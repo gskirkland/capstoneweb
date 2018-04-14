@@ -8,6 +8,7 @@ import { SessionTrackType } from '../models/session/session-track-type';
 import { AuthService } from './auth.service';
 import { ConfigService } from '../services/config.service';
 import 'rxjs/add/operator/toPromise';
+import {SessionFavorite} from '../models/session/session-favorite';
 
 @Injectable()
 export class SessionService {
@@ -90,24 +91,32 @@ export class SessionService {
             });
     }
 
-    getAllFavoriteSessions(): Promise<SessionProposal[]> {
+    updateSessionProposals(sessions: SessionProposal[]) {
+        return this.http.put(this.baseApiUrl + 'SessionProposals/List', sessions, {headers: this.getHeaders()})
+            .toPromise()
+            .then(response => {
+                return response;
+            });
+    }
+
+    getAllFavoriteSessions(): Promise<SessionFavorite[]> {
         return this.http.get(this.baseApiUrl + 'SessionProposals/Favorite/List', {headers: this.getHeaders()})
             .toPromise()
             .then(r => {
-                return r.json() as SessionProposal[];
+                return r.json() as SessionFavorite[];
             });
     }
 
-    addFavoriteSession(session: SessionProposal): Promise<SessionProposal> {
+    addFavoriteSession(session: SessionProposal): Promise<SessionFavorite> {
         return this.http.post(this.baseApiUrl + 'SessionProposals/Favorite/Add', session, {headers: this.getHeaders()})
             .toPromise()
             .then(r => {
-                return r.json() as SessionProposal;
+                return r.json() as SessionFavorite;
             });
     }
 
 
-    deleteUserFavorite(sessionId: string): Promise<SessionProposal> {
+    deleteUserFavorite(sessionId: string): Promise<any> {
         return this.http.delete(this.baseApiUrl + 'SessionProposals/Favorite/' + sessionId, {headers: this.getHeaders()})
             .toPromise()
             .then(r => {
@@ -115,7 +124,7 @@ export class SessionService {
             });
     }
 
-    private getHeaders(){
+    private getHeaders() {
         // console.log(this.auth.authorizationToken());
         return new Headers({'Authorization': 'Basic ' + this.auth.authorizationToken()});
     }
