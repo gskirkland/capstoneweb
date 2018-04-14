@@ -1,4 +1,27 @@
-.tabBuilder {
+.nav-item {
   padding: 25px;
   border: 2px grey;
+}
+
+.nav {
+  padding-left: 0%;
+}
+.nav-tabs {
+  width: 100%;
+  padding-top: 0%;
+}
+.nav-tabs > li > a {
+  color: gray;
+  border: none;
+}
+.nav-tabs > li > a:hover {
+  cursor: pointer;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+  border-width: 0;
+  color: black;
+  background-color: inherit;
+  border-bottom: 2px solid royalblue;
 }
