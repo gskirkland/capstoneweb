@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {DragulaModule} from 'ng2-dragula';
 
 // UI COMPONENT
 import { AppComponent } from './app.component';
@@ -24,13 +25,15 @@ import { UserPasswordResetComponent } from './ui/user/user-password-reset/user-p
 import { UserRegisterConfirmComponent } from './ui/user/user-register-confirm/user-register-confirm.component';
 import { UserRegisterComponent } from './ui/user/user-register/user-register.component';
 import { NavigationComponent } from './ui/nav/navigation/navigation.component';
+import { SponsorComponent } from './ui/sponsor/sponsor.component';
+import { UserLayoutComponent } from './ui/layouts/user-layout/user-layout.component';
+import { HomeLayoutComponent } from './ui/layouts/home-layout/home-layout.component';
 
 // PIPES
 import { SessionStatusTypePipe } from './pipes/session-status-type.pipe';
 import { SessionTrackTypePipe } from './pipes/session-track-type.pipe';
 import { FilterPipe } from './pipes/filter-search.pipe';
 import { LimitToPipe } from './pipes/limit-to.pipe';
-import { MapToIterablePipe} from './pipes/map-to-iterable.pipe';
 
 // SERVICES
 import { AuthService } from './services/auth.service';
@@ -38,12 +41,11 @@ import { ConfigService } from './services/config.service';
 import { EventService } from './services/event.service';
 import { SessionService } from './services/session.service';
 import { UserService } from './services/user.service';
+import { SponsorService } from './services/sponsor.service';
 
 //  GUARDS
 import { AuthGuard } from './guards/auth.guard';
-import { UserLayoutComponent } from './ui/layouts/user-layout/user-layout.component';
-import { HomeLayoutComponent } from './ui/layouts/home-layout/home-layout.component';
-import {AdminGuard} from './guards/admin.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 @NgModule({
   declarations: [
@@ -68,8 +70,8 @@ import {AdminGuard} from './guards/admin.guard';
     FilterPipe,
     LimitToPipe,
     UserLayoutComponent,
-    MapToIterablePipe,
-    HomeLayoutComponent
+    HomeLayoutComponent,
+    SponsorComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,7 +79,8 @@ import {AdminGuard} from './guards/admin.guard';
     HttpModule,
     RouterModule,
     AppRoutingModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    DragulaModule
   ],
   providers: [
     AuthService,
@@ -85,7 +88,8 @@ import {AdminGuard} from './guards/admin.guard';
     EventService,
     SessionService,
     UserService,
-    AuthGuard,
+    SponsorService,
+      AuthGuard,
     AdminGuard
   ],
   bootstrap: [AppComponent]
