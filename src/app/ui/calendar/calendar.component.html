@@ -1,34 +1,110 @@
-
-<!--<second-nav>-->
-            <!--Entire page-->
-            <div class="container-fluid">
-                <!--Times-->
-                <ng-container *ngFor="let timeslot_obj of calendar_obj | mapToIterable">
-                    <ng-container *ngFor="let time_obj of timeslot_obj.val | mapToIterable">
-                        <div *ngFor="let time of time_obj.val | mapToIterable"
-                                class="row time-slot" fxLayout="row" fxLayoutAlign="start">
-                            <div class="time" fxLayout="column" fxFlex="10">
-                                <h4 class="time-value">{{time.key}}</h4>
-                            </div>
-                            <!--Sessions-->
-                            <div class="cards" fxLayout="column" fxFlex="90">
-                                <ng-container *ngFor="let session of time.val">
-                                    <div *ngIf="!session.SpeakerCanceled && session.SpeakerConfirmed" class="cardholder" fxLayout="row">
-                                        <div class="card" fxFlex="grow">
-                                            <h4 class="card-speaker">{{session.SpeakerName}}</h4>
-                                            <h5 class="card-title">{{session.Title}}</h5><!--TODO: add session title-->
-                                            <p class="card-text">{{session.Abstract | limitTo:300 }}</p>
-                                            <span class="label label-primary label-fat">{{session.Track | sessionTrackType}}</span>
-                                            <span class="label label-default label-fat">{{session.Room }}</span>
-                                        </div>
-                                        <div class="icon" fxFlex="20" fxLayoutAlign="center center"><!--toggle add/delete-->
-                                            <i class="fa fa-bookmark fa-2x" id="bookmark-icon" (click)="onBookmarkClick(session)"></i>
-                                        </div>
-                                    </div>
-                                </ng-container>
-                            </div>
+<!--Entire page-->
+<div class="container-fluid">
+    <!--Tabs-->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <ng-container *ngFor="let day of calendar; let i = index">
+            <li [ngClass]="{ 'active': i == 0 }"  class="nav-item">
+                <a class="nav-link" [href]="'#day_'+i" [id]="'day_' +i+ '-tab'" data-toggle="tab" role="tab">{{day.day}}</a>
+            </li>
+        </ng-container>
+        <ng-container *ngIf="isLoggedIn()">
+            <li class="nav-item">
+                <a class="nav-link" href="#bookmarks" id="bookmarks-tab" data-toggle="tab" role="tab">Bookmarks</a>
+            </li>
+        </ng-container>
+    </ul>
+    <div class="container">
+        <div class="tab-content" id="myTabContent">
+            <ng-container *ngFor="let day of calendar; let i = index">
+                <div class="tab-pane fade" [ngClass]="{ 'active in': i == 0 }" [id]="'day_'+i" role="tabpanel">
+                    <!--Times-->
+                    <div *ngFor="let time of day.time_blocks"
+                         class="row time-slot" fxLayout="row" fxLayoutAlign="start">
+                        <div class="time" fxLayout="column" fxFlex="15">
+                            <h4 class="time-value">{{time.time}}</h4>
                         </div>
-                    </ng-container>
+                        <!--Sessions-->
+                        <div class="cards" fxLayout="column" fxFlex="85">
+                            <ng-container *ngFor="let session of time.session_list">
+                                <div *ngIf="!session.SpeakerCanceled && session.SpeakerConfirmed" class="cardholder" fxLayout="row">
+                                    <div class="card" data-target="#abstractModal" (click)="showModal(session)" data-toggle="modal" fxFlex="grow">
+                                        <h4 class="card-title">{{session.Title}}</h4>
+                                        <h5 class="card-speaker">{{session.SpeakerName}}</h5>
+                                        <p class="card-text">{{session.Abstract | limitTo:300 }}</p>
+                                        <span class="label label-primary label-fat {{session.Track | sessionTrackType}}">{{session.Track | sessionTrackType}}</span>
+                                        <span class="label label-default label-fat">{{session.Room }}</span>
+                                    </div>
+                                    <div *ngIf="isLoggedIn()" class="icon" fxFlex="20" fxLayoutAlign="center center">
+                                        <i *ngIf="bookmarked(session)" class="fa fa-bookmark fa-2x" [id]="'b_' +i" (click)="onBookmarkClick(session)" ></i>
+                                        <i *ngIf="!bookmarked(session)" class="fa fa-bookmark-o fa-2x" [id]="'b_' +i" (click)="onBookmarkClick(session)" ></i>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="tab-pane fade" id="bookmarks" role="tabpanel">
+                <ng-container *ngFor="let day of calendar; let i = index">
+                    <h3 class="days">{{day.day}}</h3>
+                    <!--Times-->
+                    <div *ngFor="let time of day.time_blocks"
+                         class="row time-slot" fxLayout="row" fxLayoutAlign="start">
+                        <div class="time" fxLayout="column" fxFlex="15">
+                            <h4 class="time-value">{{time.time}}</h4>
+                        </div>
+                        <!--Sessions-->
+                        <div class="cards" fxLayout="column" fxFlex="85">
+                            <ng-container *ngFor="let session of time.session_list">
+                                <div *ngIf="!session.SpeakerCanceled && session.SpeakerConfirmed && bookmarked(session)" class="cardholder" fxLayout="row">
+                                    <div class="card" data-target="#abstractModal" (click)="showModal(session)" data-toggle="modal" fxFlex="grow">
+                                        <h4 class="card-title">{{session.Title}}</h4>
+                                        <h5 class="card-speaker">{{session.SpeakerName}}</h5>
+                                        <p class="card-text">{{session.Abstract | limitTo:300 }}</p>
+                                        <span class="label label-primary label-fat {{session.Track | sessionTrackType}}">{{session.Track | sessionTrackType}}</span>
+                                        <span class="label label-default label-fat">{{session.Room }}</span>
+                                    </div>
+                                    <div class="icon" fxFlex="20" fxLayoutAlign="center center">
+                                        <i *ngIf="bookmarked(session)" class="fa fa-bookmark fa-2x" [id]="'b_' +i" (click)="onBookmarkClick(session)" ></i>
+                                        <i *ngIf="!bookmarked(session)" class="fa fa-bookmark-o fa-2x" [id]="'b_' +i" (click)="onBookmarkClick(session)" ></i>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
                 </ng-container>
             </div>
-<!--</second-nav>-->
+        </div>
+    </div>
+</div>
+
+<!--Modal for Abstract-->
+<div class="modal fade" id="abstractModal" tabindex="-1" aria-hidden="true" role="dialog" style="display: none">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="fa fa-window-close" aria-hidden="true"></span>
+                </button>
+                <h4 class="card-title">{{modalInfo.Title}}</h4>
+                <h5 class="card-speaker">{{modalInfo.SpeakerName}}</h5>
+                <div class="session-room-track">
+                    <span class="label label-primary label-fat {{modalInfo.Track | sessionTrackType}}">{{modalInfo.Track | sessionTrackType}}</span>
+                    <span class="label label-default label-fat">{{modalInfo.Room }}</span>
+                </div>
+            </div>
+            <div class="modal-body">
+                {{modalInfo.Abstract}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

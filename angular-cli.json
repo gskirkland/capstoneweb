@@ -24,15 +24,16 @@
         "styles/src/panels.scss",
         "styles/src/theme.scss",
         "styles/src/variables.scss",
-        "../node_modules/font-awesome/css/font-awesome.min.css"                        
+        "../node_modules/font-awesome/css/font-awesome.min.css",
+        "../node_modules/dragula/dist/dragula.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",        
         "../node_modules/bootstrap-imageupload/dist/js/bootstrap-imageupload.min.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js"        
       ],
+      "environmentSource": "environments/environment.ts",
       "environments": {
-        "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
       }
