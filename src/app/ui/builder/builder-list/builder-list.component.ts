@@ -38,15 +38,13 @@ export class BuilderListComponent implements OnInit {
     }
 
     save() {
+        const element = document.getElementById('alert');
         this.sessionService.updateSessionProposals(this.sessions)
             .then(r => {
-                this.savedSuccessfully = true;
-                this.alert();
+                element.style.display = 'block';
+                setTimeout(function(){
+                    element.style.display = 'none';
+                }, 3000);
             });
-    }
-
-    alert() {
-        this.messages.push({severity: 'success', detail: 'Success!'});
-
     }
 }

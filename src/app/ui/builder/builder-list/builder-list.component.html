@@ -1,5 +1,5 @@
 <div class="container-fluid" fxLayout="column" fxFlex="75" [fxFlex.xs]="90" [fxFlex.sm]="85" [fxFlex.md]="80">
-    <span class="alert alert-success visible" *ngIf="savedSuccessfully">
+    <span style="display: none;" class="alert alert-success" id="alert">
         <strong>Success!</strong>
     </span>
     <div class="save-btn">
@@ -12,7 +12,7 @@
     </div>
     <div class="cards" fxLayout="column">
         <div *ngFor="let session of sessions" class="cardholder" fxLayout="row"
-             [style.backgroundColor]="accepted(session) ? '#d9d9d9' : '#f2f2f2'" (click)="clickSession(session)">
+             [style.backgroundColor]="accepted(session) ? '#dcdcdc' : '#f2f2f2'" (click)="clickSession(session)">
             <div class="card" fxFlex="grow">
                 <h4 class="card-title">{{session.Title}}</h4>
                 <h5 class="card-speaker">{{session.SpeakerName}}</h5>
