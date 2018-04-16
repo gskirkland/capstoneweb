@@ -87,6 +87,7 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
             }
         }
         const timeslot = new Timeslot();
+        timeslot.Rooms = this.rooms;
         timeslot.StartTime = time;
         this.days[dayIndex].Timeslots.push(timeslot);
         this.renderTimeSlots();
@@ -142,14 +143,12 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
         }
     }
 
-    onRoomSelected(val) {
-        for (const room of this.Rooms) {
-            if (room.Room === val) {
-                room.Hide = true;
-            } else {
-                room.Hide = false;
-            }
-        }
+    onRoomSelected(session, room) {
+        session.Room = room;
+    }
+
+    checkSelected(timeslot, room) {
+        return timeslot.Sessions.map(session => session.Room).indexOf(room) > -1;
     }
 
     ngOnDestroy(): void {

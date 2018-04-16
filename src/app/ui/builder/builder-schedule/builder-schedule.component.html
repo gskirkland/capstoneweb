@@ -70,10 +70,10 @@
                                          fxFlex="80"
                                          fxLayout="column">
 
-                                        <ng-select [items]="Rooms"
-                                                   [(ngModel)]="roomSelected"
-                                                   remove-selected="true">
-                                        </ng-select>
+                                        <!--<ng-select [items]="Rooms"-->
+                                                   <!--[(ngModel)]="roomSelected"-->
+                                                   <!--remove-selected="true">-->
+                                        <!--</ng-select>-->
 
 
                                         <ng-container *ngFor = "let session of timeslot.Sessions">
@@ -85,10 +85,11 @@
                                                     {{session.Track | sessionTrackType}}
                                                 </span>
 
-                                                <select (ngModelChange)="onRoomSelected(roomSelected)">
-                                                    <option *ngFor="let room of Rooms"
-                                                            value="selectedRoom"
-                                                            [disabled]="room.Hide">{{room.name}}</option>
+                                                <select [(ngModel)]="session.Room">
+                                                    <option *ngFor="let room of timeslot.Rooms"
+                                                            [value]="room"
+                                                            (click)="onRoomSelected(session, room)"
+                                                            [disabled]="checkSelected(timeslot, room)">{{room}}</option>
                                                 </select>
                                                 <!--<select [(ngModel)]="roomSelected" (ngModelChange)="onRoomSelected(roomSelected)">
                                                     <option [disabled]="true">-select room-</option>
