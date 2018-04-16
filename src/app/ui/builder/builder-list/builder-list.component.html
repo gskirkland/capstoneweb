@@ -1,4 +1,4 @@
-<div class="container-fluid" fxLayout="column" fxFlex="75" [fxFlex.xs]="90" [fxFlex.sm]="85" [fxFlex.md]="80">
+<div class="container-fluid" fxLayout="column" fxFlex="65" [fxFlex.xs]="90" [fxFlex.sm]="85" [fxFlex.md]="80">
     <span style="display: none;" class="alert alert-success" id="alert">
         <strong>Success!</strong>
     </span>
@@ -12,11 +12,15 @@
     </div>
     <div class="cards" fxLayout="column">
         <div *ngFor="let session of sessions" class="cardholder" fxLayout="row"
-             [style.backgroundColor]="accepted(session) ? '#dcdcdc' : '#f2f2f2'" (click)="clickSession(session)">
+             [style.backgroundColor]="accepted(session) ? '#b3ffb3' : '#f2f2f2'" (click)="clickSession(session)">
             <div class="card" fxFlex="grow">
                 <h4 class="card-title">{{session.Title}}</h4>
                 <h5 class="card-speaker">{{session.SpeakerName}}</h5>
                 <span class="label label-primary label-fat {{session.Track | sessionTrackType}}">{{session.Track | sessionTrackType}}</span>
+            </div>
+            <div class="icon" fxFlex="20" fxLayoutAlign="center center">
+                <i *ngIf="accepted(session)" class="fa fa-check-square-o fa-2x" [id]="'b_' +i"></i>
+                <i *ngIf="!accepted(session)" class="fa fa-square-o fa-2x" [id]="'b_' +i"></i>
             </div>
         </div>
     </div>
