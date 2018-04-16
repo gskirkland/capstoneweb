@@ -1,61 +1,61 @@
 <div class="container">
-  <div class="row">
-      <div class="col-lg-4 col-lg-offset-4 col-sm-12">
-          <div class="panel">
-              <header>
-                  <h2>Login</h2>
-              </header>
-              <div class="panel-body">
-                  <div *ngIf="error != ''" class="alert alert-danger alert-dismissible" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      {{error}}
-                      <span *ngIf="showPasswordReset"><a (click)="onPasswordResetClick()">Click here</a> to resend the password reset email</span>
-                      <span *ngIf="showConfirmEmail"><a (click)="onConfirmEmailClick()">Click here</a> to resend the email confirmation email</span>
-                  </div>
-                  <div *ngIf="message != ''" class="alert alert-success alert-dismissible" role="alert">
-                  {{message}}
-                  </div>
-                  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-                      <div class="row">
-                          <div class="col-md-12">
-                              <div class="form-group">                                
-                                  <label>Email</label>
-                                  <div class="input-group">
-                                      <input name="email" type="email" class="form-control input-lg" [(ngModel)]="email" />
-                                      <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                  </div>                                    
-                              </div>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-12">
-                              <div class="form-group">                                    
-                                  <label>Password</label>
-                                  <div class="input-group">
-                                      <input name="password" type="password" class="form-control input-lg" [(ngModel)]="password" />
-                                      <div class="input-group-addon"><i class="fa fa-unlock-alt"></i></div>
-                                  </div>   
-                                  <span><a style="cursor: pointer" (click)="onPasswordResetClick()">Forgot password?</a></span>                                 
-                              </div>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-12">                                
-                              <div class="form-group clearfix">                                    
-                                  <button type="submit" class="btn btn-primary pull-right">Login</button>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-12">
-                              <div class="text-center">
-                                  Don't have an account? <a routerLink="/register" routerLinkActive="active">Register Now!</a>
-                              </div>
-                          </div>
-                      </div>
-                  </form>
-              </div>
-          </div>
-      </div>
-  </div>
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-4 col-sm-12">
+            <div class="panel">
+                <header>
+                    <h2>Login</h2>
+                </header>
+                <div class="panel-body">
+                    <div *ngIf="error != ''" class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {{error}}
+                        <span *ngIf="showPasswordReset"><a (click)="onPasswordResetClick()">Click here</a> to resend the password reset email</span>
+                        <span *ngIf="showConfirmEmail"><a (click)="onConfirmEmailClick()">Click here</a> to resend the email confirmation email</span>
+                    </div>
+                    <div *ngIf="message != ''" class="alert alert-success alert-dismissible" role="alert">
+                        {{message}}
+                    </div>
+                    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <div class="input-group">
+                                        <input name="email" type="email" class="form-control input-lg" [(ngModel)]="email" />
+                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <div class="input-group">
+                                        <input name="password" type="password" class="form-control input-lg" [(ngModel)]="password" />
+                                        <div class="input-group-addon"><i class="fa fa-unlock-alt"></i></div>
+                                    </div>
+                                    <span><a style="cursor: pointer" (click)="onPasswordResetClick()">Forgot password?</a></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group clearfix">
+                                    <button type="submit" class="btn btn-primary pull-right">Login</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    Don't have an account? <a routerLink="/home/register" routerLinkActive="active">Register Now!</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

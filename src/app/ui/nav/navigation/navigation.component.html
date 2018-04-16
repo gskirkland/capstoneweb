@@ -11,12 +11,14 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
           <li *ngIf="isLoggedIn()"><a routerLink="/schedule" routerLinkActive="active"><i class="fa fa-calendar"></i> Schedule</a></li>
-          <li *ngIf="!isLoggedIn()"><a routerLink="/home/schedule" routerLinkActive="active"><i class="fa fa-calendar"></i> Schedule</a></li>
           <li *ngIf="isLoggedIn()"><a routerLink="/sessions" routerLinkActive="active"><i class="fa fa-th-list"></i> My Sessions</a></li>
-          <li *ngIf="isLoggedIn()"><a routerLink="/globalsessions" routerLinkActive="active"><i class="fa fa-list-alt"></i> All Sessions</a></li>
+          <!--<li *ngIf="isLoggedIn()"><a routerLink="/globalsessions" routerLinkActive="active"><i class="fa fa-list-alt"></i> All Sessions</a></li>-->
           <li *ngIf="isLoggedIn()"><a routerLink="/schedule-builder" routerLinkActive="active"><i class="fa fa-wrench"></i> Schedule Builder</a></li>
+          <li *ngIf="isLoggedIn()"><a routerLink="/sponsors" routerLinkActive="active"><i class="fa fa-handshake-o"></i> Sponsors</a></li>
+          <li *ngIf="!isLoggedIn()"><a routerLink="/home/sponsors" routerLinkActive="active"><i class="fa fa-handshake-o"></i> Sponsors</a></li>
           <li *ngIf="isLoggedIn()"><a routerLink="/profile" routerLinkActive="active"><i class="fa fa-user-circle-o"></i> Profile</a></li>
           <li *ngIf="isLoggedIn()"><a (click)='logout()'><i class="fa fa-unlock-alt"></i> Logout</a></li>
+          <li *ngIf="!isLoggedIn()"><a routerLink="/home/schedule" routerLinkActive="active"><i class="fa fa-calendar"></i> Schedule</a></li>
           <li *ngIf="!isLoggedIn()"><a routerLink="/home/login" routerLinkActive="active"><i class="fa fa-lock"></i> Login</a></li>
       </ul>
     </div>
