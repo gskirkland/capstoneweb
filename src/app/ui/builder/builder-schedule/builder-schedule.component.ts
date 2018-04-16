@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import { SessionProposal } from '../../../models/session/session-proposal';
 import { Timeslot} from '../../../models/time/timeslot';
+import { Room} from '../../../models/builder/room';
 
 import { SessionService } from '../../../services/session.service';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
@@ -24,6 +25,14 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
     inputMargin = 2;
     error = '';
     success = '';
+    roomSelected = '';
+    Rooms: Room[] = [];
+    rooms = ['BallroomA', 'BallRoomB', 'BallRoomC', '300A', '300B', '300C', '300D', '301A', '301B', '301C', '301D', '301E', 'ExibitHallB'];
+    /*rooms = [
+        {id: 1, name: 'BallroomA'},
+        {id: 2, name: 'BallRoomB'},
+        {id: 3, name: 'BallRoomC'},
+        {id: 4, name: '300A'}];*/
 
 
     constructor(private sessionService: SessionService, private dragula: DragulaService) {}
@@ -40,6 +49,15 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
         const day2 = new Day();
         day2.Day = new Date('2018-04-21 0:00:00.000');
         this.days.push(day2);
+        var i = 0;
+        for (const room of this.rooms) {
+            var roomTemp = new Room();
+            roomTemp.Id = i;
+            roomTemp.Room = room;
+            roomTemp.Hide = false;
+            this.Rooms.push(roomTemp);
+            i++;
+        }
         this.filterTrack = 'All';
     }
 
@@ -121,6 +139,16 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
                 .then(() => this.error = '')
                 .catch((e) => this.error = 'There was an error completing your request!!!!!')
                 .catch((e) => this.success = '');
+        }
+    }
+
+    onRoomSelected(val) {
+        for (const room of this.Rooms) {
+            if (room.Room === val) {
+                room.Hide = true;
+            } else {
+                room.Hide = false;
+            }
         }
     }
 

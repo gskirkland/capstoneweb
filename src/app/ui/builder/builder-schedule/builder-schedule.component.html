@@ -70,16 +70,39 @@
                                          fxFlex="80"
                                          fxLayout="column">
 
+                                        <ng-select [items]="Rooms"
+                                                   [(ngModel)]="roomSelected"
+                                                   remove-selected="true">
+                                        </ng-select>
+
+
                                         <ng-container *ngFor = "let session of timeslot.Sessions">
                                             <div class="card" fxFlex="grow">
                                                 <h4 class="card-speaker">{{session.SpeakerName}}</h4>
                                                 <h5 class="card-title">{{session.Title}}</h5>
                                                 <p class="card-text">{{session.Abstract | limitTo:300}}</p>
-                                                <span class="label label-primary label-fat {{session.Track | sessionTrackType}}">{{session.Track | sessionTrackType}}</span>
-                                                <span class="label label-default label-fat">{{session.Room}}</span>
+                                                <span class="label label-primary label-fat {{session.Track | sessionTrackType}}">
+                                                    {{session.Track | sessionTrackType}}
+                                                </span>
+
+                                                <select (ngModelChange)="onRoomSelected(roomSelected)">
+                                                    <option *ngFor="let room of Rooms"
+                                                            value="selectedRoom"
+                                                            [disabled]="room.Hide">{{room.name}}</option>
+                                                </select>
+                                                <!--<select [(ngModel)]="roomSelected" (ngModelChange)="onRoomSelected(roomSelected)">
+                                                    <option [disabled]="true">-select room-</option>
+                                                    <ng-container *ngFor="let room of Rooms">
+                                                    <option value="{{room.Room}}" [disabled]="room.Hide">
+                                                        {{room.Room}}
+                                                    </option>
+                                                    </ng-container>
+                                                </select>-->
+                                                <span>{{roomSelected}}</span>
                                                 <input hidden type="text" [(ngModel)]="session.StartTime" [value]="timeslot.StartTime">
                                             </div>
                                         </ng-container>
+
                                     </div>
                                 </div>
                             </div>
