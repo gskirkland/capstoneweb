@@ -3,22 +3,24 @@
   padding-right: 8%;
 }
 
+div .card {
+  border-bottom: 1px solid grey;
+}
 div .cardholder-scheduled {
-  border: 1px solid grey;
   padding: 5px;
 }
 
 div .cardholder-unscheduled {
-  border: 1px solid black;
   padding: 7px;
 }
 
 div .cards-unscheduled {
   padding: 15px;
+  border-bottom: solid lightgray;
 }
 
 div .timeslot {
-  border: 1px solid red;
+  border-bottom: 1px solid grey;
 }
 
 div .time {
@@ -31,6 +33,10 @@ div .builder-functions{
 
 a:hover {
   cursor: pointer;
+}
+
+.timeInput {
+  font-size: 30px;
 }
 
 .Developer {
@@ -47,4 +53,12 @@ a:hover {
 }
 .Design {
   background-color: indigo;
+}
+.remove {
+  float: right;
+  padding: 4px;
+}
+
+.remove:hover {
+  cursor: pointer;
 }
