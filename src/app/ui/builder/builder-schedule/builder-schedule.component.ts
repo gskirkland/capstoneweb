@@ -44,6 +44,7 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
             .then(sessions => {
                 this.sessions = sessions;
                 this.orderTimeSlots();
+                this.renderSessions();
             });
         this.filterTrack = 'All';
     }
@@ -131,6 +132,61 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
         }
     }
 
+    renderSessions() {
+        const schSessions: SessionProposal[] = [];
+        const ids = [];
+        for (const session of this.sessions) {
+            if (session.StartTime && moment(session.StartTime).format('YYYY-MM-DD') !== '0001-01-01') {
+                schSessions.push(session);
+                ids.push(session.SessionProposalId);
+            }
+        }
+        for (const id of ids) {
+            this.removeUnscheduledSession(id, this.sessions);
+        }
+        schSessions.sort((leftSide, rightSide): number => {
+            if (leftSide.StartTime < rightSide.StartTime) {return -1; }
+            if (leftSide.StartTime > rightSide.StartTime) {return 1; }
+            return 0;
+        });
+        const indexes = [];
+        for (let i = 0; i < schSessions.length - 1; i++) {
+            if (moment(schSessions[i].StartTime).format('YYYY-MM-DD h.mm') !==
+                moment(schSessions[i + 1].StartTime).format('YYYY-MM-DD h.mm')) {
+                indexes.push(i);
+                if (i === schSessions.length - 2) {
+                    indexes.push(i + 1);
+                }
+            }
+        }
+        console.log(indexes);
+        const timeslots: Timeslot[] = [];
+        for (const i of indexes) {
+            const slot = new Timeslot();
+            slot.StartTime = schSessions[i].StartTime;
+            timeslots.push(slot);
+            console.log(JSON.stringify(slot.StartTime));
+        }
+        for (const session of schSessions) {
+            for (const slot of timeslots) {
+                if (moment(slot.StartTime).format('YYYY-MM-DD h.mm') ===
+                        moment(session.StartTime).format('YYYY-MM-DD h.mm')) {
+                    slot.Sessions.push(session);
+                }
+            }
+        }
+        for (const slot of timeslots) {
+            if (moment(this.days[0].Day).format('YYYY-MM-DD') ===
+                moment(slot.StartTime).format('YYYY-MM-DD')) {
+                this.days[0].Timeslots.push(slot);
+            }
+            if (moment(this.days[1].Day).format('YYYY-MM-DD') ===
+                moment(slot.StartTime).format('YYYY-MM-DD')) {
+                this.days[1].Timeslots.push(slot);
+            }
+        }
+    }
+
     onRoomSelected(session, room) {
         session.Room = room;
     }
@@ -141,7 +197,7 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
 
     removeSession(timeslot: Timeslot, session: SessionProposal) {
         let index = 0;
-        for (let sp of timeslot.Sessions) {
+        for (const sp of timeslot.Sessions) {
             if (sp.SessionProposalId === session.SessionProposalId) {
                 timeslot.Sessions.splice(index, 1);
                 this.sessions.push(session);
@@ -169,9 +225,17 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
             index++;
         }
     }
+    removeUnscheduledSession(id: string, sessions: SessionProposal[]) {
+        for (let index = 0; index < sessions.length; index++) {
+            if (sessions[index].SessionProposalId === id) {
+                sessions.splice(index, 1);
+            }
+        }
+    }
 
     ngOnDestroy(): void {
-        this.dragula.drop.unsubscribe();
+        // this.dragula.drop.unsubscribe();
+        this.dragula.destroy('bag-sessions');
     }
 
 }
