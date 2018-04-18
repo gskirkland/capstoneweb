@@ -124,6 +124,11 @@ export class CalendarComponent implements OnInit {
     isLoggedIn() {
         return this.authService.isAuthenticated();
     }
+
+    scrollTop() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
 }
 
 

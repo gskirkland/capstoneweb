@@ -4,12 +4,12 @@
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <ng-container *ngFor="let day of calendar; let i = index">
             <li [ngClass]="{ 'active': i == 0 }"  class="nav-item">
-                <a class="nav-link" [href]="'#day_'+i" [id]="'day_' +i+ '-tab'" data-toggle="tab" role="tab">{{day.day}}</a>
+                <a class="nav-link" [href]="'#day_'+i" [id]="'day_' +i+ '-tab'" data-toggle="tab" role="tab" (click)="scrollTop()">{{day.day}}</a>
             </li>
         </ng-container>
         <ng-container *ngIf="isLoggedIn()">
             <li class="nav-item">
-                <a class="nav-link" href="#bookmarks" id="bookmarks-tab" data-toggle="tab" role="tab">Bookmarks</a>
+                <a class="nav-link" href="#bookmarks" id="bookmarks-tab" data-toggle="tab" role="tab" (click)="scrollTop()">Bookmarks</a>
             </li>
         </ng-container>
     </ul>
