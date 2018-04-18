@@ -14,11 +14,13 @@ import { UserChangePasswordComponent } from './ui/user/user-change-password/user
 import { BuilderListComponent } from './ui/builder/builder-list/builder-list.component';
 import { BuilderScheduleComponent } from './ui/builder/builder-schedule/builder-schedule.component';
 import { CalendarComponent } from './ui/calendar/calendar.component';
+import {SponsorComponent} from './ui/sponsor/sponsor.component';
 
 import { AuthGuard } from './guards/auth.guard';
+import {AdminGuard} from './guards/admin.guard';
+
 import {UserLayoutComponent} from './ui/layouts/user-layout/user-layout.component';
 import {HomeLayoutComponent} from './ui/layouts/home-layout/home-layout.component';
-import {SponsorComponent} from './ui/sponsor/sponsor.component';
 
 const appRoutes: Routes = [
     {
@@ -46,9 +48,9 @@ const appRoutes: Routes = [
             { path: 'changepassword', component: UserChangePasswordComponent },
             { path: 'emailactivation/:EmailActivationToken', component: UserEmailActivationComponent },
             { path: 'schedule', component: CalendarComponent },
-            { path: 'schedule-builder', component: BuilderScheduleComponent },
+            { path: 'schedule-builder', component: BuilderScheduleComponent, canActivate: [AdminGuard] },
             { path: 'sponsors', component: SponsorComponent },
-            { path: '**', redirectTo: 'sessions' }
+            { path: '**', redirectTo: 'schedule' },
         ],
         canActivate: [AuthGuard]
     },
