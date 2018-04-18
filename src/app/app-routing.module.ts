@@ -51,6 +51,8 @@ const appRoutes: Routes = [
             { path: 'schedule-builder', component: BuilderScheduleComponent, canActivate: [AdminGuard] },
             { path: 'sponsors', component: SponsorComponent },
             { path: '**', redirectTo: 'schedule' },
+            { path: 'builder-list', component: BuilderListComponent },
+            { path: '**', redirectTo: 'sessions' }
         ],
         canActivate: [AuthGuard]
     },

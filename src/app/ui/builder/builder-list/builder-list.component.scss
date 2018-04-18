@@ -1,3 +1,51 @@
-.fc-scroller {
-    height: 100% !important;
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+    justify-content: center;
 }
+
+.cardholder {
+    padding: 2%;
+    border-bottom: 1px solid darkgray;
+}
+
+.cards {
+    padding: 2%;
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+.Developer {
+    background-color: red;
+}
+.DevOps {
+    background-color: green;
+}
+.ITPro {
+    background-color: orange;
+}
+.Entrepreneur {
+    background-color: blue;
+}
+.Design {
+    background-color: indigo;
+}
+
+.save-btn {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 5%;
+    padding-top: 2%;
+    padding-bottom: 1%;
+    border-bottom: 1px solid darkgray;
+}
+
+.alert {
+    text-align: center;
+}
+
+
+
+

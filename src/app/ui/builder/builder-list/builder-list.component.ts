@@ -38,7 +38,7 @@ export class BuilderListComponent implements OnInit {
     }
 
     save() {
-        const element: HTMLElement = document.getElementById('alert');
+
         this.sessionService.updateSessionProposals(this.sessions)
             .then(r => {
                 element.style.display = 'block';
