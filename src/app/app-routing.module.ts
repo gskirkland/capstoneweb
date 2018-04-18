@@ -50,9 +50,8 @@ const appRoutes: Routes = [
             { path: 'schedule', component: CalendarComponent },
             { path: 'schedule-builder', component: BuilderScheduleComponent, canActivate: [AdminGuard] },
             { path: 'sponsors', component: SponsorComponent },
+            { path: 'builder-list', component: BuilderListComponent, canActivate: [AdminGuard] },
             { path: '**', redirectTo: 'schedule' },
-            { path: 'builder-list', component: BuilderListComponent },
-            { path: '**', redirectTo: 'sessions' }
         ],
         canActivate: [AuthGuard]
     },
