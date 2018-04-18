@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {DragulaModule} from 'ng2-dragula';
 
 // UI COMPONENT
 import { AppComponent } from './app.component';
@@ -25,6 +26,8 @@ import { UserRegisterConfirmComponent } from './ui/user/user-register-confirm/us
 import { UserRegisterComponent } from './ui/user/user-register/user-register.component';
 import { NavigationComponent } from './ui/nav/navigation/navigation.component';
 import { SponsorComponent } from './ui/sponsor/sponsor.component';
+import { UserLayoutComponent } from './ui/layouts/user-layout/user-layout.component';
+import { HomeLayoutComponent } from './ui/layouts/home-layout/home-layout.component';
 
 // PIPES
 import { SessionStatusTypePipe } from './pipes/session-status-type.pipe';
@@ -38,13 +41,11 @@ import { ConfigService } from './services/config.service';
 import { EventService } from './services/event.service';
 import { SessionService } from './services/session.service';
 import { UserService } from './services/user.service';
+import { SponsorService } from './services/sponsor.service';
 
 //  GUARDS
 import { AuthGuard } from './guards/auth.guard';
-import { UserLayoutComponent } from './ui/layouts/user-layout/user-layout.component';
-import { HomeLayoutComponent } from './ui/layouts/home-layout/home-layout.component';
-import {DragulaModule} from 'ng2-dragula';
-import {SponsorService} from './services/sponsor.service';
+import { AdminGuard } from './guards/admin.guard';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import {SponsorService} from './services/sponsor.service';
     SessionService,
     UserService,
     SponsorService,
-    AuthGuard
+      AuthGuard,
+    AdminGuard
   ],
   bootstrap: [AppComponent]
 })
