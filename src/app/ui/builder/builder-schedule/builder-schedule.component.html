@@ -1,4 +1,10 @@
-    <div *ngIf="error" class="alert alert-danger alert-dismissible">
+<app-tabs>
+    <app-tab [tabTitle]="'Accept Sessions'">
+        <builder-list></builder-list>
+    </app-tab>
+    <app-tab [tabTitle]="'Schedule Builder'">
+
+<div *ngIf="error" class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         {{error}}
     </div>
@@ -6,7 +12,6 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         {{success}}
     </div>
-
 
 
     <div class="container-fluid"
@@ -46,18 +51,9 @@
                      fxFill="flex">
 
                     <app-tabs>
+
                         <app-tab [tabTitle]="days[0].Day | date : 'MMMM dd'">
-                            <div class="timeslot" fxLayout="column">
-                                <div fxLayout="row" [style.margin.px]="inputMargin">
-                                    <div class="time" fxFlex="20%">
-                                        <input class="text timeInput"
-                                               fxFill="flex"
-                                               *ngIf="addSlot"
-                                               [(ngModel)]="timeInput"
-                                               (keydown.enter)="addTimeSlot(days[0].Day); addSlotEnable()">
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="timeslot" fxLayout="column"></div>
 
                             <div class="timeslot" fxLayout="column"
                                  *ngFor = "let timeslot of days[0].Timeslots">
@@ -175,3 +171,5 @@
             </div>
         </div>
     </div>
+    </app-tab>
+</app-tabs>
