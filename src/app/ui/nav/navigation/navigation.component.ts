@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { AuthService } from '../../../services/auth.service';
+import {UserService} from '../../../services/user.service';
+import {User} from '../../../models/user/user';
+
 
 @Component({
     selector: 'app-navigation',
@@ -9,10 +12,15 @@ import { AuthService } from '../../../services/auth.service';
     styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
+    private user: User;
     constructor(
         private _route: ActivatedRoute,
-        private authService: AuthService
-    ) {}
+        private authService: AuthService,
+        private userService: UserService,
+    ) {
+        this.userService.getUser()
+            .then(user => this.user = user);
+    }
 
     ngOnInit() {
         this._route.params.subscribe(params => {
@@ -22,6 +30,13 @@ export class NavigationComponent implements OnInit {
 
     isLoggedIn() {
         if (this.authService.isAuthenticated()) {
+            return true;
+        }
+        return false;
+    }
+
+    isAdmin() {
+        if (this.user && this.user.Admin) {
             return true;
         }
         return false;

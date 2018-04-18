@@ -82,10 +82,10 @@ export class CalendarComponent implements OnInit {
                     calendar[day_index].time_blocks[time_index].session_list.push(session);
 
                 });
-                this.calendar = calendar;
-                console.log(calendar);
+                    this.calendar = calendar;
+                    console.log(calendar);
             });
-        this.getFavorites();
+                this.getFavorites();
     }
 
     getFavorites() {
@@ -124,5 +124,11 @@ export class CalendarComponent implements OnInit {
     isLoggedIn() {
         return this.authService.isAuthenticated();
     }
+
+    scrollTop() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
 }
+
 

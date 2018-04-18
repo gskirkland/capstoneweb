@@ -6,7 +6,7 @@ export class User {
     PasswordHash: string;
     AuthenticationToken: string;
     PasswordResetToken: string;
-    IsAdmin: boolean;
+    Admin: boolean;
     Bio: string;
     PushToken: string;
     PhotoUrl: string;

@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import { SessionProposal } from '../../../models/session/session-proposal';
 import { Timeslot} from '../../../models/time/timeslot';
@@ -13,15 +12,17 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
     styleUrls: [ './builder-schedule.component.scss' ]
 })
 
-export class BuilderScheduleComponent implements OnInit  {
+export class BuilderScheduleComponent implements OnInit, OnDestroy  {
 
     sessions: SessionProposal[];
-    sessionsAccepted: SessionProposal[];
+    sessionsAccepted: SessionProposal[] = [];
     filterTrack: string;
     timeslots: Timeslot[] = [];
-    timeInput: string;
+    timeInput = '';
     addSlot = false;
     inputMargin = 2;
+    error = '';
+    success = '';
 
 
     constructor(private sessionService: SessionService, private dragula: DragulaService) {}
@@ -39,13 +40,14 @@ export class BuilderScheduleComponent implements OnInit  {
         this.addSlot = !this.addSlot;
     }
     addTimeSlot() {
-        if (this.timeInput.length === 0) {
+        const validate = this.timeValidate();
+        if (this.timeInput.length === 0 || !validate) {
             return;
         }
         const startTime = '2018-04-20 ' + this.timeInput;
         const time = new Date(startTime);
         for (const slot of this.timeslots) {
-            if (slot.StartTime === time) {
+            if (slot.StartTime.getDate() === time.getDate() && slot.StartTime.getTime() === time.getTime()) {
                 return;
             }
         }
@@ -55,24 +57,28 @@ export class BuilderScheduleComponent implements OnInit  {
         this.renderTimeSlots();
     }
 
-    dropSession(timeslot: Timeslot): void {
-        let session: SessionProposal;
-        this.dragula
-            .drop
-            .subscribe(value => {
-                session = value;
-                session.StartTime = timeslot.StartTime;
-                this.sessionsAccepted.push(session);
-            });
-    }
-
-    save(): void {
-        for (const session of this.sessionsAccepted) {
-            session.Accepted = true;
-            let returnSession: Promise<SessionProposal>;
-            returnSession = this.sessionService.updateSessionProposal(session, session.SessionProposalId);
+    save() {
+        for (const timeslot of this.timeslots) {
+            const year = timeslot.StartTime.getFullYear();
+            const month = timeslot.StartTime.getMonth();
+            const day = timeslot.StartTime.getDate();
+            const hour = timeslot.StartTime.getHours();
+            const min = timeslot.StartTime.getMinutes();
+            const sec = timeslot.StartTime.getSeconds();
+            const milSec = timeslot.StartTime.getMilliseconds();
+            for (const session of timeslot.Sessions) {
+                session.StartTime = new Date(Date.UTC(year, month, day, hour, min, sec, milSec));
+                console.log(timeslot.StartTime);
+                console.log(JSON.stringify(session));
+            }
+            this.sessionService.updateSessionProposals(timeslot.Sessions)
+                .then(() => this.success = 'Successfully update schedule')
+                .then(() => this.error = '')
+                .catch((e) => this.error = 'There was an error completing your request!!!!!')
+                .catch(() => this.success = '');
         }
     }
+
     renderTimeSlots(): void {
         for (const timeslot of this.timeslots) {
             for (const session of this.sessions) {
@@ -83,4 +89,21 @@ export class BuilderScheduleComponent implements OnInit  {
             }
         }
     }
+
+    timeValidate(): boolean {
+        var verified: boolean;
+        const date = new Date('2018-04-20 ' + this.timeInput);
+        const test = date.getDate();
+        if (isNaN(test)) {
+            verified = false;
+        } else {
+            verified = true;
+        }
+        return verified;
+    }
+
+    ngOnDestroy(): void {
+        this.dragula.drop.unsubscribe();
+    }
+
 }

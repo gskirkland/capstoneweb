@@ -1,18 +1,19 @@
 .container-fluid {
-  padding-left: 8%;
-  padding-right: 8%;
-}
-
-div .cards {
-  padding-bottom: 4%;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 div .cardholder {
-  border-bottom: 1px solid gray;
+  padding-right: 0;
+  border-bottom: 1px solid lightgray;
 }
 
-div .icon .fa-bookmark {
+.fa-bookmark,
+.fa-bookmark-o {
   cursor: pointer;
+}
+.fa-bookmark-o:hover {
+  color: gray;
 }
 
 .card-title {
@@ -23,7 +24,66 @@ div .icon .fa-bookmark {
   text-align: center;
 }
 
-.nav-tabs {
-  margin-left: 6%;
+.nav {
+  padding-left: 14%;
 }
+.nav-tabs {
+  position: fixed;
+  background-color: #f8f8f8;
+  width: 100%;
+  padding-top: 2%;
+}
+.nav-tabs > li > a {
+  color: gray;
+  background-color: #f8f8f8;
+  border: none;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+  border-width: 0;
+  color: black;
+  border-bottom: 2px solid royalblue;
+}
+
+.tab-content {
+  padding-top: 75px;
+}
+
+.Developer {
+  background-color: red;
+}
+.DevOps {
+  background-color: green;
+}
+.ITPro {
+  background-color: orange;
+}
+.Entrepreneur {
+  background-color: blue;
+}
+.Design {
+  background-color: indigo;
+}
+
+.cardholder:hover {
+  background-color: #f8f8f8;
+}
+.cardholder {
+  padding: 2%;
+}
+
+.time {
+  padding-top: 1%;
+  padding-right: 1%;
+}
+
+.days {
+  padding-top: 1%;
+  margin-left: 2%;
+  border-top: solid lightgray;
+  border-bottom: solid lightgray;
+}
+
+
 
