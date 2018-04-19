@@ -40,15 +40,17 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
         const day2 = new Day();
         day2.Day = new Date('2018-04-21 0:00:00.000');
         this.days.push(day2);
+        this.getAcceptedSessions();
+        this.filterTrack = 'All';
+    }
+    getAcceptedSessions() {
         this.sessionService.getAllAcceptedSessionProposals()
             .then(sessions => {
                 this.sessions = sessions;
                 this.orderTimeSlots();
                 this.renderSessions();
             });
-        this.filterTrack = 'All';
     }
-
     addSlotEnable(): void {
         this.addSlot = !this.addSlot;
     }
@@ -82,8 +84,16 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
     }
 
     save() {
-        this.updateDay(this.days[0]);
-        this.updateDay(this.days[1]);
+        const sessionList = [];
+        for (const day of this.days) {
+            for (const timeslot of day.Timeslots) {
+                console.log(timeslot.Sessions)
+                sessionList.push(...timeslot.Sessions);
+            }
+        }
+        sessionList.push(...this.sessions);
+        console.log(sessionList, this.sessions);
+        this.updateSessions(sessionList);
     }
 
     orderTimeSlots(): void {
@@ -110,33 +120,18 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
         return verified;
     }
 
-    updateDay(day: Day) {
-        for (const timeslot of day.Timeslots) {
-            const year = timeslot.StartTime.getFullYear();
-            const month = timeslot.StartTime.getMonth();
-            const dayNum = timeslot.StartTime.getDate();
-            const hour = timeslot.StartTime.getHours();
-            const min = timeslot.StartTime.getMinutes();
-            const sec = timeslot.StartTime.getSeconds();
-            const milSec = timeslot.StartTime.getMilliseconds();
-            for (const session of timeslot.Sessions) {
-                session.StartTime = new Date(Date.UTC(year, month, dayNum, hour, min, sec, milSec));
-                console.log(timeslot.StartTime);
-                console.log(JSON.stringify(session));
-            }
-            this.sessionService.updateSessionProposals(timeslot.Sessions)
+    updateSessions(sessions: SessionProposal[]) {
+        console.log('updating', sessions);
+            this.sessionService.updateSessionProposals(sessions)
                 .then(() => this.success = 'Successfully update schedule')
-                .then(() => this.error = '')
-                .catch((e) => this.error = 'There was an error completing your request!!!!!')
-                .catch((e) => this.success = '');
-        }
+                .catch((e) => this.error = 'There was an error completing your request!!!!!');
     }
 
     renderSessions() {
         const schSessions: SessionProposal[] = [];
         const ids = [];
         for (const session of this.sessions) {
-            if (session.StartTime && moment(session.StartTime).format('YYYY-MM-DD') !== '0001-01-01') {
+            if (session.StartTime && moment(session.StartTime).format('YYYY-MM-DD') !== '1900-01-01') {
                 schSessions.push(session);
                 ids.push(session.SessionProposalId);
             }
@@ -149,6 +144,9 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
             if (leftSide.StartTime > rightSide.StartTime) {return 1; }
             return 0;
         });
+        // const filteredTimeslots = schSessions.map(session => session.StartTime).filter((date, index, array) =>
+        //     array.indexOf(date) === index);
+        // console.log('filteredSchedule', filteredTimeslots);
         const indexes = [];
         for (let i = 0; i < schSessions.length - 1; i++) {
             if (moment(schSessions[i].StartTime).format('YYYY-MM-DD h.mm') !==
@@ -163,6 +161,7 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
         const timeslots: Timeslot[] = [];
         for (const i of indexes) {
             const slot = new Timeslot();
+            slot.Rooms = this.rooms;
             slot.StartTime = schSessions[i].StartTime;
             timeslots.push(slot);
             console.log(JSON.stringify(slot.StartTime));
@@ -196,36 +195,45 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
     }
 
     removeSession(timeslot: Timeslot, session: SessionProposal) {
-        let index = 0;
-        for (const sp of timeslot.Sessions) {
+        console.log('REMOVING SESSION');
+        //let index = 0;
+        const index = timeslot.Sessions.indexOf(session);
+        if (index > -1) {
+            timeslot.Sessions.splice(index, 1);
+            this.resetSession(session);
+            this.sessions.push(session);
+        }
+        /*for (const sp of timeslot.Sessions) {
             if (sp.SessionProposalId === session.SessionProposalId) {
                 timeslot.Sessions.splice(index, 1);
+                this.resetSession(sp);
                 this.sessions.push(session);
             }
             index++;
-        }
+        }*/
     }
 
     removeTimeslot(day: Day, timeslot: Timeslot) {
-        let index = 0;
-        let dayTemp = new Day();
-        for (const d of this.days) {
-            if (moment(d.Day).format('YYYY-MM-DD h.mm') === moment(day.Day).format('YYYY-MM-DD h.mm')) {
-                dayTemp = d;
-            }
+        console.log("REMOVING TIMESLOT");
+        for (const session of timeslot.Sessions) {
+            this.resetSession(session);
         }
-        index = 0;
-        for (const slot of dayTemp.Timeslots) {
-            if (moment(slot.StartTime).format('YYYY-MM-DD h.mm') === moment(timeslot.StartTime).format('YYYY-MM-DD h.mm')) {
-                for (const session of slot.Sessions) {
-                    this.removeSession(slot, session);
-                }
-                dayTemp.Timeslots.splice(index, 1);
-            }
-            index++;
+        const slotSessions = timeslot.Sessions;
+        const unschSessions = this.sessions;
+        const index = day.Timeslots.indexOf(timeslot);
+        if (index > -1) {
+            this.sessions = [...slotSessions, ...unschSessions];
+            day.Timeslots.splice(index, 1);
         }
     }
+
+    resetSession(session: SessionProposal) {
+        console.log("RESETTING SESSION");
+        session.StartTime = new Date('1900-01-01');
+        session.Room = '';
+    }
     removeUnscheduledSession(id: string, sessions: SessionProposal[]) {
+        console.log('REMOVE UNSCHEDULED SESSION');
         for (let index = 0; index < sessions.length; index++) {
             if (sessions[index].SessionProposalId === id) {
                 sessions.splice(index, 1);

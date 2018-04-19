@@ -4,7 +4,7 @@
     </app-tab>
     <app-tab [tabTitle]="'Schedule Builder'">
 
-<div *ngIf="error" class="alert alert-danger alert-dismissible">
+    <div *ngIf="error" class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         {{error}}
     </div>
@@ -51,17 +51,27 @@
                      fxFill="flex">
 
                     <app-tabs>
-
-                        <app-tab [tabTitle]="days[0].Day | date : 'MMMM dd'">
-                            <div class="timeslot" fxLayout="column"></div>
+                    <ng-container *ngFor="let day of days">
+                        <app-tab [tabTitle]="day.Day | date : 'MMMM dd'">
+                            <div class="timeslot" fxLayout="column">
+                                <div fxLayout="row" [style.margin.px]="inputMargin">
+                                    <div class="time" fxFlex="20%">
+                                        <input class="text timeInput"
+                                               fxFill="flex"
+                                               *ngIf="addSlot"
+                                               [(ngModel)]="timeInput"
+                                               (keydown.enter)="addTimeSlot(day.Day); addSlotEnable()">
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="timeslot" fxLayout="column"
-                                 *ngFor = "let timeslot of days[0].Timeslots">
+                                 *ngFor = "let timeslot of day?.Timeslots">
                                 <div fxLayout="row">
                                     <div class="time" fxFlex="20%">
                                         <h2>{{timeslot.StartTime | date : 'h:mm a'}}</h2>
                                     </div>
-                                    <span (click)="removeTimeslot(days[0], timeslot)" class="remove">X</span>
+                                    <span (click)="removeTimeslot(day, timeslot)" class="remove">X</span>
 
                                     <div [dragula]='"bag-sessions"'
                                          [dragulaModel]="timeslot.Sessions"
@@ -69,8 +79,7 @@
                                          fxFlex="80"
                                          fxLayout="column">
 
-                                        <ng-container *ngFor = "let session of timeslot.Sessions">
-                                            <div class="card" fxFlex="grow">
+                                            <div class="card" fxFlex="grow" *ngFor = "let session of timeslot?.Sessions">
                                                 <h4 class="card-speaker">
                                                     {{session.SpeakerName}}
                                                     <span (click)="removeSession(timeslot, session)" class="remove">X</span>
@@ -87,59 +96,14 @@
                                                             (click)="onRoomSelected(session, room)"
                                                             [disabled]="checkSelected(timeslot, room)">{{room}}</option>
                                                 </select>
-                                                <input hidden type="text" [(ngModel)]="session.StartTime" [value]="timeslot.StartTime">
+                                                <input type="text" [value]="timeslot.StartTime" [(ngModel)]="session.StartTime">
                                             </div>
-                                        </ng-container>
 
                                     </div>
                                 </div>
                             </div>
                         </app-tab>
-                        <app-tab [tabTitle]="days[1].Day | date : 'MMMM dd'">
-
-                            <div class="timeslot" fxLayout="column">
-                                <div fxLayout="row" [style.margin.px]="inputMargin">
-                                    <div class="time" fxFlex="20%">
-                                        <input class="text timeInput"
-                                               fxFill="flex"
-                                               *ngIf="addSlot"
-                                               [(ngModel)]="timeInput"
-                                               (keydown.enter)="addTimeSlot(days[1].Day); addSlotEnable()">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="timeslot" fxLayout="column"
-                                 *ngFor = "let timeslot of days[1].Timeslots">
-                                <div fxLayout="row">
-                                    <div class="time" fxFlex="20%">
-                                        <h2>{{timeslot.StartTime | date : 'h:mm a'}}</h2>
-                                    </div>
-                                    <div [dragula]='"bag-sessions"'
-                                         [dragulaModel]="timeslot.Sessions"
-                                         class="cardholder-scheduled"
-                                         fxFlex="80"
-                                         fxLayout="column">
-
-                                        <ng-container *ngFor = "let session of timeslot.Sessions">
-                                            <div class="card" fxFlex="grow">
-                                                <h4 class="card-speaker">{{session.SpeakerName}}<span class="remove">X</span></h4>
-                                                <h5 class="card-title">{{session.Title}}</h5>
-                                                <p class="card-text">{{session.Abstract | limitTo:300}}</p>
-                                                <span class="label label-primary label-fat {{session.Track | sessionTrackType}}">{{session.Track | sessionTrackType}}</span>
-                                                <span class="label label-default label-fat">{{session.Room}}</span>
-                                                <select [(ngModel)]="session.Room">
-                                                    <option *ngFor="let room of timeslot.Rooms"
-                                                            [value]="room"
-                                                            (click)="onRoomSelected(session, room)"
-                                                            [disabled]="checkSelected(timeslot, room)">{{room}}</option>
-                                                </select>
-                                                <input hidden type="text" [(ngModel)]="session.StartTime" [value]="timeslot.StartTime">
-                                            </div>
-                                        </ng-container>
-                                    </div>
-                                </div>
-                            </div>
-                        </app-tab>
+                        </ng-container>
                     </app-tabs>
                 </div>
 
