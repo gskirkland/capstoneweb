@@ -15,7 +15,7 @@ import { AuthService } from '../../services/auth.service';
 export class CalendarComponent implements OnInit {
 
     favorites: SessionFavorite[] = [];
-    sessions: SessionProposal[];
+    sessions: SessionProposal[] = [];
     calendar: {};
     modalInfo = new SessionProposal();
 
@@ -29,58 +29,60 @@ export class CalendarComponent implements OnInit {
                 const calendar = [];
                 this.sessions.forEach(function(session) {
                     const start_time = moment(session.StartTime);
-                    const month = start_time.month();
-                    const month_name = moment.months(month);
+                    const year = start_time.year();
+                    if (year > 2000) {
+                        const month = start_time.month();
+                        const month_name = moment.months(month);
 
-                    const day = month_name + ' ' + start_time.date();
-                    const time = moment(start_time.hour() + ':' + start_time.minutes(), 'HH:mm').format('h:mm a');
+                        const day = month_name + ' ' + start_time.date();
+                        const time = moment(start_time.hour() + ':' + start_time.minutes(), 'HH:mm').format('h:mm a');
 
-                    let has_day = false;
-                    for (let i = 0; i < calendar.length; i++) {
-                        if (calendar[i].day === day) {
-                            has_day = true;
-                            break;
-                        }
-                    }
-
-                    if (!has_day) {
-                        calendar.push({
-                            day,
-                            time_blocks: []
-                        });
-                        calendar.sort(function (a, b) {
-                            if (a.day < b.day) {
-                                return -1;
+                        let has_day = false;
+                        for (let i = 0; i < calendar.length; i++) {
+                            if (calendar[i].day === day) {
+                                has_day = true;
+                                break;
                             }
-                            if (a.day > b.day) {
-                                return 1;
-                            }
-                            return 0;
-                        });
-                    }
-
-                    const day_index = calendar.map(a => a.day).indexOf(day);
-
-                    let has_time = false;
-                    for (let c = 0; c < calendar[day_index].time_blocks.length; c++) {
-                        if (calendar[day_index].time_blocks[c].time === time) {
-                            has_time = true;
-                            break;
                         }
+
+                        if (!has_day) {
+                            calendar.push({
+                                day,
+                                time_blocks: []
+                            });
+                            calendar.sort(function (a, b) {
+                                if (a.day < b.day) {
+                                    return -1;
+                                }
+                                if (a.day > b.day) {
+                                    return 1;
+                                }
+                                return 0;
+                            });
+                        }
+
+                        const day_index = calendar.map(a => a.day).indexOf(day);
+
+                        let has_time = false;
+                        for (let c = 0; c < calendar[day_index].time_blocks.length; c++) {
+                            if (calendar[day_index].time_blocks[c].time === time) {
+                                has_time = true;
+                                break;
+                            }
+                        }
+
+                        if (!has_time) {
+                            calendar[day_index].time_blocks.push({
+                                time,
+                                session_list: []
+                            });
+                            calendar[day_index].time_blocks.sort((a, b) => a.time > b.time);
+                        }
+
+                        const time_index = calendar[day_index].time_blocks.map(a => a.time).indexOf(time);
+
+                        calendar[day_index].time_blocks[time_index].session_list.push(session);
                     }
-
-                    if (!has_time) {
-                        calendar[day_index].time_blocks.push({
-                            time,
-                            session_list: []
-                        });
-                        calendar[day_index].time_blocks.sort((a, b) => a.time > b.time);
-                    }
-
-                    const time_index = calendar[day_index].time_blocks.map(a => a.time).indexOf(time);
-
-                    calendar[day_index].time_blocks[time_index].session_list.push(session);
-
                 });
                     this.calendar = calendar;
                     console.log(calendar);
