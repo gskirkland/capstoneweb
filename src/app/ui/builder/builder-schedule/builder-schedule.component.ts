@@ -86,14 +86,32 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
     save() {
         const sessionList = [];
         for (const day of this.days) {
+            this.updateDaySessionTimes(day);
             for (const timeslot of day.Timeslots) {
-                console.log(timeslot.Sessions)
+                console.log(timeslot.Sessions);
                 sessionList.push(...timeslot.Sessions);
             }
         }
         sessionList.push(...this.sessions);
         console.log(sessionList, this.sessions);
         this.updateSessions(sessionList);
+    }
+
+    updateDaySessionTimes(day: Day) {
+        for (const timeslot of day.Timeslots) {
+            const year = timeslot.StartTime.getFullYear();
+            const month = timeslot.StartTime.getMonth();
+            const dayNum = timeslot.StartTime.getDate();
+            const hour = timeslot.StartTime.getHours();
+            const min = timeslot.StartTime.getMinutes();
+            const sec = timeslot.StartTime.getSeconds();
+            const milSec = timeslot.StartTime.getMilliseconds();
+            for (const session of timeslot.Sessions) {
+                session.StartTime = new Date(Date.UTC(year, month, dayNum, hour, min, sec, milSec));
+                console.log(timeslot.StartTime);
+                console.log(JSON.stringify(session));
+            }
+        }
     }
 
     orderTimeSlots(): void {
@@ -196,7 +214,7 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
 
     removeSession(timeslot: Timeslot, session: SessionProposal) {
         console.log('REMOVING SESSION');
-        //let index = 0;
+        // let index = 0;
         const index = timeslot.Sessions.indexOf(session);
         if (index > -1) {
             timeslot.Sessions.splice(index, 1);
@@ -214,7 +232,7 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
     }
 
     removeTimeslot(day: Day, timeslot: Timeslot) {
-        console.log("REMOVING TIMESLOT");
+        console.log('REMOVING TIMESLOT');
         for (const session of timeslot.Sessions) {
             this.resetSession(session);
         }
@@ -228,7 +246,7 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
     }
 
     resetSession(session: SessionProposal) {
-        console.log("RESETTING SESSION");
+        console.log('RESETTING SESSION');
         session.StartTime = new Date('1900-01-01');
         session.Room = '';
     }
