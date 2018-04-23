@@ -158,9 +158,23 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
 
     updateSessions(sessions: SessionProposal[]) {
         console.log('updating', sessions);
-            this.sessionService.updateSessionProposals(sessions)
-                .then(() => this.success = 'Successfully update schedule')
-                .catch((e) => this.error = 'There was an error completing your request!!!!!');
+        this.sessionService.updateSessionProposals(sessions)
+            .then( r => {
+                this.success = 'Successfully updated schedule';
+                const a_success = document.getElementById('alert-success');
+                a_success.style.display = 'block';
+                setTimeout(function(){
+                    a_success.style.display = 'none';
+                }, 3000);
+            })
+            .catch(r => {
+                const a_error = document.getElementById('alert-error');
+                this.error = 'There was an error completing your request!';
+                a_error.style.display = 'block';
+                setTimeout(function(){
+                    a_error.style.display = 'none';
+                }, 3000);
+            });
     }
 
     renderSessions() {
