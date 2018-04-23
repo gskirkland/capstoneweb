@@ -76,7 +76,8 @@ export class CalendarComponent implements OnInit {
                                 time,
                                 session_list: []
                             });
-                            calendar[day_index].time_blocks.sort((a, b) => a.time > b.time);
+                            calendar[day_index].time_blocks.sort((a, b) =>
+                                new Date('1970/01/01 ' + a.time) > new Date('1970/01/01 ' + b.time));
                         }
 
                         const time_index = calendar[day_index].time_blocks.map(a => a.time).indexOf(time);
