@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {TabComponent} from '../tab/tab.component';
 
 @Component({
@@ -8,6 +8,7 @@ import {TabComponent} from '../tab/tab.component';
 })
 export class TabsComponent implements OnInit {
     tabs: TabComponent[] = [];
+    @Output() selectedTab: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
@@ -26,6 +27,7 @@ export class TabsComponent implements OnInit {
             tab.active = false;
         });
         tab.active = true;
+        this.selectedTab.emit(null);
     }
 
 }

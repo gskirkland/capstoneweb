@@ -43,12 +43,24 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
         this.getAcceptedSessions();
         this.filterTrack = 'All';
     }
+    clickTab() {
+        this.orderTimeSlots();
+        this.renderSessions();
+
+    }
+    clearAllSessions() {
+        for (const day of this.days) {
+            for (const slot of day.Timeslots) {
+                slot.Sessions.splice(0, slot.Sessions.length);
+            }
+            day.Timeslots.splice(0, day.Timeslots.length);
+        }
+    }
+
     getAcceptedSessions() {
         this.sessionService.getAllAcceptedSessionProposals()
             .then(sessions => {
                 this.sessions = sessions;
-                this.orderTimeSlots();
-                this.renderSessions();
             });
     }
     addSlotEnable(): void {
@@ -99,15 +111,21 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
 
     updateDaySessionTimes(day: Day) {
         for (const timeslot of day.Timeslots) {
-            const year = timeslot.StartTime.getFullYear();
-            const month = timeslot.StartTime.getMonth();
-            const dayNum = timeslot.StartTime.getDate();
-            const hour = timeslot.StartTime.getHours();
-            const min = timeslot.StartTime.getMinutes();
-            const sec = timeslot.StartTime.getSeconds();
-            const milSec = timeslot.StartTime.getMilliseconds();
+            const date = moment(timeslot.StartTime);
+            const year = date.year();
+            const month = date.month();
+            const dayNum = date.date();
+            const hour = date.hour();
+            const min = date.minutes();
+            const sec = date.seconds();
+            const milSec = date.milliseconds();
             for (const session of timeslot.Sessions) {
                 session.StartTime = new Date(Date.UTC(year, month, dayNum, hour, min, sec, milSec));
+
+                /*const duration = session.LengthInMinutes;
+                const end = new Date(session.StartTime);
+                end.setMinutes(session.StartTime.getMinutes() + duration);
+                session.EndTime = new Date(end);*/
                 console.log(timeslot.StartTime);
                 console.log(JSON.stringify(session));
             }
@@ -146,6 +164,10 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
     }
 
     renderSessions() {
+        if (this.sessions.length === 0) {
+            return false;
+        }
+        this.clearAllSessions();
         const schSessions: SessionProposal[] = [];
         const ids = [];
         for (const session of this.sessions) {
@@ -162,20 +184,18 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
             if (leftSide.StartTime > rightSide.StartTime) {return 1; }
             return 0;
         });
-        // const filteredTimeslots = schSessions.map(session => session.StartTime).filter((date, index, array) =>
-        //     array.indexOf(date) === index);
-        // console.log('filteredSchedule', filteredTimeslots);
         const indexes = [];
+        if (schSessions.length !== 0 ) {
+            indexes.push(0);
+        }
         for (let i = 0; i < schSessions.length - 1; i++) {
             if (moment(schSessions[i].StartTime).format('YYYY-MM-DD h.mm') !==
                 moment(schSessions[i + 1].StartTime).format('YYYY-MM-DD h.mm')) {
-                indexes.push(i);
-                if (i === schSessions.length - 2) {
-                    indexes.push(i + 1);
-                }
+                indexes.push(i + 1);
             }
         }
         console.log(indexes);
+        console.log('Hello');
         const timeslots: Timeslot[] = [];
         for (const i of indexes) {
             const slot = new Timeslot();

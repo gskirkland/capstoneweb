@@ -1,4 +1,4 @@
-<app-tabs>
+<app-tabs (selectedTab)="clickTab()">
     <app-tab [tabTitle]="'Accept Sessions'">
         <builder-list></builder-list>
     </app-tab>
@@ -71,7 +71,7 @@
                                     <div class="time" fxFlex="20%">
                                         <h2>{{timeslot.StartTime | date : 'h:mm a'}}</h2>
                                     </div>
-                                    <span (click)="removeTimeslot(day, timeslot)" class="remove">X</span>
+                                    <span (click)="removeTimeslot(day, timeslot)" class="fa fa-close fa-lg remove"></span>
 
                                     <div [dragula]='"bag-sessions"'
                                          [dragulaModel]="timeslot.Sessions"
@@ -82,7 +82,7 @@
                                             <div class="card" fxFlex="grow" *ngFor = "let session of timeslot.Sessions">
                                                 <h4 class="card-speaker">
                                                     {{session.SpeakerName}}
-                                                    <span (click)="removeSession(timeslot, session)" class="remove">X</span>
+                                                    <span (click)="removeSession(timeslot, session)" class="fa fa-close remove"></span>
                                                 </h4>
                                                 <h5 class="card-title">{{session.Title}}</h5>
                                                 <p class="card-text">{{session.Abstract | limitTo:300}}</p>
@@ -124,11 +124,16 @@
 
                         <div class="card" fxFlex="grow"
                              *ngFor = "let session of sessions">
-                            <h4 class="card-speaker">{{session.SpeakerName}}</h4>
-                            <h5 class="card-title">{{session.Title}}</h5>
-                            <p class="card-text">{{session.Abstract | limitTo:30}}</p>
-                            <span class="label label-primary label-fat {{session.Track | sessionTrackType}}">{{session.Track | sessionTrackType}}</span>
+                            <ng-container *ngIf=session.SpeakerConfirmed>
+                                <h4 class="card-speaker">{{session.SpeakerName}}</h4>
+                                <h5 class="card-title">{{session.Title}}</h5>
+                                <p class="card-text">{{session.Abstract | limitTo:30}}</p>
+                                <span class="label label-primary label-fat {{session.Track | sessionTrackType}}">
+                                    {{session.Track | sessionTrackType}}
+                                </span>
+                            </ng-container>
                         </div>
+
                     </div>
                 </div>
             </div>
