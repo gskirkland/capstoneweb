@@ -44,9 +44,7 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
         this.filterTrack = 'All';
     }
     clickTab() {
-        this.orderTimeSlots();
-        this.renderSessions();
-
+        this.getAcceptedSessions();
     }
     clearAllSessions() {
         for (const day of this.days) {
@@ -61,7 +59,10 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
         this.sessionService.getAllAcceptedSessionProposals()
             .then(sessions => {
                 this.sessions = sessions;
-            });
+            }).then( r => {
+            this.orderTimeSlots();
+            this.renderSessions();
+        });
     }
     addSlotEnable(): void {
         this.addSlot = !this.addSlot;
@@ -122,10 +123,10 @@ export class BuilderScheduleComponent implements OnInit, OnDestroy  {
             for (const session of timeslot.Sessions) {
                 session.StartTime = new Date(Date.UTC(year, month, dayNum, hour, min, sec, milSec));
 
-                /*const duration = session.LengthInMinutes;
+                const duration = session.LengthInMinutes;
                 const end = new Date(session.StartTime);
                 end.setMinutes(session.StartTime.getMinutes() + duration);
-                session.EndTime = new Date(end);*/
+                session.EndTime = new Date(end);
                 console.log(timeslot.StartTime);
                 console.log(JSON.stringify(session));
             }
