@@ -7,7 +7,7 @@
                 <a class="nav-link" [href]="'#day_'+i" [id]="'day_' +i+ '-tab'" data-toggle="tab" role="tab" (click)="scrollTop()">{{day.day}}</a>
             </li>
         </ng-container>
-        <ng-container *ngIf="isLoggedIn()">
+        <ng-container *ngIf="isLoggedIn() && sessions.length > 0">
             <li class="nav-item">
                 <a class="nav-link" href="#bookmarks" id="bookmarks-tab" data-toggle="tab" role="tab" (click)="scrollTop()">Bookmarks</a>
             </li>
@@ -15,6 +15,11 @@
     </ul>
     <div class="container">
         <div class="tab-content" id="myTabContent">
+            <div *ngIf="!sessions || sessions.length == 0">
+                <p class="text-center">
+                    No sessions have been scheduled. Please check back later.
+                </p>
+            </div>
             <ng-container *ngFor="let day of calendar; let i = index">
                 <div class="tab-pane fade" [ngClass]="{ 'active in': i == 0 }" [id]="'day_'+i" role="tabpanel">
                     <!--Times-->
