@@ -3,28 +3,76 @@
   padding-right: 8%;
 }
 
+div .card {
+  border-bottom: 1px solid lightgray;
+}
 div .cardholder-scheduled {
-  border: 1px solid grey;
   padding: 5px;
+  background-color: white;
+}
+.cards-scheduled {
+  padding-bottom: 200px;
 }
 
 div .cardholder-unscheduled {
-  border: 1px solid black;
-  padding: 7px;
+  padding: 7px 7px 200px 7px;
+  background-color: white;
+  position: fixed;
+  top: 160px;
+  height: 90vh;
+  overflow-y: scroll;
+  width: 375px;
 }
 
 div .cards-unscheduled {
   padding: 15px;
+
 }
 
 div .timeslot {
-  border: 1px solid red;
+  background-color: white;
 }
 
 div .time {
   text-align: center;
 }
 
+div .builder-functions{
+  padding: 8px;
+}
+
 a:hover {
   cursor: pointer;
+}
+
+.timeInput {
+  font-size: 30px;
+}
+
+.Developer {
+  background-color: red;
+}
+.DevOps {
+  background-color: green;
+}
+.ITPro {
+  background-color: orange;
+}
+.Entrepreneur {
+  background-color: blue;
+}
+.Design {
+  background-color: indigo;
+}
+.remove {
+  float: right;
+  padding: 4px;
+}
+
+.remove:hover {
+  cursor: pointer;
+}
+
+.alert {
+  text-align: center;
 }

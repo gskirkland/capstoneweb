@@ -1,0 +1,10 @@
+<ul class="nav nav-tabs">
+  <ng-container *ngFor="let tab of tabs; let i = index ">
+  <li class="nav-item" [ngClass]="{ 'active': i == 0 }"
+      data-toggle="tab"
+      (click)="selectTab(tab)">
+    <a>{{ tab.tabTitle }}</a>
+  </li>
+  </ng-container>
+</ul>
+<ng-content></ng-content>

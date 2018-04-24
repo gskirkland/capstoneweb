@@ -28,6 +28,8 @@ import { NavigationComponent } from './ui/nav/navigation/navigation.component';
 import { SponsorComponent } from './ui/sponsor/sponsor.component';
 import { UserLayoutComponent } from './ui/layouts/user-layout/user-layout.component';
 import { HomeLayoutComponent } from './ui/layouts/home-layout/home-layout.component';
+import { TabsComponent } from './ui/tabs/tabs/tabs/tabs.component';
+import { TabComponent } from './ui/tabs/tabs/tab/tab.component';
 
 // PIPES
 import { SessionStatusTypePipe } from './pipes/session-status-type.pipe';
@@ -72,6 +74,8 @@ import { AdminGuard } from './guards/admin.guard';
     UserLayoutComponent,
     HomeLayoutComponent,
     SponsorComponent,
+    TabsComponent,
+    TabComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,7 +93,7 @@ import { AdminGuard } from './guards/admin.guard';
     SessionService,
     UserService,
     SponsorService,
-      AuthGuard,
+    AuthGuard,
     AdminGuard
   ],
   bootstrap: [AppComponent]
