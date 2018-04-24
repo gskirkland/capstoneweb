@@ -28,6 +28,9 @@ export class BuilderListComponent implements OnInit {
     clickSession(sessionProposal: SessionProposal) {
         if (sessionProposal.Accepted === true) {
             sessionProposal.Accepted = false;
+            sessionProposal.Room = '';
+            sessionProposal.StartTime = new Date('1900-01-01');
+            sessionProposal.EndTime = new Date('1900-01-01');
         } else if (sessionProposal.Accepted === false) {
             sessionProposal.Accepted = true;
         }
