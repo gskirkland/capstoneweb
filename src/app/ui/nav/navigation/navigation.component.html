@@ -10,6 +10,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
+          <li *ngIf="isLoggedIn()"><a routerLink="/bookmarks" routerLinkActive="active"><i class="fa fa-calendar-check-o"></i> Bookmarks</a></li>
           <li *ngIf="isLoggedIn()"><a routerLink="/schedule" routerLinkActive="active"><i class="fa fa-calendar"></i> Schedule</a></li>
           <li *ngIf="isLoggedIn()"><a routerLink="/sessions" routerLinkActive="active"><i class="fa fa-th-list"></i> My Sessions</a></li>
           <li *ngIf="isLoggedIn()"><a routerLink="/globalsessions" routerLinkActive="active"><i class="fa fa-list-alt"></i> All Sessions</a></li>

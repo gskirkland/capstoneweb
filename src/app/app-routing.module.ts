@@ -14,6 +14,7 @@ import { UserChangePasswordComponent } from './ui/user/user-change-password/user
 import { BuilderListComponent } from './ui/builder/builder-list/builder-list.component';
 import { BuilderScheduleComponent } from './ui/builder/builder-schedule/builder-schedule.component';
 import { CalendarComponent } from './ui/calendar/calendar.component';
+import { BookmarksComponent } from './ui/bookmarks/bookmarks.component'; // ADDING ORIGINAL BOOKMARKS CONCEPT
 import {SponsorComponent} from './ui/sponsor/sponsor.component';
 
 import { AuthGuard } from './guards/auth.guard';
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
             { path: 'register', component: UserRegisterComponent },
             { path: 'confirmaccount', component: UserRegisterConfirmComponent },
             { path: 'schedule', component: CalendarComponent },
+            { path: 'bookmarks', component: BookmarksComponent }, // ADDING ORIGINAL BOOKMARKS CONCEPT
             { path: 'sponsors', component: SponsorComponent },
             { path: 'passwordreset/:PasswordResetToken', component: UserPasswordResetComponent },
             { path: '**', redirectTo: 'schedule'}
@@ -48,6 +50,7 @@ const appRoutes: Routes = [
             { path: 'changepassword', component: UserChangePasswordComponent },
             { path: 'emailactivation/:EmailActivationToken', component: UserEmailActivationComponent },
             { path: 'schedule', component: CalendarComponent },
+            { path: 'bookmarks', component: BookmarksComponent }, // ADDING ORIGINAL BOOKMARKS CONCEPT
             { path: 'schedule-builder', component: BuilderScheduleComponent, canActivate: [AdminGuard] },
             { path: 'sponsors', component: SponsorComponent },
             { path: 'builder-list', component: BuilderListComponent, canActivate: [AdminGuard] },

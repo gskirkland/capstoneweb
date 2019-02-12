@@ -16,9 +16,9 @@ export class BookmarksComponent implements OnInit {
     favorites: SessionFavorite[] = [];
     sessions: SessionProposal[];
     calendar: {};
+    modalInfo = new SessionProposal();
 
-    constructor(private sessionService: SessionService, private authService: AuthService) {
-    }
+    constructor(private sessionService: SessionService, private authService: AuthService) {}
 
     ngOnInit() {
         this.sessionService.getAllAcceptedSessionProposals()
@@ -84,27 +84,39 @@ export class BookmarksComponent implements OnInit {
                 this.calendar = calendar;
                 console.log(calendar);
             });
-        this.getFavoriteDetail();
+        this.getFavorites();
     }
 
-    getFavoriteDetail() {
+    getFavorites() {
         this.sessionService.getAllFavoriteSessions()
             .then(favorites => {
                 this.favorites = favorites;
             });
     }
 
-    /*ToDo: Fix deleteUserFavorite - 400 response*/
     onRemoveClick(sessionProposal) {
-        this.sessionService.deleteUserFavorite(sessionProposal.SessionProposalId)
-            .then(() => {
-                this.getFavoriteDetail();
-            });
+        const index = this.favorites.map(session => session.SessionProposalId).indexOf(sessionProposal.SessionProposalId);
+
+        if (index > -1) {
+            this.sessionService.deleteUserFavorite(sessionProposal.SessionProposalId)
+                .then(() => {
+                    this.getFavorites();
+                });
+        } else {
+            if (index < 0) {
+                this.sessionService.addFavoriteSession(sessionProposal)
+                    .then(result => {
+                        this.getFavorites();
+                    });
+            }
+        }
+    };
+
+    bookmarked(sessionProposal: SessionProposal) {
+        return this.favorites.map(session => session.SessionProposalId).indexOf(sessionProposal.SessionProposalId) > -1;
     }
 
-    /*ToDo: Add showModal method*/
-    /*showModal();*/
+    showModal(sessionProposal: SessionProposal) {
+        this.modalInfo = sessionProposal;
+    }
 }
-
-
-

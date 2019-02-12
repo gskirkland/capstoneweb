@@ -14,6 +14,7 @@ import { LoginComponent } from './ui/auth/login/login.component';
 import { BuilderListComponent } from './ui/builder/builder-list/builder-list.component';
 import { BuilderScheduleComponent } from './ui/builder/builder-schedule/builder-schedule.component';
 import { CalendarComponent } from './ui/calendar/calendar.component';
+import { BookmarksComponent } from './ui/bookmarks/bookmarks.component'; // ADDING ORIGINAL BOOKMARKS CONCEPT
 import { GlobalSessionListComponent } from './ui/session/global-session-list/global-session-list.component';
 import { SessionDetailComponent } from './ui/session/session-detail/session-detail.component';
 import { SessionListComponent } from './ui/session/session-list/session-list.component';
@@ -53,6 +54,7 @@ import { AdminGuard } from './guards/admin.guard';
     LoginComponent,
     BuilderListComponent,
     BuilderScheduleComponent,
+    BookmarksComponent, // ADDING ORIGINAL BOOKMARKS CONCEPT
     CalendarComponent,
     GlobalSessionListComponent,
     SessionDetailComponent,
