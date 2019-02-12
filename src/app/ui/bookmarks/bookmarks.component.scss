@@ -1,19 +1,15 @@
 .container-fluid {
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-right: auto;
-  margin-left: auto;
+  padding-left: 0;
+  padding-right: 0;
 }
 
-div .cards {
-  padding-bottom: 4%;
-}
-
-div .cardholder {
+.cardholder {
+  margin-right: 25%;
   border-bottom: 1px solid gray;
 }
 
-div .icon .fa-times {
+.icon,
+.fa-times {
   color: red;
   cursor: pointer;
 }
@@ -22,8 +18,74 @@ div .icon .fa-times {
   font-weight: bold;
 }
 
+.time {
+  margin-left: 10%;
+  text-align: center;
+}
+
+.nav {
+  padding-left: 14%;
+}
+
 .nav-tabs {
-  margin-left: 6%;
+  background-color: #f8f8f8;
+  width: 100%;
+  padding-top: 2%;
+}
+
+.nav-tabs > li > a {
+  color: gray;
+  background-color: #f8f8f8;
+  border: none;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+  border-width: 0;
+  color: black;
+  border-bottom: 2px solid royalblue;
+}
+
+.tab-content {
+  padding-top: 75px;
+}
+
+.Developer {
+  background-color: red;
+}
+
+.DevOps {
+  background-color: green;
+}
+
+.ITPro {
+  background-color: orange;
+}
+
+.Entrepreneur {
+  background-color: blue;
+}
+
+.Design {
+  background-color: indigo;
+}
+
+.cardholder:hover {
+  background-color: #f8f8f8;
+}
+
+.time {
+  padding-top: 1%;
+  padding-right: 1%;
+}
+
+.days {
+  text-indent: 14%;
+  padding-top: 0;
+  margin-left: 0;
+  border-top: solid lightgray;
+  border-bottom: solid lightgray;
 }
 
 

@@ -13,7 +13,7 @@
         </li>
     </ul>
     <div class="tab-pane fade active in" role="tabpanel" id="tab-bookmarks-tab">
-        <ng-container *ngFor="let day of calendar">
+        <ng-container *ngFor="let day of calendar; let i = index">
             <h3 class="days">{{day.day}}</h3>
             <!--Times-->
             <div *ngFor="let time of day.time_blocks"
